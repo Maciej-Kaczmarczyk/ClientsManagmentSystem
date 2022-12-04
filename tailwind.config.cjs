@@ -8,9 +8,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-      "navDark": "#050D2E",
-      "navNormal": "#131E42",
-      "bgDark": "#F0F7FA",
+      "navDark": "#363740",
+      "navNormal": "#3F4049",
+      "bgDark": "#F7F8FA",
       "bgLight": "#FFFFFF",
       "accent1": "#00CBA5",
       "accent2": "#5A7EFF",

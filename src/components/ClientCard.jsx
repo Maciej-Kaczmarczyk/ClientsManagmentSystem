@@ -14,19 +14,19 @@ const addClientIcon = (
   </svg>
 );
 
-const xIcon = (
+const dotsIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    className="w-6 h-6"
+    className="w-6 h-6 text-navDark"
   >
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
-      d="M6 18L18 6M6 6l12 12"
+      d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
     />
   </svg>
 );
@@ -36,23 +36,34 @@ const ClientCard = (props) => {
   const fetchClients = props.fetchClients;
 
   return (
-    <div className="flex justify-between gap-4 items-center px-4 py-6 border-l-8 border-accent2 bg-bgLight rounded-lg">
-      <div className="flex items-center gap-10">
-        <h3 className="w-60 font-semibold text-xl">
-          {client.firstname} {client.lastname}
-        </h3>
-
-        <div className="flex w-fit gap-16">
-          <p className="text-md text-gray-500 font-normal">{client.phone} </p>
-          <p className="text-md w-24 text-gray-500 font-normal">
-            {client.address}
+    <li className="flex justify-between items-center gap-4 px-8 py-6 border-t-[1px] bg-bgLight hover:cursor-pointer hover:bg-bgDark">
+      <div className="flex items-center justify-center gap-32">
+        <div className="flex flex-col w-60">
+          <h3 className="font-semibold text-md">
+            {client.firstname} {client.lastname}
+          </h3>
+          <p className="text-md w-fit text-gray-500 font-normal">
+            Last order: no orders yet
           </p>
+        </div>
+
+        <div className="flex flex-col w-60">
+          <p className="text-md font-semibold text-md">{client.phone} </p>
           <a
             href={"mailto: " + client.email}
             className="text-md text-accent2 underline font-normal"
           >
             {client.email}
           </a>
+        </div>
+
+        <div className="flex flex-col w-60">
+          <p className="font-semibold text-md">
+            {client.city}, {client.zip_code}
+          </p>
+          <p className="text-md w-fit text-gray-500 font-normal">
+            {client.address}
+          </p>
         </div>
       </div>
 
@@ -62,10 +73,10 @@ const ClientCard = (props) => {
             fetchClients();
           })
         }
-        style={"bg-red-400"}
-        icon={xIcon}
+        style={"bg-opacity-0 hover:bg-opacity-0"}
+        icon={dotsIcon}
       />
-    </div>
+    </li>
   );
 };
 

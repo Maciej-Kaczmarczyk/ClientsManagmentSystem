@@ -1,10 +1,11 @@
 import Navbar from "./components/Navbar";
 import { useState } from "react";
 import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
-import Home from "./pages/Home/Home";
-import Clients from "./pages/Clients/Clients";
-import Orders from "./pages/Orders/Orders";
-import Stats from "./pages/Stats/Stats";
+import Home from "./pages/Home";
+import Clients from "./pages/Clients";
+import Orders from "./pages/Orders";
+import Stats from "./pages/Stats";
+import Options from "./pages/Options";
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
         </Route>
         <Route path="/stats">
           <Stats />
+        </Route>
+        <Route path="/options">
+          <Options />
         </Route>
       </Switch>
     </div>

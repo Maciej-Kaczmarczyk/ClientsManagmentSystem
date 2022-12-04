@@ -37,7 +37,7 @@ const Button = ({ style, method, icon, text }) => {
 
   return (
     <button
-      className={`flex gap-2 justify-center text-white items-center rounded-lg bg-accent1 h-10 w-fit px-4 font-semibold hover:brightness-90 ${style}`}
+      className={`${style} flex gap-2 justify-center text-white items-center rounded-lg h-10 px-4 font-semibold `}
       onClick={handleClick}
     >
       {currentIcon ? currentIcon : null}

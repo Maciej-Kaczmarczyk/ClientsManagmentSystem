@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import dbService from "../services/dbService";
 import Loading from "./Loading";
-import Clients from "../pages/Clients/Clients";
+import Clients from "../pages/Clients";
 import Button from "./Button";
 import addClient from "../func/addClient";
 
@@ -22,7 +22,6 @@ const ClientCard = ({ toggleAddForm, fetchClients }) => {
     city: city,
     phone: phone,
     email: email,
-    
   };
 
   const addClientIcon = (
@@ -38,9 +37,8 @@ const ClientCard = ({ toggleAddForm, fetchClients }) => {
 
   const [loading, setLoading] = useState(false);
 
-
   return (
-    <div className="flex flex-wrap justify-between gap-4 px-4 border-l-8 border-accent2 bg-bgLight py-8 rounded-lg duration-200">
+    <div className="flex flex-wrap justify-between gap-4 px-8 bg-bgLight py-8 rounded-lg duration-200">
       <div className="flex justify-between w-full">
         <h3 className="text-3xl font-semibold text-navNormal">Add Client</h3>
         <svg
@@ -92,10 +90,10 @@ const ClientCard = ({ toggleAddForm, fetchClients }) => {
             type="text"
             name="firstname"
             id="firstname"
-            className="w-full h-10 rounded-lg border-2 focus:outline-none focus:border-accent2 px-4 font-base text-navNormal duration-200"
+            className="w-2/3 h-10 rounded-lg border-2 focus:outline-none focus:border-accent2 px-4 font-base text-navNormal duration-200"
             placeholder="Address"
           />
-         <div className="flex gap-4 w-1/2">
+          <div className="flex justify-between gap-4 w-1/2">
             <input
               onChange={(e) => {
                 setCity(e.target.value);
@@ -103,7 +101,7 @@ const ClientCard = ({ toggleAddForm, fetchClients }) => {
               type="text"
               name="firstname"
               id="firstname"
-              className="h-10 rounded-lg border-2 focus:outline-none focus:border-accent2 px-4 font-base text-navNormal duration-200"
+              className="h-10 w-2/3 rounded-lg border-2 focus:outline-none focus:border-accent2 px-4 font-base text-navNormal duration-200"
               placeholder="City"
             />
             <input
@@ -116,7 +114,7 @@ const ClientCard = ({ toggleAddForm, fetchClients }) => {
               className="w-1/3 h-10 rounded-lg border-2 focus:outline-none focus:border-accent2 px-4 font-base text-navNormal duration-200"
               placeholder="Zip Code"
             />
-         </div>
+          </div>
         </div>
 
         <div className="flex w-full justify-between gap-4">
@@ -142,8 +140,16 @@ const ClientCard = ({ toggleAddForm, fetchClients }) => {
             placeholder="Email"
           />
         </div>
-      </div>  
-        <Button method={async () => {addClient(Client).then(() => {fetchClients()})}} style={"bg-accent1 w-[100%]"} text={"Add Client"} />
+      </div>
+      <Button
+        method={async () => {
+          addClient(Client).then(() => {
+            fetchClients();
+          });
+        }}
+        style={"bg-accent2 w-[100%]"}
+        text={"Add Client"}
+      />
     </div>
   );
 };
