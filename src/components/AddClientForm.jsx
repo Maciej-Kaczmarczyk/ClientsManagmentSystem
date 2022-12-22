@@ -147,7 +147,7 @@ const ClientCard = ({ toggleAddForm, fetchClients }) => {
             fetchClients();
           });
         }}
-        style={"bg-accent2 w-[100%]"}
+        style={"bg-accent2 w-[100%] hover:brightness-90"}
         text={"Add Client"}
       />
     </div>

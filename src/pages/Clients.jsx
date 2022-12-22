@@ -19,16 +19,6 @@ const Clients = () => {
     </svg>
   );
 
-  const testClient = {
-    firstname: "Test",
-    lastname: "Test",
-    phone: "600111444",
-    address: "Test",
-    zip_code: "Test",
-    city: "Test",
-    email: "test@gmail.com",
-  };
-
   const [parent] = useAutoAnimate(/* optional config */);
 
   const [addForm, setAddForm] = useState(false);
@@ -47,11 +37,37 @@ const Clients = () => {
     fetchClients();
   }, []);
 
+  const [searchString, setSearchString] = useState("");
+  const [filteredClients, setFilteredClients] = useState([]);
+
+  useEffect(() => {
+    if (searchString === "") {
+      setFilteredClients(clients);
+      return;
+    }
+
+    const results = clients.filter((client) => {
+      if (
+        client.firstname.toLowerCase().includes(searchString.toLowerCase()) ||
+        client.lastname.toLowerCase().includes(searchString.toLowerCase()) ||
+        client.email.toLowerCase().includes(searchString.toLowerCase()) ||
+        client.phone.includes(searchString) ||
+        client.address.toLowerCase().includes(searchString.toLowerCase()) ||
+        client.city.toLowerCase().includes(searchString.toLowerCase()) ||
+        client.zip_code.toLowerCase().includes(searchString.toLowerCase())
+        
+      ) {
+        return client;
+      }
+    });
+    setFilteredClients(results);
+  }, [clients, searchString]);
+
   return (
     <>
       <div
         ref={parent}
-        className="flex flex-col overflow-y-scroll p-8 gap-8 w-full h-full bg-bgDark"
+        className="flex flex-col p-8 gap-8 w-full h-full bg-bgDark overflow-scroll"
       >
         <div ref={parent} className="flex flex-col h-fit">
           <div className="flex h-1/2  items-center">
@@ -66,29 +82,13 @@ const Clients = () => {
           <div className="flex justify-start items-center gap-8 p-8 w-full h-1/2">
             <div className="flex w-1/2">
               <input
-                className="w-full h-10 rounded-l-lg border-2 focus:outline-none focus:border-accent2 px-4 font-base text-gray-400 duration-200"
+                className="w-full h-10 rounded-lg border-2 focus:outline-none focus:border-accent2 px-4 font-base text-gray-400 duration-200"
                 type="search"
                 placeholder="Search"
-              />
-              <button
-                onClick={() => {
-                  console.log(clients);
+                onChange={(e) => {
+                  setSearchString(e.target.value);
                 }}
-                className="flex justify-center items-center rounded-r-lg bg-accent2 h-10 w-12 hover:brightness-90"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="w-5 h-5 text-white"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </button>
+              />
             </div>
 
             <Button
@@ -124,17 +124,19 @@ const Clients = () => {
             </div>
           </ul>
 
-          {clients?.map((client) => (
-            <ClientCard
-              key={client._id}
-              client={client}
-              fetchClients={fetchClients}
-            />
-          )) ?? (
-            <div className="flex flex-col justify-start w-full gap-4 animate-pulse">
-              <div className="flex justify-between w-full gap-4 items-center px-4 py-8 border-l-8 bg-bgLight rounded-lg"></div>
-            </div>
-          )}
+          <ul className="h-fit">
+            {filteredClients?.map((client) => (
+              <ClientCard
+                key={client._id}
+                client={client}
+                fetchClients={fetchClients}
+              />
+            )) ?? (
+              <div className="flex flex-col justify-start w-full gap-4 animate-pulse">
+                <div className="flex justify-between w-full gap-4 items-center px-4 py-8 border-l-8 bg-bgLight rounded-lg"></div>
+              </div>
+            )}
+          </ul>
 
           <div className="flex justify-start items-center border-t-[1px] gap-8 p-8 w-full h-1/2">
             <div className="flex w-1/2"></div>
