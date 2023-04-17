@@ -1,31 +1,16 @@
-import Navbar from "./components/Navbar";
 import { useState } from "react";
 import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
-import Home from "./pages/Home";
 import Clients from "./pages/Clients";
-import Orders from "./pages/Orders";
-import Stats from "./pages/Stats";
-import Options from "./pages/Options";
+import Navbar from "./components/Navbar";
+
 
 function App() {
   return (
-    <div className="flex h-full">
-      <Navbar />
+    <div className="flex flex-col h-full">
+      <Navbar/>
       <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/clients">
+        <Route path="/">
           <Clients />
-        </Route>
-        <Route path="/orders">
-          <Orders />
-        </Route>
-        <Route path="/stats">
-          <Stats />
-        </Route>
-        <Route path="/options">
-          <Options />
         </Route>
       </Switch>
     </div>

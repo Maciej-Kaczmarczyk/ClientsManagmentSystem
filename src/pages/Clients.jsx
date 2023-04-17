@@ -31,6 +31,7 @@ const Clients = () => {
   const fetchClients = async () => {
     const data = await dbService.getAllClients();
     setClients(data);
+    console.log(data);
   };
 
   useEffect(() => {
@@ -55,7 +56,6 @@ const Clients = () => {
         client.address.toLowerCase().includes(searchString.toLowerCase()) ||
         client.city.toLowerCase().includes(searchString.toLowerCase()) ||
         client.zip_code.toLowerCase().includes(searchString.toLowerCase())
-        
       ) {
         return client;
       }
@@ -67,17 +67,11 @@ const Clients = () => {
     <>
       <div
         ref={parent}
-        className="flex flex-col p-8 gap-8 w-full h-full bg-bgDark overflow-scroll"
+        className="flex flex-col items-center p-8 gap-8 w-full h-full bg-bgDark overflow-scroll"
       >
-        <div ref={parent} className="flex flex-col h-fit">
-          <div className="flex h-1/2  items-center">
-            <h2 className="text-navDark font-semibold text-3xl">Clients</h2>
-          </div>
-        </div>
-
         <div
           ref={parent}
-          className="flex flex-col rounded-lg border-[1px] bg-white"
+          className="flex flex-col rounded-lg border-[1px] bg-white w-full max-w-screen-xl"
         >
           <div className="flex justify-start items-center gap-8 p-8 w-full h-1/2">
             <div className="flex w-1/2">
@@ -99,27 +93,25 @@ const Clients = () => {
             />
           </div>
 
-          <div className={addForm ? "block" : "hidden"}>
+          {addForm ? (
             <AddClientForm
               toggleAddForm={toggleAddForm}
               fetchClients={fetchClients}
             />
-          </div>
+          ) : null}
 
           <ul className="flex justify-between items-center gap-4 px-8 py-2 bg-bgLight ">
-            <div className="flex items-center justify-center gap-32">
+            <div className="flex items-center justify-center gap-22 text-sm">
               <div className="flex flex-col w-60">
-                <p className="text-md w-fit text-gray-500 font-normal">Name</p>
+                <p className="w-fit text-gray-500 font-normal">Name</p>
               </div>
 
               <div className="flex flex-col w-60">
-                <p className="text-md w-fit text-gray-500 font-normal">
-                  Contact
-                </p>
+                <p className="w-fit text-gray-500 font-normal">Contact</p>
               </div>
 
               <div className="flex flex-col w-60">
-                <p className="text-md w-fit text-gray-500 font-md">Address</p>
+                <p className="w-fit text-gray-500 font-md">Address</p>
               </div>
             </div>
           </ul>
@@ -132,8 +124,8 @@ const Clients = () => {
                 fetchClients={fetchClients}
               />
             )) ?? (
-              <div className="flex flex-col justify-start w-full gap-4 animate-pulse">
-                <div className="flex justify-between w-full gap-4 items-center px-4 py-8 border-l-8 bg-bgLight rounded-lg"></div>
+              <div className="flex justify-center w-full gap-4 items-center px-8 py-8 bg-bgLight rounded-lg">
+                There is no data
               </div>
             )}
           </ul>

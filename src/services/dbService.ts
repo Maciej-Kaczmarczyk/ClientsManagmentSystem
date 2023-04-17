@@ -3,12 +3,16 @@ import axios from "axios";
 interface Client {
     firstname: string;
     lastname: string;
+    address: string;
+    zip_code: string;
+    city: string;
     email: string;
     phone: string;
-    address: string;
+    
 }
 
 const dbService = {
+  
   getAllClients: async () => {
     return axios
       .get("http://localhost:8000/clients")

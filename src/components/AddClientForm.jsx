@@ -143,8 +143,11 @@ const ClientCard = ({ toggleAddForm, fetchClients }) => {
       </div>
       <Button
         method={async () => {
+          setLoading(true);
           addClient(Client).then(() => {
+            setLoading(false);
             fetchClients();
+            toggleAddForm();
           });
         }}
         style={"bg-accent2 w-[100%] hover:brightness-90"}
