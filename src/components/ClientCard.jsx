@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import dbService from "../services/dbService";
 import Button from "./Button";
 import deleteClient from "../func/deleteClient";
@@ -20,14 +20,36 @@ const dotsIcon = (
   </svg>
 );
 
+
 const ClientCard = (props) => {
   const client = props.client;
   const fetchClients = props.fetchClients;
+
+  const handleDelete = async () => {
+    await deleteClient(client.id);
+    toggleOptionWindow();
+    fetchClients();
+  };
 
   const [optionWindow, setOptionWindow] = useState(false);
   const toggleOptionWindow = () => {
     setOptionWindow(!optionWindow);
   };
+
+  const popupRef = useRef();
+
+  const handleClickOutside = (event) => {
+    if (popupRef.current && !popupRef.current.contains(event.target)) {
+      setOptionWindow(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <li className="flex justify-between items-center gap-4 px-8 py-6 border-t-[1px] bg-bgLight hover:cursor-pointer hover:bg-bgDark">
@@ -68,12 +90,19 @@ const ClientCard = (props) => {
           icon={dotsIcon}
         />
         {optionWindow ? (
-          <div className="absolute w-fit h-fit border-[1px] py-4 bg-white rounded-lg top-1/2 bottom-1/2 right-10">
-            
-              <li className=" hover:cursor-pointer mx-4 w-fit hover:bg-bgDark">Edit</li>
-              <li className=" hover:cursor-pointer mx-4 w-fit hover:bg-bgDark">Delete</li>
-              
-           
+          <div ref={popupRef}>
+            <div
+              className="absolute w-fit h-fit border-[1px] py-4 bg-white rounded-lg top-1/2 bottom-1/2 right-10"
+            >
+              <ul>
+                <li className=" hover:cursor-pointer px-4 w-full hover:bg-bgDark">
+                  Edit
+                </li>
+                <li onClick={handleDelete} className=" hover:cursor-pointer px-4 w-full hover:bg-bgDark">
+                  Delete
+                </li>
+              </ul>
+            </div>
           </div>
         ) : null}
       </div>

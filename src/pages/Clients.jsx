@@ -74,23 +74,42 @@ const Clients = () => {
           className="flex flex-col rounded-lg border-[1px] bg-white w-full max-w-screen-xl"
         >
           <div className="flex justify-start items-center gap-8 p-8 w-full h-1/2">
-            <div className="flex w-1/2">
-              <input
-                className="w-full h-10 rounded-lg border-2 focus:outline-none focus:border-accent2 px-4 font-base text-gray-400 duration-200"
-                type="search"
-                placeholder="Search"
-                onChange={(e) => {
-                  setSearchString(e.target.value);
-                }}
+            <div className="flex gap-4 w-full">
+              <div className="flex w-1/2">
+                <input
+                  className="w-full h-10 rounded-lg border-2 focus:outline-none focus:border-accent2 px-4 font-base text-gray-400 duration-200"
+                  type="search"
+                  placeholder="Search"
+                  onChange={(e) => {
+                    setSearchString(e.target.value);
+                  }}
+                />
+              </div>
+
+              <Button
+                icon={addClientIcon}
+                text="Add Client"
+                method={async () => toggleAddForm()}
+                style="bg-accent2 hover:brightness-90"
               />
             </div>
-
-            <Button
-              icon={addClientIcon}
-              text="Add Client"
-              method={async () => toggleAddForm()}
-              style="bg-accent2 hover:brightness-90"
-            />
+            <div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6 text-navNormal cursor-pointer"
+                onClick={fetchClients}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+                />
+              </svg>
+            </div>
           </div>
 
           {addForm ? (
@@ -119,7 +138,7 @@ const Clients = () => {
           <ul className="h-fit">
             {filteredClients?.map((client) => (
               <ClientCard
-                key={client._id}
+                key={client.email}
                 client={client}
                 fetchClients={fetchClients}
               />
