@@ -3,7 +3,6 @@ import ClientCard from "../components/ClientCard";
 import AddClientForm from "../components/AddClientForm";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import dbService from "../services/dbService";
-import Loading from "../components/Loading";
 import Button from "../components/Button";
 import addClient from "../func/addClient";
 
@@ -19,7 +18,7 @@ const Clients = () => {
     </svg>
   );
 
-  const [parent] = useAutoAnimate(/* optional config */);
+  const [animate] = useAutoAnimate(/* optional config */);
 
   const [addForm, setAddForm] = useState(false);
   const toggleAddForm = () => {
@@ -63,64 +62,112 @@ const Clients = () => {
     setFilteredClients(results);
   }, [clients, searchString]);
 
+  const searchIcon = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      class="w-5 h-5 text-gray-400"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+      />
+    </svg>
+  );
+
+  const filterIcon = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      class="w-7 h-7"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M6 13.5V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m12-3V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m-6-9V3.75m0 3.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 9.75V10.5"
+      />
+    </svg>
+  );
+
+  const refreshIcon = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className="w-6 h-6 text-navNormal cursor-pointer"
+      onClick={fetchClients}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+      />
+    </svg>
+  );
+
   return (
     <>
-      <div
-        ref={parent}
-        className="flex flex-col items-center p-8 gap-8 w-full h-full bg-bgDark overflow-scroll"
-      >
-        <div
-          ref={parent}
-          className="flex flex-col rounded-lg border-[1px] bg-white w-full max-w-screen-xl"
-        >
-          <div className="flex justify-start items-center gap-8 p-8 w-full h-1/2">
-            <div className="flex gap-4 w-full">
-              <div className="flex w-1/2">
-                <input
-                  className="w-full h-10 rounded-lg border-2 focus:outline-none focus:border-accent2 px-4 font-base text-gray-400 duration-200"
-                  type="search"
-                  placeholder="Search"
-                  onChange={(e) => {
-                    setSearchString(e.target.value);
-                  }}
-                />
-              </div>
+      {addForm ? (
+        <AddClientForm
+          toggleAddForm={toggleAddForm}
+          fetchClients={fetchClients}
+          addClient={addClient}
+        />
+      ) : null}
 
-              <Button
-                icon={addClientIcon}
-                text="Add Client"
-                method={async () => toggleAddForm()}
-                style="bg-accent2 hover:brightness-90"
-              />
+      <div className="flex flex-col items-center p-8 gap-8 w-full h-full bg-bgDark overflow-scroll">
+        <div className="flex flex-col rounded-lg border-[1px] bg-white w-full max-w-screen-xl">
+          <div className="flex justify-start items-center gap-8 p-8 w-full h-1/2">
+            <div className="flex w-full gap-4 justify-start">
+              <form className="w-1/2">
+                <label class="mb-2 text-sm font-medium sr-only dark:text-white">
+                  Search
+                </label>
+                <div class="relative">
+                  <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    {searchIcon}
+                  </div>
+                  <input
+                    type="search"
+                    id="default-search"
+                    class="block w-full h-10 p-4 pl-10 text-sm duration-200 border-[1px] font-base focus:border-accent2 focus:outline-none text-gray-400 rounded-lg"
+                    placeholder="Search"
+                    onChange={(e) => {
+                      setSearchString(e.target.value);
+                    }}
+                  />
+                </div>
+              </form>
+              <div className="flex items-center text-[#626262] cursor-pointer gap-2">
+                <div>{filterIcon}</div>
+                <p className=" text-base font-semibold">Filter</p>
+              </div>
             </div>
-            <div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6 text-navNormal cursor-pointer"
-                onClick={fetchClients}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+
+            <div className="flex">
+              <div className="flex items-center justify-between gap-8">
+                <Button
+                  icon={addClientIcon}
+                  text="Add Client"
+                  method={async () => toggleAddForm()}
+                  style="bg-accent2 hover:brightness-90 w-36"
                 />
-              </svg>
+                <div>{refreshIcon}</div>
+              </div>
             </div>
           </div>
 
-          {addForm ? (
-            <AddClientForm
-              toggleAddForm={toggleAddForm}
-              fetchClients={fetchClients}
-            />
-          ) : null}
-
           <ul className="flex justify-between items-center gap-4 px-8 py-2 bg-bgLight ">
-            <div className="flex items-center justify-center gap-22 text-sm">
+            <div className="flex items-center justify-center gap-32 text-sm">
               <div className="flex flex-col w-60">
                 <p className="w-fit text-gray-500 font-normal">Name</p>
               </div>
@@ -135,7 +182,7 @@ const Clients = () => {
             </div>
           </ul>
 
-          <ul className="h-fit">
+          <ul ref={animate} className="h-fit">
             {filteredClients?.map((client) => (
               <ClientCard
                 key={client.email}

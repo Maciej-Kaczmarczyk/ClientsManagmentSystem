@@ -20,7 +20,6 @@ const dotsIcon = (
   </svg>
 );
 
-
 const ClientCard = (props) => {
   const client = props.client;
   const fetchClients = props.fetchClients;
@@ -53,7 +52,7 @@ const ClientCard = (props) => {
 
   return (
     <li className="flex justify-between items-center gap-4 px-8 py-6 border-t-[1px] bg-bgLight hover:cursor-pointer hover:bg-bgDark">
-      <div className="flex items-center justify-center gap-32">
+      <div className="flex flex-wrap items-center xl:justify-center gap-y-8 gap-32">
         <div className="flex flex-col w-60">
           <h3 className="font-semibold text-md">
             {client.firstname} {client.lastname}
@@ -91,14 +90,15 @@ const ClientCard = (props) => {
         />
         {optionWindow ? (
           <div ref={popupRef}>
-            <div
-              className="absolute w-fit h-fit border-[1px] py-4 bg-white rounded-lg top-1/2 bottom-1/2 right-10"
-            >
+            <div className="absolute w-fit h-fit border-[1px] py-4 bg-white rounded-lg top-1/2 bottom-1/2 right-10 shadow-lg">
               <ul>
                 <li className=" hover:cursor-pointer px-4 w-full hover:bg-bgDark">
                   Edit
                 </li>
-                <li onClick={handleDelete} className=" hover:cursor-pointer px-4 w-full hover:bg-bgDark">
+                <li
+                  onClick={handleDelete}
+                  className=" hover:cursor-pointer px-4 w-full hover:bg-bgDark"
+                >
                   Delete
                 </li>
               </ul>
