@@ -16,6 +16,7 @@ const db = new Pool({
   user: dbUser,
   password: dbPassword,
   database: dbName,
+  ssl: true
 });
 
 app.listen(8000, () => {
