@@ -7,6 +7,10 @@ const app = express();
 app.use(cors());
 
 dbUrl = process.env.DATABASE_URL;
+dbUser = process.env.DATABASE_USER;
+dbPassword = process.env.DATABASE_PASSWORD;
+dbName = process.env.DATABASE_NAME;
+
 
 app.listen(8000, () => {
   console.log("Server is running on port 8000");
@@ -20,11 +24,10 @@ app.get("/", (req, res) => {
 
 
 const db = mysql.createPool({
-  connectionLimit: 10,
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'clients'
+  host: dbUrl,
+  user: dbUser,
+  password: dbPassword,
+  database: dbName,
 });
 
 app.get('/clients', (req, res) => {
