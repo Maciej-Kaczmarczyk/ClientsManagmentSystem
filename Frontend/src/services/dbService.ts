@@ -15,7 +15,7 @@ const dbService = {
   
   getAllClients: async () => {
     return axios
-      .get("https://clientsmanagmentsystem.onrender.com//clients")
+      .get("https://clientsmanagmentsystem.onrender.com/clients")
       .then(function (response) {
         return response.data;
       })
@@ -26,7 +26,7 @@ const dbService = {
 
   addClient: async (Client: Client) => {
     return axios
-      .post("https://clientsmanagmentsystem.onrender.com//clients", Client)
+      .post("https://clientsmanagmentsystem.onrender.com/clients", Client)
       .then(function (response) {
         return response;
       })
@@ -37,7 +37,7 @@ const dbService = {
 
   deleteClient: async (id: string) => {
     return axios
-      .delete(`https://clientsmanagmentsystem.onrender.com//clients/${id}`)
+      .delete(`https://clientsmanagmentsystem.onrender.com/clients/${id}`)
       .then(function (response) {
         return response;
       })
