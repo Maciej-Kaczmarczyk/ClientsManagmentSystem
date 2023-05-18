@@ -1,12 +1,44 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ClientCard from "../components/ClientCard";
 import AddClientForm from "../components/AddClientForm";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
 import dbService from "../services/dbService";
 import Button from "../components/Button";
 import addClient from "../func/addClient";
+import Loading from "../components/Loading";
 
 const Clients = () => {
+  const [addFormVisible, setAddFormVisible] = useState(false);
+  const [clients, setClients] = useState([]);
+  const [searchString, setSearchString] = useState("");
+  const [filteredClients, setFilteredClients] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const fetchClients = async () => {
+    setIsLoading(true);
+    const data = await dbService.getAllClients();
+    setClients(data);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    fetchClients();
+  }, []);
+
+  useEffect(() => {
+    const searchLower = searchString.toLowerCase();
+
+    const results = searchString
+      ? clients.filter(
+          ({ firstname, lastname, email, phone, address, city, zip_code }) =>
+            [firstname, lastname, email, phone, address, city, zip_code].some(
+              (field) => field.toLowerCase().includes(searchLower)
+            )
+        )
+      : clients;
+
+    setFilteredClients(results);
+  }, [clients, searchString]);
+
   const addClientIcon = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -18,62 +50,18 @@ const Clients = () => {
     </svg>
   );
 
-  const [animate] = useAutoAnimate(/* optional config */);
-
-  const [addForm, setAddForm] = useState(false);
-  const toggleAddForm = () => {
-    setAddForm(!addForm);
-  };
-
-  const [clients, setClients] = useState([]);
-
-  const fetchClients = async () => {
-    const data = await dbService.getAllClients();
-    setClients(data);
-    console.log(data);
-  };
-
-  useEffect(() => {
-    fetchClients();
-  }, []);
-
-  const [searchString, setSearchString] = useState("");
-  const [filteredClients, setFilteredClients] = useState([]);
-
-  useEffect(() => {
-    if (searchString === "") {
-      setFilteredClients(clients);
-      return;
-    }
-
-    const results = clients.filter((client) => {
-      if (
-        client.firstname.toLowerCase().includes(searchString.toLowerCase()) ||
-        client.lastname.toLowerCase().includes(searchString.toLowerCase()) ||
-        client.email.toLowerCase().includes(searchString.toLowerCase()) ||
-        client.phone.includes(searchString) ||
-        client.address.toLowerCase().includes(searchString.toLowerCase()) ||
-        client.city.toLowerCase().includes(searchString.toLowerCase()) ||
-        client.zip_code.toLowerCase().includes(searchString.toLowerCase())
-      ) {
-        return client;
-      }
-    });
-    setFilteredClients(results);
-  }, [clients, searchString]);
-
   const searchIcon = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      stroke-width="1.5"
+      strokeWidth="1.5"
       stroke="currentColor"
-      class="w-5 h-5 text-gray-400"
+      className="w-5 h-5 text-gray-400"
     >
       <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
         d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
       />
     </svg>
@@ -84,13 +72,13 @@ const Clients = () => {
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      stroke-width="1.5"
+      strokeWidth="1.5"
       stroke="currentColor"
-      class="w-7 h-7"
+      className="w-7 h-7"
     >
       <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
         d="M6 13.5V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m12-3V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m-6-9V3.75m0 3.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 9.75V10.5"
       />
     </svg>
@@ -116,53 +104,50 @@ const Clients = () => {
 
   return (
     <>
-      {addForm ? (
+      {addFormVisible && (
         <AddClientForm
-          toggleAddForm={toggleAddForm}
+          toggleAddForm={() => setAddFormVisible(!addFormVisible)}
           fetchClients={fetchClients}
           addClient={addClient}
         />
-      ) : null}
+      )}
 
       <div className="flex flex-col items-center p-8 gap-8 w-full h-full bg-bgDark overflow-scroll">
         <div className="flex flex-col rounded-lg border-[1px] bg-white w-full max-w-screen-xl">
-          <div className="flex justify-start items-center gap-8 p-8 w-full h-1/2">
-            <div className="flex w-full gap-4 justify-start">
+          <div className="flex justify-between items-center gap-8 p-8 w-full h-1/2">
+            <div className="w-full flex gap-8">
               <form className="w-1/2">
-                <label class="mb-2 text-sm font-medium sr-only dark:text-white">
+                <label className="mb-2 text-sm font-medium sr-only dark:text-white">
                   Search
                 </label>
-                <div class="relative">
-                  <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                     {searchIcon}
                   </div>
                   <input
                     type="search"
                     id="default-search"
-                    class="block w-full h-10 p-4 pl-10 text-sm duration-200 border-[1px] font-base focus:border-accent2 focus:outline-none text-gray-400 rounded-lg"
+                    className="block w-full h-10 p-4 pl-10 text-sm duration-200 border-[1px] font-base focus:border-accent2 focus:outline-none text-gray-400 rounded-lg"
                     placeholder="Search"
-                    onChange={(e) => {
-                      setSearchString(e.target.value);
-                    }}
+                    onChange={(e) => setSearchString(e.target.value)}
                   />
                 </div>
               </form>
+  
               <div className="flex items-center text-[#626262] cursor-pointer gap-2">
-                <div>{filterIcon}</div>
+                {filterIcon}
                 <p className=" text-base font-semibold">Filter</p>
               </div>
             </div>
 
-            <div className="flex">
-              <div className="flex items-center justify-between gap-8">
-                <Button
-                  icon={addClientIcon}
-                  text="Add Client"
-                  method={async () => toggleAddForm()}
-                  style="bg-accent2 hover:brightness-90 w-36"
-                />
-                <div>{refreshIcon}</div>
-              </div>
+            <div className="flex items-center justify-between gap-8">
+              <Button
+                icon={addClientIcon}
+                text="Add Client"
+                method={() => setAddFormVisible(!addFormVisible)}
+                style="bg-accent2 hover:brightness-90 w-36"
+              />
+              {refreshIcon}
             </div>
           </div>
 
@@ -182,23 +167,27 @@ const Clients = () => {
             </div>
           </ul>
 
-          <ul ref={animate} className="h-fit">
-            {filteredClients?.map((client) => (
-              <ClientCard
-                key={client.email}
-                client={client}
-                fetchClients={fetchClients}
-              />
-            )) ?? (
-              <div className="flex justify-center w-full gap-4 items-center px-8 py-8 bg-bgLight rounded-lg">
-                There is no data
-              </div>
-            )}
-          </ul>
+          {isLoading ? (
+            <div className="flex justify-center w-full gap-4 items-center px-8 py-8 bg-bgLight rounded-lg">
+              <p>Loading...</p>
+            </div>
+          ) : (
+            <ul>
+              {filteredClients.map((client) => (
+                <ClientCard
+                  key={client.email}
+                  client={client}
+                  fetchClients={fetchClients}
+                />
+              ))}
 
-          <div className="flex justify-start items-center border-t-[1px] gap-8 p-8 w-full h-1/2">
-            <div className="flex w-1/2"></div>
-          </div>
+              {!filteredClients.length && (
+                <div className="flex justify-center w-full gap-4 items-center px-8 py-8 bg-bgLight rounded-lg">
+                  There is no data
+                </div>
+              )}
+            </ul>
+          )}
         </div>
       </div>
     </>
