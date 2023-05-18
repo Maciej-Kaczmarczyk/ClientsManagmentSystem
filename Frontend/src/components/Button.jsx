@@ -27,7 +27,6 @@ const Button = ({ style, method, icon, text }) => {
   const [currentIcon, setCurrentIcon] = useState(icon);
 
   const handleClick = () => {
-    setCurrentIcon(loadingIcon);
     method().then(() => {
     setCurrentIcon(icon);
     }).catch(() => {

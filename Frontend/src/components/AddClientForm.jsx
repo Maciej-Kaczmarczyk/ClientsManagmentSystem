@@ -24,22 +24,6 @@ const AddClientForm = ({ toggleAddForm, fetchClients, addClient }) => {
     email: email,
   };
 
-  const FillWithDummyData = () => {
-    for (let i = 0; i < 9; i++) {
-      const dummyData = {
-        firstname: "Test",
-        lastname: "Client" ,
-        address: "1234 Main Street",
-        zip_code: "12-345",
-        city: "New York",
-        phone: "12345678" + i,
-        email: "123@wp.pl" + i,
-      };
-      addClient(dummyData);
-      fetchClients();
-    }
-  };
-
   return (
     <div className="z-10 flex justify-center absolute shadow-xl bg-black bg-opacity-50 w-full h-full py-[10vw] px-[20vw]">
       <div className="absolute max-w-screen-md h-[500px] flex flex-col justify-between flex-wrap px-8 bg-bgLight py-8 rounded-lg duration-200">
@@ -155,9 +139,6 @@ const AddClientForm = ({ toggleAddForm, fetchClients, addClient }) => {
           style={"bg-accent2 w-[100%] hover:brightness-90"}
           text={"Add Client"}
         />
-        <button className="text-red-500" onClick={FillWithDummyData}>
-          Fill with dummy data
-        </button>
       </div>
     </div>
   );
