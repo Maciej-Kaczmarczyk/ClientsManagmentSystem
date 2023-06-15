@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import dbService from "../services/dbService";
 import Button from "./Button";
-import deleteClient from "../func/deleteClient";
 
 const dotsIcon = (
   <svg
@@ -25,7 +24,7 @@ const ClientCard = (props) => {
   const fetchClients = props.fetchClients;
 
   const handleDelete = async () => {
-    await deleteClient(client.id);
+    await dbService.deleteClient(client.id);
     toggleOptionWindow();
     fetchClients();
   };

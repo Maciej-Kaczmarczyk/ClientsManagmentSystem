@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import ClientCard from "../components/ClientCard";
-import AddClientForm from "../components/AddClientForm";
+import ClientForm from "../components/ClientForm";
 import dbService from "../services/dbService";
 import Button from "../components/Button";
 import addClient from "../func/addClient";
 import Loading from "../components/Loading";
 
 const Clients = () => {
-  const [addFormVisible, setAddFormVisible] = useState(false);
+  const [formVisible, setFormVisible] = useState(false);
   const [clients, setClients] = useState([]);
   const [searchString, setSearchString] = useState("");
   const [filteredClients, setFilteredClients] = useState([]);
@@ -104,9 +104,9 @@ const Clients = () => {
 
   return (
     <>
-      {addFormVisible && (
-        <AddClientForm
-          toggleAddForm={() => setAddFormVisible(!addFormVisible)}
+      {formVisible && (
+        <ClientForm
+          toggleForm={() => setFormVisible(!formVisible)}
           fetchClients={fetchClients}
           addClient={addClient}
         />
@@ -144,7 +144,7 @@ const Clients = () => {
               <Button
                 icon={addClientIcon}
                 text="Add Client"
-                method={() => setAddFormVisible(!addFormVisible)}
+                method={() => setFormVisible(!formVisible)}
                 style="bg-accent2 hover:brightness-90 w-36"
               />
               {refreshIcon}
