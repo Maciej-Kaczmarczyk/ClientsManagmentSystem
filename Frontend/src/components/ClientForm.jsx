@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import dbService from "../services/dbService";
-import Loading from "./Loading";
 import Button from "./Button";
+import { useClientsStore } from "../stores/useClientsStore";
 
 const ClientForm = ({ toggleForm, fetchClients, clientData }) => {
   const [firstname, setFirstName] = useState("");
@@ -88,6 +88,8 @@ const ClientForm = ({ toggleForm, fetchClients, clientData }) => {
     email: email,
   };
 
+  const addClient = useClientsStore((state) => state.addClient);
+
   const saveClient = async () => {
     if (!validate()) return;
 
@@ -101,9 +103,9 @@ const ClientForm = ({ toggleForm, fetchClients, clientData }) => {
       email: email,
     };
 
-    await dbService.addClient(Client);
-    fetchClients();
+    addClient(Client);
     toggleForm();
+    
   };
 
   return (

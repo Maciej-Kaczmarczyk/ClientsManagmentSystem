@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 interface Client {
     firstname: string;
     lastname: string;
@@ -10,6 +11,7 @@ interface Client {
     phone: string;
     
 }
+
 
 const dbService = {
   
@@ -29,6 +31,7 @@ const dbService = {
       .post("https://clientsmanagmentsystem.onrender.com/clients", Client)
       .then(function (response) {
         return response;
+
       })
       .catch(function (error) {
         console.log(error);
