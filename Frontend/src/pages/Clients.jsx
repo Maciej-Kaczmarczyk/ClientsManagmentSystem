@@ -4,6 +4,7 @@ import ClientForm from "../components/ClientForm";
 import Button from "../components/Button";
 import { useClientsStore } from "../stores/useClientsStore";
 import { useClientFilter } from "../hooks/useClientFilter";
+import ClientsListSkeleton from "../components/ClientsListSkeleton";
 
 const Clients = () => {
   const [formVisible, setFormVisible] = useState(false);
@@ -103,9 +104,7 @@ const Clients = () => {
           </ul>
 
           {isLoading ? (
-            <div className="flex justify-center w-full gap-4 items-center px-8 py-8 bg-bgLight rounded-lg">
-              <p>Loading...</p>
-            </div>
+            <ClientsListSkeleton/>
           ) : (
             <ul>
               {filteredClients.map((client) => (

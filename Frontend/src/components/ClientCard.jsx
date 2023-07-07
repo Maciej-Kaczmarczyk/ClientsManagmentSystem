@@ -11,11 +11,12 @@ const dotsIcon = (
 const ClientCard = (props) => {
   const client = props.client;
   const deleteClient = useClientsStore((state) => state.deleteClient);
-
+  const fetchClients = useClientsStore((state) => state.fetchClients);
 
   const handleDelete = async () => {
-    await deleteClient(client.id);
     toggleOptionWindow();
+    await deleteClient(client.id);
+    fetchClients();
   };
 
   const [optionWindow, setOptionWindow] = useState(false);
@@ -69,7 +70,6 @@ const ClientCard = (props) => {
           <div ref={popupRef}>
             <div className="absolute w-fit h-fit border-[1px] py-4 bg-white rounded-lg -top-1/2 bottom-0 right-10 shadow-lg">
               <ul>
-                <li className=" hover:cursor-pointer px-4 w-full hover:bg-bgDark">Edit</li>
                 <li onClick={handleDelete} className=" hover:cursor-pointer px-4 w-full hover:bg-bgDark">
                   Delete
                 </li>
