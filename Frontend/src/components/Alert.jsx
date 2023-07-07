@@ -43,7 +43,7 @@ export function Alert() {
   if (!alert) return null;
 
   return (
-    <div className="absolute gap-4 flex w-fit h-fit border-[1px] py-4 px-8 bg-white rounded-lg left-10 bottom-10 right-10 shadow-lg">
+    <div className={error ? "absolute gap-4 flex w-fit h-fit py-4 px-8 bg-white rounded-lg left-10 bottom-10 right-10 shadow-lg border-red-600 boredr-0 border-l-4" : "absolute gap-4 flex w-fit h-fit py-4 px-8 bg-white rounded-lg left-10 bottom-10 right-10 shadow-lg border-green-400 border-l-4 border-0"}>
       {error ? errorIcon : succesIcon}
       <p>{alert}</p>
     </div>
