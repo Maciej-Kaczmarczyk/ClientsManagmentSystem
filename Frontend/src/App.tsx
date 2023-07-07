@@ -1,21 +1,20 @@
-import { useState } from "react";
-import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Clients from "./pages/Clients";
 import Navbar from "./components/Navbar";
-import { Alert } from "./components/Alert";
-
-
+import Dashboard from "./pages/Dashboard";
+import {Toaster} from 'sonner';
 
 function App() {
   return (
     <div className="flex flex-col h-full">
-      <Navbar/>
-      <Alert/>
-      <Switch>
-        <Route path="/">
-          <Clients />
-        </Route>
-      </Switch>
+      <BrowserRouter>
+        <Navbar />
+        <Toaster richColors position="bottom-left" />
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/clients" element={<Clients />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

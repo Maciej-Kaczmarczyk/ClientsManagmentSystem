@@ -5,6 +5,7 @@ import Button from "../components/Button";
 import { useClientsStore } from "../stores/useClientsStore";
 import { useClientFilter } from "../hooks/useClientFilter";
 import ClientsListSkeleton from "../components/ClientsListSkeleton";
+import { toast } from "sonner";
 
 const Clients = () => {
   const [formVisible, setFormVisible] = useState(false);
@@ -77,7 +78,7 @@ const Clients = () => {
 
               <div className="flex items-center text-[#626262] cursor-pointer gap-2">
                 {filterIcon}
-                <p className=" text-base font-semibold">Filter</p>
+                <p className="text-base font-semibold">Filter</p>
               </div>
             </div>
 
@@ -104,7 +105,7 @@ const Clients = () => {
           </ul>
 
           {isLoading ? (
-            <ClientsListSkeleton/>
+            <ClientsListSkeleton />
           ) : (
             <ul>
               {filteredClients.map((client) => (

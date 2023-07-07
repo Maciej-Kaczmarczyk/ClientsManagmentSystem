@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import dbService from "../services/dbService";
 import Button from "./Button";
 import { useClientsStore } from "../stores/useClientsStore";
+import { toast } from "sonner";
 
 const ClientForm = ({ toggleForm, fetchClients, clientData }) => {
   const [firstname, setFirstName] = useState("");
@@ -103,7 +104,11 @@ const ClientForm = ({ toggleForm, fetchClients, clientData }) => {
       email: email,
     };
 
-    addClient(Client);
+    toast.promise(addClient(Client), {
+      loading: "Saving...",
+      success: "Client saved",
+      error: "Error while saving",
+      });
     toggleForm();
     
   };

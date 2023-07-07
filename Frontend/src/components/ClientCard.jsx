@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useClientsStore } from "../stores/useClientsStore";
 import Button from "../components/Button";
+import { toast } from "sonner";
 
 const dotsIcon = (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-navDark">
@@ -15,8 +16,11 @@ const ClientCard = (props) => {
 
   const handleDelete = async () => {
     toggleOptionWindow();
-    await deleteClient(client.id);
-    fetchClients();
+    toast.promise(deleteClient(client.id), {
+      loading: "Deleting client...",
+      success: "Client deleted",
+      error: "Error deleting client",
+    });
   };
 
   const [optionWindow, setOptionWindow] = useState(false);
