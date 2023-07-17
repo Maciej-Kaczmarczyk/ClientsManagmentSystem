@@ -1,29 +1,50 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
+import React, { useState, useRef, useEffect } from "react";
 
 const Navbar = () => {
-  return (
-    <nav className="flex w-full justify-center border-b-[1px]">
-      <div className="flex w-full justify-between items-center max-w-screen-xl py-4">
-        <ul className="flex gap-20 text-[#1F1F1F] text-base">
-          <Link className="cursor-pointer" to="/">
-            Dashboard
-          </Link>
-          <Link className="cursor-pointer" to="clients">
-            Clients
-          </Link>
-          <li className="cursor-pointer">Orders</li>
-          <li className="cursor-pointer">Stats</li>
-        </ul>
+  const navItems = [
+    { name: "Dashboard", path: "/" },
+    { name: "Clients", path: "/clients" },
+    { name: "Orders", path: "/orders" },
 
-        <div className="flex items-center gap-4">
-          <p>Welcome, Maciej</p>
-          <div className="w-8 aspect-square bg-red-400 rounded-full"></div>
-        </div>
+    // Add more items here
+  ];
+
+  const [activeElement, setActiveElement] = useState(null);
+  const underline = useRef(null);
+  const { pathname } = useLocation();
+  const navRef = useRef([]);
+
+  useEffect(() => {
+    const activeItem = navItems.find((item) => item.path === pathname);
+    setActiveElement(activeItem);
+    const activeRef = navRef.current.find((ref) => ref.innerText === activeItem.name);
+    const { width, left } = activeRef.getBoundingClientRect();
+    underline.current.style.width = `${width}px`;
+    underline.current.style.transform = `translateX(${left}px)`;
+  }, []);
+
+  const updateUnderlinaPosition = (event) => {
+    setActiveElement(event.target.innerText);
+    const { width, left } = event.target.getBoundingClientRect();
+    underline.current.style.width = `${width + 10}px`;
+    underline.current.style.transform = `translateX(${left - 5}px)`;
+  };
+
+  return (
+    <nav className="flex justify-center items-center h-16 bg-white text-black relative shadow-sm">
+      <div className="flex w-full justify-between items-center max-w-screen-xl py-4">
+        <ul className="flex gap-10 relative">
+          {navItems.map((item, index) => (
+            <NavLink className="relative" key={index} to={item.path} onClick={updateUnderlinaPosition} ref={(el) => (navRef.current[index] = el)}>
+              {item.name}
+            </NavLink>
+          ))}
+        </ul>
+        <div ref={underline} className="h-[2px] w-20 bg-[#1F1F1F] absolute -bottom-[1px] transition-all duration-200" style={{ left: "0px", transition: "transform 0.5s ease, width 0.5s ease" }} />
       </div>
     </nav>
   );
 };
 
 export default Navbar;
-
