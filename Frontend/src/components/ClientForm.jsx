@@ -4,7 +4,9 @@ import Button from "./Button";
 import { useClientsStore } from "../stores/useClientsStore";
 import { toast } from "sonner";
 
-const ClientForm = ({ toggleForm, fetchClients, clientData }) => {
+const ClientForm = () => {
+
+
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
   const [zip_code, setZipCode] = useState("");
@@ -69,6 +71,7 @@ const ClientForm = ({ toggleForm, fetchClients, clientData }) => {
 
   useEffect(() => {
     if (clientData) {
+      setIsEditMode(true);
       setFirstName(clientData.firstname || "");
       setLastName(clientData.lastname || "");
       setZipCode(clientData.zip_code || "");
@@ -79,17 +82,10 @@ const ClientForm = ({ toggleForm, fetchClients, clientData }) => {
     }
   }, [clientData]);
 
-  const Client = {
-    firstname: firstname,
-    lastname: lastname,
-    address: address,
-    zip_code: zip_code,
-    city: city,
-    phone: phone,
-    email: email,
-  };
+  const [isEditMode, setIsEditMode] = useState(false);
 
   const addClient = useClientsStore((state) => state.addClient);
+  const updateClient = useClientsStore((state) => state.updateClient);
 
   const saveClient = async () => {
     if (!validate()) return;
@@ -104,12 +100,19 @@ const ClientForm = ({ toggleForm, fetchClients, clientData }) => {
       email: email,
     };
 
-    toast.promise(addClient(Client), {
-      loading: "Saving...",
-      success: "Client saved",
-      error: "Error while saving",
+    if (isEditMode) { // NEW CODE
+      toast.promise(updateClient(clientData.id, Client), { // Assuming clientData has an 'id' property
+        loading: "Saving...",
+        success: "Client updated",
+        error: "Error while updating",
       });
-    toggleForm();
+    } else {
+      toast.promise(addClient(Client), {
+        loading: "Saving...",
+        success: "Client saved",
+        error: "Error while saving",
+      });
+    }
     
   };
 
