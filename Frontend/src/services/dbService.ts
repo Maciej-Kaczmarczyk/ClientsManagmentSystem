@@ -1,20 +1,16 @@
 import axios from "axios";
 
-
 interface Client {
-    firstname: string;
-    lastname: string;
-    address: string;
-    zip_code: string;
-    city: string;
-    email: string;
-    phone: string;
-    
+  firstname: string;
+  lastname: string;
+  address: string;
+  zip_code: string;
+  city: string;
+  email: string;
+  phone: string;
 }
 
-
 const dbService = {
-  
   getAllClients: async () => {
     return axios
       .get("https://clientsmanagmentsystem.onrender.com/clients")
@@ -31,7 +27,6 @@ const dbService = {
       .post("https://clientsmanagmentsystem.onrender.com/clients", Client)
       .then(function (response) {
         return response;
-
       })
       .catch(function (error) {
         console.log(error);
@@ -41,6 +36,16 @@ const dbService = {
   deleteClient: async (id: string) => {
     return axios
       .delete(`https://clientsmanagmentsystem.onrender.com/clients/${id}`)
+      .then(function (response) {
+        return response;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  },
+  updateClient: async (id: string, Client: Client) => {
+    return axios
+      .put(`https://clientsmanagmentsystem.onrender.com/clients/${id}`, Client)
       .then(function (response) {
         return response;
       })

@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Clients from "./pages/Clients";
 import Navbar from "./components/Navbar";
+import Orders from "./pages/Orders";
 import Dashboard from "./pages/Dashboard";
 import { Toaster } from "sonner";
 import { useClientsStore } from "./stores/useClientsStore";
@@ -21,6 +22,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Dashboard />} />
                     <Route path="/clients" element={<Clients />} />
+                    <Route path="/orders" element={<Orders />} />
                 </Routes>
             </BrowserRouter>
         </div>

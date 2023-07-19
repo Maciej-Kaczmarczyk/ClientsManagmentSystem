@@ -12,7 +12,6 @@ function Clients() {
 
     const fetchClients = useClientsStore((state) => state.fetchClients);
     const isLoading = useClientsStore((state) => state.isLoading);
-    const addClient = useClientsStore((state) => state.addClient);
 
     const clients = useClientsStore((state) => state.clients);
     const filteredClients = useClientFilter(clients, searchString);
@@ -85,8 +84,6 @@ function Clients() {
             {formVisible && (
                 <ClientForm
                     toggleForm={() => setFormVisible(!formVisible)}
-                    fetchClients={fetchClients}
-                    addClient={addClient}
                 />
             )}
 

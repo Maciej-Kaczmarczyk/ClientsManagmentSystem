@@ -30,4 +30,11 @@ export const useClientsStore = create((set, get) => ({
             get().fetchClients();
         }
     },
+    updateClient: async (id ,client) => {
+        try {
+            await dbService.updateClient(id ,client);
+        } finally {
+            get().fetchClients();
+        }
+    }
 }));
