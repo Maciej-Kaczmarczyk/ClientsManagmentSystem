@@ -5,6 +5,8 @@ import { toast } from "sonner";
 export const useClientsStore = create((set, get) => ({
     clients: [],
     isLoading: false,
+    clientFormVisible: false,
+    toggleClientForm: () => set((state) => ({ clientFormVisible: !state.clientFormVisible })),
     fetchClients: async () => {
         try {
             set({ isLoading: true });

@@ -1,13 +1,11 @@
 import { NavLink, useLocation } from "react-router-dom";
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const Navbar = () => {
   const navItems = [
     { name: "Dashboard", path: "/" },
     { name: "Clients", path: "/clients" },
     { name: "Orders", path: "/orders" },
-
-    // Add more items here
   ];
 
   const [activeElement, setActiveElement] = useState(null);

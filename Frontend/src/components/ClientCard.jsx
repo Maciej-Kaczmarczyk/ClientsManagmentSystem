@@ -12,7 +12,6 @@ const dotsIcon = (
 const ClientCard = (props) => {
   const client = props.client;
   const deleteClient = useClientsStore((state) => state.deleteClient);
-  const fetchClients = useClientsStore((state) => state.fetchClients);
 
   const handleDelete = async () => {
     toggleOptionWindow();
