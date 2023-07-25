@@ -7,6 +7,8 @@ export const useClientsStore = create((set, get) => ({
     isLoading: false,
     clientFormVisible: false,
     toggleClientForm: () => set((state) => ({ clientFormVisible: !state.clientFormVisible })),
+    selectedClient: null,
+    setSelectedClient: (client) => set({ selectedClient: client }),
     fetchClients: async () => {
         try {
             set({ isLoading: true });

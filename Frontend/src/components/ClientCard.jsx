@@ -12,6 +12,8 @@ const dotsIcon = (
 const ClientCard = (props) => {
   const client = props.client;
   const deleteClient = useClientsStore((state) => state.deleteClient);
+  const toggleClientForm = useClientsStore((state) => state.toggleClientForm);
+  const setSelectedClient = useClientsStore((state) => state.setSelectedClient);
 
   const handleDelete = async () => {
     toggleOptionWindow();
@@ -20,6 +22,12 @@ const ClientCard = (props) => {
       success: "Client deleted",
       error: "Error deleting client",
     });
+  };
+
+  const handleEdit = () => {
+    toggleOptionWindow();
+    toggleClientForm();
+    setSelectedClient(client);
   };
 
   const [optionWindow, setOptionWindow] = useState(false);
@@ -43,7 +51,7 @@ const ClientCard = (props) => {
   }, []);
 
   return (
-    <li className="flex justify-between items-center gap-4 px-8 py-6 border-t-[1px] bg-bgLight hover:cursor-pointer hover:bg-bgDark">
+    <li className="flex justify-between items-center gap-4 px-8 py-6 border-t-[1px] bg-bgLight hover:bg-bgDark">
       <div className="flex flex-wrap items-center xl:justify-center gap-y-8 gap-32">
         <div className="flex flex-col w-60">
           <h3 className="font-semibold text-md">
@@ -61,9 +69,9 @@ const ClientCard = (props) => {
 
         <div className="flex flex-col w-60">
           <p className="font-semibold text-md">
-            {client.city}, {client.zip_code}
+            {client.address}
           </p>
-          <p className="text-md w-fit text-gray-500 font-normal">{client.address}</p>
+          <p className="text-md w-fit text-gray-500 font-normal"> {client.zip_code} {client.city}</p>
         </div>
       </div>
 
@@ -75,6 +83,9 @@ const ClientCard = (props) => {
               <ul>
                 <li onClick={handleDelete} className=" hover:cursor-pointer px-4 w-full hover:bg-bgDark">
                   Delete
+                </li>
+                <li onClick={handleEdit} className=" hover:cursor-pointer px-4 w-full hover:bg-bgDark">
+                  Edit
                 </li>
               </ul>
             </div>

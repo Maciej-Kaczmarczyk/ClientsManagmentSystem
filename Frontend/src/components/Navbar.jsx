@@ -22,7 +22,7 @@ const Navbar = () => {
     underline.current.style.transform = `translateX(${left}px)`;
   }, []);
 
-  const updateUnderlinaPosition = (event) => {
+  const updateUnderlinePosition = (event) => {
     setActiveElement(event.target.innerText);
     const { width, left } = event.target.getBoundingClientRect();
     underline.current.style.width = `${width + 10}px`;
@@ -34,7 +34,7 @@ const Navbar = () => {
       <div className="flex w-full justify-between items-center max-w-screen-xl py-4">
         <ul className="flex gap-10 relative">
           {navItems.map((item, index) => (
-            <NavLink className="relative" key={index} to={item.path} onClick={updateUnderlinaPosition} ref={(el) => (navRef.current[index] = el)}>
+            <NavLink className="relative" key={index} to={item.path} onClick={updateUnderlinePosition} ref={(el) => (navRef.current[index] = el)}>
               {item.name}
             </NavLink>
           ))}

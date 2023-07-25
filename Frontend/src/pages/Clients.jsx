@@ -13,6 +13,7 @@ function Clients() {
   const fetchClients = useClientsStore((state) => state.fetchClients);
   const isLoading = useClientsStore((state) => state.isLoading);
   const toggleClientForm = useClientsStore((state) => state.toggleClientForm);
+  const clientFormVisible = useClientsStore((state) => state.clientFormVisible);
 
   const clients = useClientsStore((state) => state.clients);
   const filteredClients = useClientFilter(clients, searchString);
@@ -40,7 +41,7 @@ function Clients() {
   );
 
   const refreshIcon = (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-navNormal cursor-pointer" onClick={fetchClients}>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-navNormal cursor-pointer hover:bg-gray-200 rounded-full" onClick={fetchClients}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -51,7 +52,7 @@ function Clients() {
 
   return (
     <>
-      <ClientForm />
+      {clientFormVisible? <ClientForm /> : null } 
       <div className="flex flex-col items-center p-8 gap-8 w-full h-full bg-bgDark overflow-scroll">
         <div className="flex flex-col rounded-lg border-[1px] pb-1 bg-white w-full max-w-screen-xl">
           <div className="flex justify-between items-center gap-8 p-8 w-full h-1/2">
