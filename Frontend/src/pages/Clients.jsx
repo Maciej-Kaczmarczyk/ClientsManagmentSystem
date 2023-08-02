@@ -13,7 +13,6 @@ function Clients() {
   const fetchClients = useClientsStore((state) => state.fetchClients);
   const isLoading = useClientsStore((state) => state.isLoading);
   const toggleClientForm = useClientsStore((state) => state.toggleClientForm);
-  const clientFormVisible = useClientsStore((state) => state.clientFormVisible);
 
   const clients = useClientsStore((state) => state.clients);
   const filteredClients = useClientFilter(clients, searchString);
@@ -41,7 +40,15 @@ function Clients() {
   );
 
   const refreshIcon = (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-navNormal cursor-pointer hover:bg-gray-200 rounded-full" onClick={fetchClients}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className="w-6 h-6 text-navNormal cursor-pointer hover:bg-gray-200 rounded-full"
+      onClick={fetchClients}
+    >
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -52,65 +59,57 @@ function Clients() {
 
   return (
     <>
-      {clientFormVisible? <ClientForm /> : null } 
-      <div className="flex flex-col items-center p-8 gap-8 w-full h-full bg-bgDark overflow-scroll">
-        <div className="flex flex-col rounded-lg border-[1px] pb-1 bg-white w-full max-w-screen-xl">
-          <div className="flex justify-between items-center gap-8 p-8 w-full h-1/2">
-            <div className="w-full flex gap-8">
-              <form className="w-1/2">
-                <label className="mb-2 text-sm font-medium sr-only dark:text-white">Search</label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">{searchIcon}</div>
-                  <input
-                    type="search"
-                    id="default-search"
-                    className="block w-full h-10 p-4 pl-10 text-sm duration-200 border-[1px] font-base focus:border-accent2 focus:outline-none text-gray-400 rounded-lg"
-                    placeholder="Search"
-                    onChange={(e) => setSearchString(e.target.value)}
-                  />
-                </div>
-              </form>
-
-              <div className="flex items-center text-[#626262] cursor-pointer gap-2">
-                {filterIcon}
-                <p className="text-base font-semibold">Filter</p>
+      <div className="flex flex-col rounded-lg border-[1px] pb-1 bg-white w-full max-w-screen-xl">
+        <div className="flex justify-between items-center gap-8 p-8 w-full h-1/2">
+          <div className="w-full flex gap-8">
+            <form className="w-1/2">
+              <label className="mb-2 text-sm font-medium sr-only dark:text-white">Search</label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">{searchIcon}</div>
+                <input
+                  type="search"
+                  id="default-search"
+                  className="block w-full h-10 p-4 pl-10 text-sm duration-200 border-[1px] font-base focus:border-accent2 focus:outline-none text-gray-400 rounded-lg"
+                  placeholder="Search"
+                  onChange={(e) => setSearchString(e.target.value)}
+                />
               </div>
-            </div>
-
-            <div className="flex items-center justify-between gap-8">
-              <Button icon={addClientIcon} text="Add Client" method={() => toggleClientForm()} style="bg-accent2 hover:brightness-90 w-36" />
-              {refreshIcon}
-            </div>
+            </form>
           </div>
 
-          <ul className="flex justify-between items-center gap-4 px-8 py-2 bg-bgLight ">
-            <div className="flex items-center justify-center gap-32 text-sm">
-              <div className="flex flex-col w-60">
-                <p className="w-fit text-gray-500 font-normal">Name</p>
-              </div>
-
-              <div className="flex flex-col w-60">
-                <p className="w-fit text-gray-500 font-normal">Contact</p>
-              </div>
-
-              <div className="flex flex-col w-60">
-                <p className="w-fit text-gray-500 font-md">Address</p>
-              </div>
-            </div>
-          </ul>
-
-          {isLoading ? (
-            <ClientsListSkeleton />
-          ) : (
-            <ul>
-              {filteredClients.map((client) => (
-                <ClientCard key={client.email} client={client} fetchClients={fetchClients} toggleForm={() => setFormVisible(!formVisible)} />
-              ))}
-
-              {!filteredClients.length && <div className="flex justify-center w-full gap-4 items-center px-8 py-8 bg-bgLight rounded-lg">There is no data</div>}
-            </ul>
-          )}
+          <div className="flex items-center justify-between gap-8">
+            <Button icon={addClientIcon} text="Add Client" method={() => toggleClientForm()} style="bg-accent2 hover:brightness-90 w-36" />
+            {refreshIcon}
+          </div>
         </div>
+
+        <ul className="flex justify-between items-center gap-4 px-8 py-2 bg-bgLight ">
+          <div className="flex items-center justify-center gap-32 text-sm">
+            <div className="flex flex-col w-60">
+              <p className="w-fit text-gray-500 font-normal">Name</p>
+            </div>
+
+            <div className="flex flex-col w-60">
+              <p className="w-fit text-gray-500 font-normal">Contact</p>
+            </div>
+
+            <div className="flex flex-col w-60">
+              <p className="w-fit text-gray-500 font-md">Address</p>
+            </div>
+          </div>
+        </ul>
+
+        {isLoading ? (
+          <ClientsListSkeleton />
+        ) : (
+          <ul>
+            {filteredClients.map((client) => (
+              <ClientCard key={client.email} client={client} fetchClients={fetchClients} toggleForm={() => setFormVisible(!formVisible)} />
+            ))}
+
+            {!filteredClients.length && <div className="flex justify-center w-full gap-4 items-center px-8 py-8 bg-bgLight rounded-lg">There is no data</div>}
+          </ul>
+        )}
       </div>
     </>
   );

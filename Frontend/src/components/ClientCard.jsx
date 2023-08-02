@@ -68,10 +68,11 @@ const ClientCard = (props) => {
         </div>
 
         <div className="flex flex-col w-60">
-          <p className="font-semibold text-md">
-            {client.address}
+          <p className="font-semibold text-md">{client.address}</p>
+          <p className="text-md w-fit text-gray-500 font-normal">
+            {" "}
+            {client.zip_code} {client.city}
           </p>
-          <p className="text-md w-fit text-gray-500 font-normal"> {client.zip_code} {client.city}</p>
         </div>
       </div>
 

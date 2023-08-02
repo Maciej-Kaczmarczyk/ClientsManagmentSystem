@@ -14,6 +14,7 @@ const Navbar = () => {
   const navRef = useRef([]);
 
   useEffect(() => {
+    if (!pathname) return;
     const activeItem = navItems.find((item) => item.path === pathname);
     setActiveElement(activeItem);
     const activeRef = navRef.current.find((ref) => ref.innerText === activeItem.name);

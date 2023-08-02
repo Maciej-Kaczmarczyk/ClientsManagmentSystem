@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Router, Routes } from "react-router-dom";
 import Clients from "./pages/Clients";
 import Navbar from "./components/Navbar";
 import Orders from "./pages/Orders";
@@ -6,27 +6,42 @@ import Dashboard from "./pages/Dashboard";
 import { Toaster } from "sonner";
 import { useClientsStore } from "./stores/useClientsStore";
 import { useEffect } from "react";
+import Login from "./pages/Login";
+import ClientForm from "./components/ClientForm";
+import {useAuthStore} from "./stores/useAuthStore";
 
 function App() {
-    const fetchClients = useClientsStore((state) => state.fetchClients);
+  const fetchClients = useClientsStore((state) => state.fetchClients);
+  const clientFormVisible = useClientsStore((state) => state.clientFormVisible);
+  const authenticated = useAuthStore((state) => state.authenticated);
 
-    useEffect(() => {
-        fetchClients();
-    }, []);
+  useEffect(() => {
+    fetchClients();
+  }, []);
 
-    return (
-        <div className="flex flex-col h-full">
-            <BrowserRouter>
-                <Navbar />
-                <Toaster richColors position="bottom-left" />
-                <Routes>
-                    <Route path="/" element={<Dashboard />} />
-                    <Route path="/clients" element={<Clients />} />
-                    <Route path="/orders" element={<Orders />} />
-                </Routes>
-            </BrowserRouter>
+  if(!authenticated) return <Login />
+
+  return (
+    <div className="flex flex-col h-full">
+      <BrowserRouter>
+        <Navbar />
+        <Toaster richColors position="bottom-left" />
+        {clientFormVisible ? <ClientForm /> : null}
+        <div className="flex flex-col items-center p-8 gap-8 w-full h-full bg-bgDark overflow-scroll">
+          <Routes>
+            
+              
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/clients" element={<Clients />} />
+                <Route path="/orders" element={<Orders />} />
+            
+              <Route path="/login" element={<Login />} />
+            
+          </Routes>
         </div>
-    );
+      </BrowserRouter>
+    </div>
+  );
 }
 
 export default App;
