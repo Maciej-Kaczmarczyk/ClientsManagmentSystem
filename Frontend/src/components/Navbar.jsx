@@ -1,13 +1,11 @@
 import { NavLink, useLocation } from "react-router-dom";
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const Navbar = () => {
   const navItems = [
     { name: "Dashboard", path: "/" },
     { name: "Clients", path: "/clients" },
     { name: "Orders", path: "/orders" },
-
-    // Add more items here
   ];
 
   const [activeElement, setActiveElement] = useState(null);
@@ -16,6 +14,7 @@ const Navbar = () => {
   const navRef = useRef([]);
 
   useEffect(() => {
+    if (!pathname) return;
     const activeItem = navItems.find((item) => item.path === pathname);
     setActiveElement(activeItem);
     const activeRef = navRef.current.find((ref) => ref.innerText === activeItem.name);
@@ -24,7 +23,7 @@ const Navbar = () => {
     underline.current.style.transform = `translateX(${left}px)`;
   }, []);
 
-  const updateUnderlinaPosition = (event) => {
+  const updateUnderlinePosition = (event) => {
     setActiveElement(event.target.innerText);
     const { width, left } = event.target.getBoundingClientRect();
     underline.current.style.width = `${width + 10}px`;
@@ -36,7 +35,7 @@ const Navbar = () => {
       <div className="flex w-full justify-between items-center max-w-screen-xl py-4">
         <ul className="flex gap-10 relative">
           {navItems.map((item, index) => (
-            <NavLink className="relative" key={index} to={item.path} onClick={updateUnderlinaPosition} ref={(el) => (navRef.current[index] = el)}>
+            <NavLink className="relative" key={index} to={item.path} onClick={updateUnderlinePosition} ref={(el) => (navRef.current[index] = el)}>
               {item.name}
             </NavLink>
           ))}

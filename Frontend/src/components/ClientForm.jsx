@@ -1,19 +1,21 @@
-import { useState, useEffect } from "react";
-import dbService from "../services/dbService";
+import { useState } from "react";
 import Button from "./Button";
 import { useClientsStore } from "../stores/useClientsStore";
 import { toast } from "sonner";
 
 const ClientForm = () => {
+  const selectedClient = useClientsStore((state) => state.selectedClient);
+  const setSelectedClient = useClientsStore((state) => state.setSelectedClient);
 
+  const editMode = selectedClient ? true : false;
 
-  const [firstname, setFirstName] = useState("");
-  const [lastname, setLastName] = useState("");
-  const [zip_code, setZipCode] = useState("");
-  const [city, setCity] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
+  const [firstname, setFirstName] = useState(editMode ? selectedClient.firstname : "");
+  const [lastname, setLastName] = useState(editMode ? selectedClient.lastname : "");
+  const [zip_code, setZipCode] = useState(editMode ? selectedClient.zip_code : "");
+  const [city, setCity] = useState(editMode ? selectedClient.city : "");
+  const [phone, setPhone] = useState(editMode ? selectedClient.phone : "");
+  const [email, setEmail] = useState(editMode ? selectedClient.email : "");
+  const [address, setAddress] = useState(editMode ? selectedClient.address : "");
 
   const [firstNameError, setFirstNameError] = useState("");
   const [lastNameError, setLastNameError] = useState("");
@@ -34,7 +36,7 @@ const ClientForm = () => {
 
     let isValid = true;
     const emailPattern = /([-!#-'*+/-9=?A-Z^-~]+(\.[-!#-'*+/-9=?A-Z^-~]+)*|"([]!#-[^-~ \t]|(\\[\t -~]))+")@[0-9A-Za-z]([0-9A-Za-z-]{0,61}[0-9A-Za-z])?(\.[0-9A-Za-z]([0-9A-Za-z-]{0,61}[0-9A-Za-z])?)+/;
-    const phonePattern = /^\+?\d{1,4}?[-. ]?\(?(?:\d{1,3}?\)?[-. ]?)?(?:\d{1,4}[-. ]?){1,3}\d{1,9}$/;
+    const phonePattern = /^(?<!\w)(\(?(\+|00)?48\)?)?[ -]?\d{3}[ -]?\d{3}[ -]?\d{3}(?!\w)$/;
     const zipCodePattern = /^\d{2}-\d{3}$/;
 
     if (firstname.trim().length < 2) {
@@ -54,7 +56,7 @@ const ClientForm = () => {
       isValid = false;
     }
     if (!phonePattern.test(phone)) {
-      setPhoneError("");
+      setPhoneError("Invalid phone number");
       isValid = false;
     }
     if (!emailPattern.test(email)) {
@@ -69,23 +71,10 @@ const ClientForm = () => {
     return isValid;
   };
 
-  useEffect(() => {
-    if (clientData) {
-      setIsEditMode(true);
-      setFirstName(clientData.firstname || "");
-      setLastName(clientData.lastname || "");
-      setZipCode(clientData.zip_code || "");
-      setCity(clientData.city || "");
-      setPhone(clientData.phone || "");
-      setEmail(clientData.email || "");
-      setAddress(clientData.address || "");
-    }
-  }, [clientData]);
-
-  const [isEditMode, setIsEditMode] = useState(false);
-
   const addClient = useClientsStore((state) => state.addClient);
   const updateClient = useClientsStore((state) => state.updateClient);
+  const toggleClientForm = useClientsStore((state) => state.toggleClientForm);
+  const clientFormVisible = useClientsStore((state) => state.clientFormVisible);
 
   const saveClient = async () => {
     if (!validate()) return;
@@ -100,9 +89,9 @@ const ClientForm = () => {
       email: email,
     };
 
-    if (isEditMode) { // NEW CODE
-      toast.promise(updateClient(clientData.id, Client), { // Assuming clientData has an 'id' property
-        loading: "Saving...",
+    if (selectedClient) {
+      toast.promise(updateClient(selectedClient.id, Client), {
+        loading: "Updating...",
         success: "Client updated",
         error: "Error while updating",
       });
@@ -113,16 +102,19 @@ const ClientForm = () => {
         error: "Error while saving",
       });
     }
-    
-  };
 
+    toggleClientForm();
+  };
   return (
     <div className="z-10 flex justify-center absolute shadow-xl bg-black bg-opacity-50 w-full h-full py-[10vw] px-[20vw]">
       <div className="absolute max-w-screen-md h-[500px] flex flex-col justify-between flex-wrap px-8 bg-bgLight py-8 rounded-lg duration-200">
         <div className="flex justify-between w-full">
-          <h3 className="text-3xl font-semibold text-navNormal">Add Client</h3>
+          <h3 className="text-3xl font-semibold text-navNormal">{editMode ? "Edit Client" : "Add Client"}</h3>
           <svg
-            onClick={toggleForm}
+            onClick={() => {
+              toggleClientForm();
+              setSelectedClient(null);
+            }}
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -130,11 +122,7 @@ const ClientForm = () => {
             stroke="currentColor"
             className="w-6 h-6 hover:cursor-pointer hover:bg-gray-200 rounded-full"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M6 18L18 6M6 6l12 12"
-            />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </div>
         <div className="flex flex-wrap justify-between w-full gap-8">
@@ -147,14 +135,11 @@ const ClientForm = () => {
                 type="text"
                 name="firstname"
                 id="firstname"
-                className={`w-full h-10 rounded-lg border-2 focus:outline-none focus:border-accent2 px-4 font-base text-navNormal duration-200 ${
-                  firstNameError && "border-red-500"
-                }`}
+                className={`w-full h-10 rounded-lg border-2 focus:outline-none focus:border-accent2 px-4 font-base text-navNormal duration-200 ${firstNameError && "border-red-500"}`}
                 placeholder="First Name"
+                defaultValue={selectedClient ? selectedClient.firstname : ""}
               />
-              {firstNameError && (
-                <p className="text-red-500 text-sm">{firstNameError}</p>
-              )}
+              {firstNameError && <p className="text-red-500 text-sm">{firstNameError}</p>}
             </div>
 
             <div className="w-1/2">
@@ -162,17 +147,14 @@ const ClientForm = () => {
                 onChange={(e) => {
                   setLastName(e.target.value);
                 }}
+                defaultValue={selectedClient ? selectedClient.lastname : ""}
                 type="text"
                 name="firstname"
                 id="firstname"
-                className={`w-full h-10 rounded-lg border-2 focus:outline-none focus:border-accent2 px-4 font-base text-navNormal duration-200 ${
-                  lastNameError && "border-red-500"
-                }`}
+                className={`w-full h-10 rounded-lg border-2 focus:outline-none focus:border-accent2 px-4 font-base text-navNormal duration-200 ${lastNameError && "border-red-500"}`}
                 placeholder="Last Name"
               />
-              {lastNameError && (
-                <p className="text-red-500 text-sm">{lastNameError}</p>
-              )}
+              {lastNameError && <p className="text-red-500 text-sm">{lastNameError}</p>}
             </div>
           </div>
 
@@ -182,17 +164,14 @@ const ClientForm = () => {
                 onChange={(e) => {
                   setAddress(e.target.value);
                 }}
+                defaultValue={selectedClient ? selectedClient.address : ""}
                 type="text"
                 name="firstname"
                 id="firstname"
-                className={`w-full h-10 rounded-lg border-2 focus:outline-none focus:border-accent2 px-4 font-base text-navNormal duration-200 ${
-                  addressError && "border-red-500"
-                }`}
+                className={`w-full h-10 rounded-lg border-2 focus:outline-none focus:border-accent2 px-4 font-base text-navNormal duration-200 ${addressError && "border-red-500"}`}
                 placeholder="Address"
               />
-              {addressError && (
-                <p className="text-red-500 text-sm">{addressError}</p>
-              )}
+              {addressError && <p className="text-red-500 text-sm">{addressError}</p>}
             </div>
             <div className="flex justify-between gap-4 w-1/2">
               <div className="w-1/2">
@@ -200,32 +179,28 @@ const ClientForm = () => {
                   onChange={(e) => {
                     setCity(e.target.value);
                   }}
+                  defaultValue={selectedClient ? selectedClient.city : ""}
                   type="text"
                   name="firstname"
                   id="firstname"
                   className="w-full h-10 rounded-lg border-2 focus:outline-none focus:border-accent2 px-4 font-base text-navNormal duration-200"
                   placeholder="City"
                 />
-                {cityError && (
-                  <p className="text-red-500 text-sm">{cityError}</p>
-                )}
+                {cityError && <p className="text-red-500 text-sm">{cityError}</p>}
               </div>
               <div className="w-1/2">
                 <input
                   onChange={(e) => {
                     setZipCode(e.target.value);
                   }}
+                  defaultValue={selectedClient ? selectedClient.zip_code : ""}
                   type="text"
                   name="firstname"
                   id="firstname"
-                  className={`w-full h-10 rounded-lg border-2 focus:outline-none focus:border-accent2 px-4 font-base text-navNormal duration-200 ${
-                    zipCodeError && "border-red-500"
-                  }`}
+                  className={`w-full h-10 rounded-lg border-2 focus:outline-none focus:border-accent2 px-4 font-base text-navNormal duration-200 ${zipCodeError && "border-red-500"}`}
                   placeholder="Zip Code"
                 />
-                {zipCodeError && (
-                  <p className="text-red-500 text-sm">{zipCodeError}</p>
-                )}
+                {zipCodeError && <p className="text-red-500 text-sm">{zipCodeError}</p>}
               </div>
             </div>
           </div>
@@ -236,17 +211,14 @@ const ClientForm = () => {
                 onChange={(e) => {
                   setPhone(e.target.value);
                 }}
+                defaultValue={selectedClient ? selectedClient.phone : ""}
                 type="text"
                 name="firstname"
                 id="firstname"
-                className={`w-full h-10 rounded-lg border-2 focus:outline-none focus:border-accent2 px-4 font-base text-navNormal duration-200 ${
-                  phoneError && "border-red-500"
-                }`}
+                className={`w-full h-10 rounded-lg border-2 focus:outline-none focus:border-accent2 px-4 font-base text-navNormal duration-200 ${phoneError && "border-red-500"}`}
                 placeholder="Phone Number"
               />
-              {phoneError && (
-                <p className="text-red-500 text-sm">{phoneError}</p>
-              )}
+              {phoneError && <p className="text-red-500 text-sm">{phoneError}</p>}
             </div>
 
             <div className="w-1/2">
@@ -254,25 +226,18 @@ const ClientForm = () => {
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
+                defaultValue={selectedClient ? selectedClient.email : ""}
                 type="text"
                 name="firstname"
                 id="firstname"
-                className={`w-full h-10 rounded-lg border-2 focus:outline-none focus:border-accent2 px-4 font-base text-navNormal duration-200 ${
-                  emailError && "border-red-500"
-                }`}
+                className={`w-full h-10 rounded-lg border-2 focus:outline-none focus:border-accent2 px-4 font-base text-navNormal duration-200 ${emailError && "border-red-500"}`}
                 placeholder="Email"
               />
-              {emailError && (
-                <p className="text-red-500 text-sm">{emailError}</p>
-              )}
+              {emailError && <p className="text-red-500 text-sm">{emailError}</p>}
             </div>
           </div>
         </div>
-        <Button
-          method={saveClient}
-          style={"bg-accent2 w-[100%] hover:brightness-90"}
-          text={"Add Client"}
-        />
+        <Button method={saveClient} style={"bg-accent2 w-[100%] hover:brightness-90"} text={editMode ? "Edit Client" : "Add Client"} />
       </div>
     </div>
   );
