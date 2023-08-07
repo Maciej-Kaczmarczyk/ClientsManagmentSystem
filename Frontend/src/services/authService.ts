@@ -7,10 +7,10 @@ interface authData {
 
 const authService = {
   login: async (data: authData) => {
-    return await axios.post("localhost:8000/login", data);
+    return await axios.post("https://clientsmanagmentsystem.onrender.com/login", data);
   },
   register: async (data: authData) => {
-    return await axios.post("localhost:8000/register", data);
+    return await axios.post("https://clientsmanagmentsystem.onrender.com/register", data);
   }
 };
 
