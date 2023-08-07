@@ -8,18 +8,24 @@ import { useClientsStore } from "./stores/useClientsStore";
 import { useEffect } from "react";
 import Login from "./pages/Login";
 import ClientForm from "./components/ClientForm";
-import {useAuthStore} from "./stores/useAuthStore";
+import { useAuthStore } from "./stores/useAuthStore";
 
 function App() {
   const fetchClients = useClientsStore((state) => state.fetchClients);
   const clientFormVisible = useClientsStore((state) => state.clientFormVisible);
-  const authenticated = useAuthStore((state) => state.authenticated);
+  const authenticated = localStorage.getItem('token')
 
   useEffect(() => {
     fetchClients();
   }, []);
 
-  if(!authenticated) return <Login />
+  if (authenticated === null)
+    return (
+      <>
+        <Toaster richColors position="bottom-left" />
+        <Login />
+      </>
+    );
 
   return (
     <div className="flex flex-col h-full">
@@ -29,14 +35,11 @@ function App() {
         {clientFormVisible ? <ClientForm /> : null}
         <div className="flex flex-col items-center p-8 gap-8 w-full h-full bg-bgDark overflow-scroll">
           <Routes>
-            
-              
-                <Route path="/" element={<Dashboard />} />
-                <Route path="/clients" element={<Clients />} />
-                <Route path="/orders" element={<Orders />} />
-            
-              <Route path="/login" element={<Login />} />
-            
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/clients" element={<Clients />} />
+            <Route path="/orders" element={<Orders />} />
+
+            <Route path="/login" element={<Login />} />
           </Routes>
         </div>
       </BrowserRouter>

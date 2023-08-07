@@ -1,21 +1,32 @@
 import React, { useState } from "react";
 import Button from "../components/Button";
 import { useAuthStore } from "../stores/useAuthStore";
+import axios from "axios";
+import { toast } from "sonner";
 import { Navigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const setAuthenticated = useAuthStore((state) => state.setAuthenticated);
-
-  const handleLogin = () => {
-    if (email === "" || password === "") {
-        setAuthenticated(true);
-        <Navigate to="/dashboard" />;
-    }else
-    {
-        console.log("Login Failed");
+  const handleLogin = async () => {
+    try {
+      const res = await axios.post("http://localhost:8000/login", {
+        email: email,
+        password: password,
+      });
+      console.log(res.data.token);
+      if (res.data.token) {
+        localStorage.setItem("token", res.data.token);
+        axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`;
+        toast.success("Login Successful");
+        window.location.href = "/clients";
+      } else {
+        toast.error("Login Failed");
+      }
+    } catch (err) {
+      console.log(err.response.data);
+      toast.error(err.response.data);
     }
   };
 
