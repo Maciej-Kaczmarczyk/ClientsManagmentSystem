@@ -5,6 +5,12 @@ const { verifyToken } = require("../middleware/verifyToken");
 
 const { DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD, DATABASE_NAME } = process.env;
 
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
 const db = new Pool({
   host: DATABASE_URL,
   user: DATABASE_USER,
