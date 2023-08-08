@@ -9,6 +9,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+
   const handleLogin = async () => {
     try {
       const res = await axios.post("https://clientsmanagmentsystem.onrender.com/login", {
@@ -18,14 +19,15 @@ const Login = () => {
       console.log(res.data.token);
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
-        axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`;
+        axios.defaults.headers.common["Authorization"] = `${localStorage.getItem("token")}`;
         toast.success("Login Successful");
         window.location.href = "/clients";
+        console.log(localStorage.getItem("token"));
       } else {
         toast.error("Login Failed");
       }
     } catch (err) {
-      console.log(err.response.data);
+      console.log(err);
       toast.error(err.response.data);
     }
   };

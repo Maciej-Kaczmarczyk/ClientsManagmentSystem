@@ -10,10 +10,17 @@ interface Client {
   phone: string;
 }
 
+const api = axios.create({
+  baseURL: 'https://clientsmanagmentsystem.onrender.com/',
+  headers: {
+    'Authorization': `${localStorage.getItem('token')}`
+  }
+});
+
 const dbService = {
   getAllClients: async () => {
-    return axios
-      .get("https://clientsmanagmentsystem.onrender.com/clients")
+    return api
+      .get("/clients")
       .then(function (response) {
         return response.data;
       })
@@ -23,8 +30,8 @@ const dbService = {
   },
 
   addClient: async (Client: Client) => {
-    return axios
-      .post("https://clientsmanagmentsystem.onrender.com/clients", Client)
+    return api
+      .post("/clients", Client)
       .then(function (response) {
         return response;
       })
@@ -34,8 +41,8 @@ const dbService = {
   },
 
   deleteClient: async (id: string) => {
-    return axios
-      .delete(`https://clientsmanagmentsystem.onrender.com/clients/${id}`)
+    return api
+      .delete(`/clients/${id}`)
       .then(function (response) {
         return response;
       })
@@ -44,8 +51,8 @@ const dbService = {
       });
   },
   updateClient: async (id: string, Client: Client) => {
-    return axios
-      .put(`https://clientsmanagmentsystem.onrender.com/clients/${id}`, Client)
+    return api
+      .put(`/clients/${id}`, Client)
       .then(function (response) {
         return response;
       })
