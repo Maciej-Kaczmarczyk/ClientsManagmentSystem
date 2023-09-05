@@ -13,7 +13,7 @@ import { useAuthStore } from "./stores/useAuthStore";
 function App() {
   const fetchClients = useClientsStore((state) => state.fetchClients);
   const clientFormVisible = useClientsStore((state) => state.clientFormVisible);
-  const authenticated = localStorage.getItem('token')
+  const authenticated = document.cookie.includes("token");
 
   useEffect(() => {
     fetchClients();

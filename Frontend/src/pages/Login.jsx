@@ -16,18 +16,22 @@ const Login = () => {
         email: email,
         password: password,
       });
+  
       console.log(res.data.token);
       if (res.data.token) {
-        localStorage.setItem("token", res.data.token);
-        axios.defaults.headers.common["Authorization"] = `${localStorage.getItem("token")}`;
+        const oneHourInSeconds = 3600;
+        const expirationTime = new Date().getTime() + oneHourInSeconds * 1000;
+        document.cookie = `token=${res.data.token}; expires=${new Date(expirationTime)}; path=/`;
+  
+        axios.defaults.headers.common["Authorization"] = `Bearer ${res.data.token}`;
         toast.success("Login Successful");
         window.location.href = "/clients";
-        console.log(localStorage.getItem("token"));
+        console.log(res.data.token);
       } else {
         toast.error("Login Failed");
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
       toast.error(err.response.data);
     }
   };
