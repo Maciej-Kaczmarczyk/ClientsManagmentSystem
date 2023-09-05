@@ -4,11 +4,11 @@ import { useAuthStore } from "../stores/useAuthStore";
 import axios from "axios";
 import { toast } from "sonner";
 import { Navigate } from "react-router-dom";
+import { getCookie, setCookie } from "typescript-cookie";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
 
   const handleLogin = async () => {
     try {
@@ -16,23 +16,18 @@ const Login = () => {
         email: email,
         password: password,
       });
-  
-      console.log(res.data.token);
       if (res.data.token) {
-        const oneHourInSeconds = 3600;
-        const expirationTime = new Date().getTime() + oneHourInSeconds * 1000;
-        document.cookie = `token=${res.data.token}; expires=${new Date(expirationTime)}; path=/`;
-  
-        axios.defaults.headers.common["Authorization"] = `Bearer ${res.data.token}`;
+        toast.success("Login Successful");
+        setCookie("token", `${res.data.token}`, { expires: 1 });
+        axios.defaults.headers.common["Authorization"] = `${res.data.token}`;
         toast.success("Login Successful");
         window.location.href = "/clients";
-        console.log(res.data.token);
       } else {
         toast.error("Login Failed");
       }
     } catch (err) {
       console.error(err);
-      toast.error(err.response.data);
+      return toast.error(err.response.data);
     }
   };
 

@@ -1,5 +1,6 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
+import { removeCookie } from "typescript-cookie";
 
 const Navbar = () => {
   const navItems = [
@@ -19,19 +20,39 @@ const Navbar = () => {
     setActiveElement(activeItem);
     const activeRef = navRef.current.find((ref) => ref.innerText === activeItem.name);
     const { width, left } = activeRef.getBoundingClientRect();
-    underline.current.style.width = `${width}px`;
-    underline.current.style.transform = `translateX(${left}px)`;
-  }, []);
+    updateUnderlinePosition(width, left);
+  }, [pathname]);
 
-  const updateUnderlinePosition = (event) => {
-    setActiveElement(event.target.innerText);
-    const { width, left } = event.target.getBoundingClientRect();
-    underline.current.style.width = `${width + 10}px`;
-    underline.current.style.transform = `translateX(${left - 5}px)`;
+  useEffect(() => {
+    const handleResize = () => {
+      if (activeElement) {
+        const activeRef = navRef.current.find((ref) => ref.innerText === activeElement.name);
+        const { width, left } = activeRef.getBoundingClientRect();
+        updateUnderlinePosition(width, left);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [activeElement]);
+
+  const updateUnderlinePosition = (width, left) => {
+    if (underline.current) {
+      underline.current.style.width = `${width}px`;
+      underline.current.style.transform = `translateX(${left}px)`;
+    }
+  };
+
+  const Logout = () => {
+    removeCookie("token");
+    window.location.href = "/login";
   };
 
   return (
-    <nav className="flex justify-center items-center h-16 bg-white text-black relative shadow-sm">
+    <nav className="flex justify-center items-center h-16 bg-white text-black relative shadow-sm px-8">
       <div className="flex w-full justify-between items-center max-w-screen-xl py-4">
         <ul className="flex gap-10 relative">
           {navItems.map((item, index) => (
@@ -41,6 +62,11 @@ const Navbar = () => {
           ))}
         </ul>
         <div ref={underline} className="h-[2px] w-20 bg-[#1F1F1F] absolute -bottom-[1px] transition-all duration-200" style={{ left: "0px", transition: "transform 0.5s ease, width 0.5s ease" }} />
+        <div>
+          <p className=" hover:cursor-pointer" onClick={Logout}>
+            Logout
+          </p>
+        </div>
       </div>
     </nav>
   );

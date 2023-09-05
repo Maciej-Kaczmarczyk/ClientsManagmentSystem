@@ -9,17 +9,21 @@ import { useEffect } from "react";
 import Login from "./pages/Login";
 import ClientForm from "./components/ClientForm";
 import { useAuthStore } from "./stores/useAuthStore";
+import { getCookie, setCookie } from 'typescript-cookie'
 
 function App() {
   const fetchClients = useClientsStore((state) => state.fetchClients);
   const clientFormVisible = useClientsStore((state) => state.clientFormVisible);
-  const authenticated = document.cookie.includes("token");
+
+  const authenticated = getCookie("token");
 
   useEffect(() => {
     fetchClients();
   }, []);
 
-  if (authenticated === null)
+  console.log(authenticated);
+
+  if (authenticated === undefined)
     return (
       <>
         <Toaster richColors position="bottom-left" />

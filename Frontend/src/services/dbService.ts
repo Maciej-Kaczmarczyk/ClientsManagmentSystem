@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getCookie, setCookie } from 'typescript-cookie'
 
 interface Client {
   firstname: string;
@@ -13,7 +14,7 @@ interface Client {
 const api = axios.create({
   baseURL: 'https://clientsmanagmentsystem.onrender.com/',
   headers: {
-    'Authorization': `${localStorage.getItem('token')}`
+    'Authorization': getCookie("token")
   }
 });
 
