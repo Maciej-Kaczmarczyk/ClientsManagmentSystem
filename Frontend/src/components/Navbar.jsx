@@ -1,6 +1,8 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import { removeCookie } from "typescript-cookie";
+import LogoutIcon from "../assets/icons/logoutIcon.svg";
+
 
 const Navbar = () => {
   const navItems = [
@@ -63,8 +65,8 @@ const Navbar = () => {
         </ul>
         <div ref={underline} className="h-[2px] w-20 bg-[#1F1F1F] absolute -bottom-[1px] transition-all duration-200" style={{ left: "0px", transition: "transform 0.5s ease, width 0.5s ease" }} />
         <div>
-          <p className=" hover:cursor-pointer" onClick={Logout}>
-            Logout
+          <p className="flex items-center gap-2 hover:cursor-pointer" onClick={Logout}>
+             Logout <LogoutIcon />
           </p>
         </div>
       </div>

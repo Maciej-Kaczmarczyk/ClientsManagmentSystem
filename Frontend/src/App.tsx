@@ -21,8 +21,6 @@ function App() {
     fetchClients();
   }, []);
 
-  console.log(authenticated);
-
   if (authenticated === undefined)
     return (
       <>
