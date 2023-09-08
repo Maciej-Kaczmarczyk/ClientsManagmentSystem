@@ -15,8 +15,21 @@ router.post('/register', async (req, res) => {
             'INSERT INTO users (email, password) VALUES ($1, $2)',
             [email, hashedPassword]
         );
+
+        const findedUser = await db.query(
+            'SELECT * FROM users WHERE email = $1',
+            [email]
+        );
   
-        res.status(201).send(`Welcome ${email}! `);
+        const user = findedUser.rows[0];
+        console.log(user);
+
+        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+            expiresIn: '1h',
+        });
+
+        res.status(200).json({ token });
+
     } catch (err) {
         console.error(err);
         res.status(500).send('Server error');

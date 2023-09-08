@@ -8,8 +8,8 @@ import { useClientsStore } from "./stores/useClientsStore";
 import { useEffect } from "react";
 import Login from "./pages/Login";
 import ClientForm from "./components/ClientForm";
-import { useAuthStore } from "./stores/useAuthStore";
-import { getCookie, setCookie } from 'typescript-cookie'
+import { getCookie } from "typescript-cookie";
+import Signup from "./pages/Signup";
 
 function App() {
   const fetchClients = useClientsStore((state) => state.fetchClients);
@@ -17,25 +17,31 @@ function App() {
 
   const authenticated = getCookie("token");
 
-  useEffect(() => {
-    fetchClients();
-  }, []);
+  if(authenticated){
+    useEffect(() => {
+      fetchClients();
+    }, []);
+  }
 
   if (authenticated === undefined)
     return (
-      <>
+      <BrowserRouter>
         <Toaster richColors position="bottom-left" />
-        <Login />
-      </>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
+      </BrowserRouter>
     );
 
   return (
+    
     <div className="flex flex-col h-full">
       <BrowserRouter>
         <Navbar />
         <Toaster richColors position="bottom-left" />
         {clientFormVisible ? <ClientForm /> : null}
-        <div className="flex flex-col items-center p-8 gap-8 w-full h-full bg-bgDark overflow-scroll">
+        <div className="flex flex-col items-center p-8 gap-8 w-full h-full bg-bgDark overflow-y-scroll">
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/clients" element={<Clients />} />

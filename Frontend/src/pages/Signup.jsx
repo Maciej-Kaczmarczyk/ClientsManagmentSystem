@@ -1,28 +1,30 @@
 import React, { useState } from "react";
 import Button from "../components/Button";
-import { useAuthStore } from "../stores/useAuthStore";
-import axios from "axios";
-import { toast } from "sonner";
-import { Navigate } from "react-router-dom";
-import { getCookie, setCookie } from "typescript-cookie";
 import { NavLink } from "react-router-dom";
+import { toast } from "sonner";
+import axios from "axios";
+import { getCookie, setCookie } from "typescript-cookie";
 
-const Login = () => {
+const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = async () => {
-    const res = await axios.post("https://clientsmanagmentsystem.onrender.com/login", {
+  const handleSignup = async () => {
+    
+    const res = await axios.post("https://clientsmanagmentsystem.onrender.com/register", {
       email: email,
       password: password,
     });
+
+
     try {
       if (res.data.token) {
         setCookie("token", `${res.data.token}`, { expires: 1 });
         axios.defaults.headers.common["Authorization"] = `${res.data.token}`;
         window.location.href = "/clients";
       } else {
-        toast.error("Login Failed");
+        toast.error("Register Failed");
+        console.log(res);
       }
     } catch (err) {
       console.error(err);
@@ -35,7 +37,7 @@ const Login = () => {
       <div className="flex flex-col justify-center items-center rounded-lg border-[1px] pb-1 bg-white w-full max-w-[500px] h-fit max-h-[700px] shadow-xl">
         <div className="flex justify-center items-center gap-8 p-8 w-full py-20">
           <div className="w-full h-full flex flex-col gap-8">
-            <h1 className=" text-xl font-bold text-gray-500">Login to your account</h1>
+            <h1 className=" text-xl font-bold text-gray-500">Create your account</h1>
             <div className="flex flex-col gap-6">
               <input
                 type="email"
@@ -51,21 +53,20 @@ const Login = () => {
                 placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <p className=" text-slate-400 pl-5">forgot password?</p>
             </div>
             <Button
               method={() => {
-                toast.promise(handleLogin, {
-                  loading: "Trying to login",
-                  success: "Login Successful",
-                  error: "Login Failed",
+                toast.promise(handleSignup, {
+                  loading: "Trying to Register",
+                  success: "Register Successful",
+                  error: "Register Failed",
                 });
               }}
               style={"bg-accent2 w-[100%] hover:brightness-90"}
-              text="Login"
+              text="Sign up"
             />
             <p className=" text-slate-400 text-center">
-              Don't hava an account? <NavLink to="/signup" ><span className="font-bold">Sign up</span></NavLink>
+              Already have an account? <NavLink to="/login"><span className=" font-bold">Login</span></NavLink>
             </p>
           </div>
         </div>
@@ -74,4 +75,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;
