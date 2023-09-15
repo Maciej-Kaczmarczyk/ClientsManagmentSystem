@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Button from "../components/Button";
-import { useAuthStore } from "../stores/useAuthStore";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { toast } from "sonner";
 import { Navigate } from "react-router-dom";
 import { getCookie, setCookie } from "typescript-cookie";
@@ -11,23 +10,24 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = async () => {
-    const res = await axios.post("https://clientsmanagmentsystem.onrender.com/login", {
-      email: email,
-      password: password,
-    });
-    try {
-      if (res.data.token) {
-        setCookie("token", `${res.data.token}`, { expires: 1 });
-        axios.defaults.headers.common["Authorization"] = `${res.data.token}`;
-        window.location.href = "/clients";
-      } else {
-        toast.error("Login Failed");
-      }
-    } catch (err) {
-      console.error(err);
-      return toast.error(err.response.data);
-    }
+  const handleLogin = () => {
+    toast("Logging in...", { type: "info" });
+    axios
+      .post("https://https://clientsmanagmentsystem.onrender.com//login", {
+        email: email,
+        password: password,
+      })
+      .then((res) => {
+        if (res.data.token) {
+          setCookie("token", `${res.data.token}`, { expires: 1 / 48 });
+          axios.defaults.headers.common["Authorization"] = `${res.data.token}`;
+          window.location.href = "/clients";
+          toast("Logged in successfully", { type: "success" });
+        }
+      })
+      .catch((err) => {
+        toast(err.response.data, { type: "error" });
+      });
   };
 
   return (
@@ -55,17 +55,16 @@ const Login = () => {
             </div>
             <Button
               method={() => {
-                toast.promise(handleLogin, {
-                  loading: "Trying to login",
-                  success: "Login Successful",
-                  error: "Login Failed",
-                });
+                handleLogin();
               }}
               style={"bg-accent2 w-[100%] hover:brightness-90"}
               text="Login"
             />
             <p className=" text-slate-400 text-center">
-              Don't hava an account? <NavLink to="/signup" ><span className="font-bold">Sign up</span></NavLink>
+              Don't hava an account?{" "}
+              <NavLink to="/signup">
+                <span className="font-bold">Sign up</span>
+              </NavLink>
             </p>
           </div>
         </div>
