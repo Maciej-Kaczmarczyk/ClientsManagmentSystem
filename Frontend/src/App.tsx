@@ -23,12 +23,12 @@ function App() {
     }, []);
   }
 
-  if (authenticated === undefined)
+  if (authenticated == undefined)
     return (
       <BrowserRouter>
         <Toaster richColors position="bottom-left" />
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route path="/*" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
         </Routes>
       </BrowserRouter>
