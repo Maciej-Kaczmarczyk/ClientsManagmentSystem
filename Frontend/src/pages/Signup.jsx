@@ -66,7 +66,7 @@ const Signup = () => {
               text="Sign up"
             />
             <p className=" text-slate-400 text-center">
-              Already have an account? <NavLink to="/login"><span className=" font-bold">Login</span></NavLink>
+              Already have an account? <NavLink to="/login"><span className="font-bold hover:text-accent2">Login</span></NavLink>
             </p>
           </div>
         </div>
