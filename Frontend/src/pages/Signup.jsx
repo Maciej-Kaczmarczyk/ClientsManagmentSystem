@@ -9,27 +9,27 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSignup = async () => {
-    
-    const res = await axios.post("https://clientsmanagmentsystem.onrender.com/register", {
-      email: email,
-      password: password,
-    });
-
-
-    try {
-      if (res.data.token) {
-        setCookie("token", `${res.data.token}`, { expires: 1 });
-        axios.defaults.headers.common["Authorization"] = `${res.data.token}`;
-        window.location.href = "/clients";
-      } else {
-        toast.error("Register Failed");
-        console.log(res);
-      }
-    } catch (err) {
-      console.error(err);
-      return toast.error(err.response.data);
-    }
+  const handleSignup = () => {
+    toast("Trying to register...", { type: "info" });
+    axios
+      .post("http://localhost:8000/register", {
+        email: email,
+        password: password,
+      })
+      .then((res) => {
+        if (res.data.token) {
+          setCookie("token", `${res.data.token}`, { expires: 1 });
+          axios.defaults.headers.common["Authorization"] = `${res.data.token}`;
+          window.location.href = "/clients";
+        } else {
+          toast.error("Register Failed");
+          console.log(res);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        toast(err.response.data, { type: "error" });
+      });
   };
 
   return (
@@ -56,17 +56,16 @@ const Signup = () => {
             </div>
             <Button
               method={() => {
-                toast.promise(handleSignup, {
-                  loading: "Trying to Register",
-                  success: "Register Successful",
-                  error: "Register Failed",
-                });
+                handleSignup();
               }}
               style={"bg-accent2 w-[100%] hover:brightness-90"}
               text="Sign up"
             />
             <p className=" text-slate-400 text-center">
-              Already have an account? <NavLink to="/login"><span className="font-bold hover:text-accent2">Login</span></NavLink>
+              Already have an account?{" "}
+              <NavLink to="/login">
+                <span className="font-bold hover:text-accent2">Login</span>
+              </NavLink>
             </p>
           </div>
         </div>

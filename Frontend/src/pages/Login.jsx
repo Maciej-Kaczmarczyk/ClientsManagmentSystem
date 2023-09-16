@@ -13,7 +13,7 @@ const Login = () => {
   const handleLogin = () => {
     toast("Logging in...", { type: "info" });
     axios
-      .post("https://clientsmanagmentsystem.onrender.com/login", {
+      .post("http://localhost:8000/login", {
         email: email,
         password: password,
       })
