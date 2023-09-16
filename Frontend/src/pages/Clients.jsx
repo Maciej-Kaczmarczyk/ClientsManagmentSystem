@@ -17,7 +17,6 @@ function Clients() {
 
   const clients = useClientsStore((state) => state.clients);
   const filteredClients = useClientFilter(clients, searchString);
-  
 
   const searchIcon = (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 text-gray-400">
@@ -56,9 +55,9 @@ function Clients() {
   return (
     <>
       <div className="flex flex-col rounded-lg border-[1px] pb-1 bg-white w-full max-w-screen-xl">
-        <div className="flex justify-between items-center gap-8 p-8 w-full h-1/2">
+        <div className="flex flex-col lg:flex-row justify-between items-center gap-8 p-8 w-full h-1/2">
           <div className="w-full flex gap-8">
-            <form className="w-1/2">
+            <form className="w-full lg:w-1/2">
               <label className="mb-2 text-sm font-medium sr-only dark:text-white">Search</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">{searchIcon}</div>
@@ -73,7 +72,7 @@ function Clients() {
             </form>
           </div>
 
-          <div className="flex items-center justify-between gap-8">
+          <div className="w-full lg:w-fit flex items-center justify-between gap-8">
             <Button icon={addClientIcon} text="Add Client" method={() => toggleClientForm()} style="bg-accent2 hover:brightness-90 w-36" />
             {refreshIcon}
           </div>
