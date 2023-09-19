@@ -2,12 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useClientsStore } from "../stores/useClientsStore";
 import Button from "../components/Button";
 import { toast } from "sonner";
-
-const dotsIcon = (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-navDark">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
-  </svg>
-);
+import DotsIcon from "../assets/icons/dotsIcon.svg";
 
 const ClientCard = (props) => {
   const client = props.client;
@@ -77,7 +72,7 @@ const ClientCard = (props) => {
       </div>
 
       <div className="relative">
-        <Button method={async () => toggleOptionWindow()} style={"bg-opacity-0 hover:bg-opacity-0"} icon={dotsIcon} />
+        <Button method={async () => toggleOptionWindow()} style={"bg-opacity-0 hover:bg-opacity-0"} icon={DotsIcon} />
         {optionWindow ? (
           <div ref={popupRef}>
             <div className="absolute w-fit h-fit border-[1px] py-4 bg-white rounded-lg -top-1/2 bottom-0 right-10 shadow-lg">

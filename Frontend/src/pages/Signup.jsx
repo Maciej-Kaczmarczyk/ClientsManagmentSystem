@@ -12,7 +12,7 @@ const Signup = () => {
   const handleSignup = () => {
     toast("Trying to register...", { type: "info" });
     axios
-      .post("http://localhost:8000/register", {
+      .post("https://clientsmanagmentsystem.onrender.com/register", {
         email: email,
         password: password,
       })

@@ -5,7 +5,10 @@ import Button from "../components/Button";
 import { useClientsStore } from "../stores/useClientsStore";
 import { useClientFilter } from "../hooks/useClientFilter";
 import ClientsListSkeleton from "../components/ClientsListSkeleton";
-import addClientIcon from "../assets/icons/addClientIcon.svg";
+import AddClientIcon from "../assets/icons/addClientIcon.svg";
+import SearchIcon from "../assets/icons/searchIcon.svg";
+import FilterIcon from "../assets/icons/filterIcon.svg";
+import RefreshIcon from "../assets/icons/refreshIcon.svg";
 
 function Clients() {
   const [formVisible, setFormVisible] = useState(false);
@@ -18,40 +21,6 @@ function Clients() {
   const clients = useClientsStore((state) => state.clients);
   const filteredClients = useClientFilter(clients, searchString);
 
-  const searchIcon = (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 text-gray-400">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-    </svg>
-  );
-
-  const filterIcon = (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-7 h-7">
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M6 13.5V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m12-3V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m-6-9V3.75m0 3.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 9.75V10.5"
-      />
-    </svg>
-  );
-
-  const refreshIcon = (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={1.5}
-      stroke="currentColor"
-      className="w-6 h-6 text-navNormal cursor-pointer hover:bg-gray-200 rounded-full"
-      onClick={fetchClients}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
-      />
-    </svg>
-  );
-
   return (
     <>
       <div className="flex flex-col rounded-lg border-[1px] pb-1 bg-white w-full max-w-screen-xl">
@@ -60,7 +29,9 @@ function Clients() {
             <form className="w-full lg:w-1/2">
               <label className="mb-2 text-sm font-medium sr-only dark:text-white">Search</label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">{searchIcon}</div>
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <SearchIcon className="w-5 h-5 text-gray-400" />
+                </div>
                 <input
                   type="search"
                   id="default-search"
@@ -73,8 +44,8 @@ function Clients() {
           </div>
 
           <div className="w-full lg:w-fit flex items-center justify-between gap-8">
-            <Button icon={addClientIcon} text="Add Client" method={() => toggleClientForm()} style="bg-accent2 hover:brightness-90 w-36" />
-            {refreshIcon}
+            <Button icon={AddClientIcon} text="Add Client" method={() => toggleClientForm()} style="bg-accent2 hover:brightness-90 w-36" />
+            <RefreshIcon onClick={fetchClients} className="w-6 h-6 cursor-pointer" />
           </div>
         </div>
 
