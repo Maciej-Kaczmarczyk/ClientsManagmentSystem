@@ -6,12 +6,8 @@ const clientRoutes = require("./routes/clientRoutes");
 const authRoutes = require("./routes/authRoutes");
 const app = express();
 
-const corsOptions = {
-  origin: "http://localhost:5173",
-  credentials: true,
-  optionSuccessStatus: 200,
-};
-app.use(cors(corsOptions));
+
+app.use(cors());
 app.use(express.json());
 app.use("/clients", clientRoutes);
 app.use(authRoutes);
