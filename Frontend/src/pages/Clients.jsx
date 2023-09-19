@@ -32,13 +32,7 @@ function Clients() {
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                   <SearchIcon className="w-5 h-5 text-gray-400" />
                 </div>
-                <input
-                  type="search"
-                  id="default-search"
-                  className="block w-full h-10 p-4 pl-10 text-sm duration-200 border-[1px] font-base focus:border-accent2 focus:outline-none text-gray-400 rounded-lg"
-                  placeholder="Search"
-                  onChange={(e) => setSearchString(e.target.value)}
-                />
+                <input type="search" id="default-search" className="block w-full h-10 p-4 pl-10 text-sm duration-200 border-[1px] font-base focus:border-accent2 focus:outline-none text-gray-400 rounded-lg" placeholder="Search" onChange={(e) => setSearchString(e.target.value)} />
               </div>
             </form>
           </div>
