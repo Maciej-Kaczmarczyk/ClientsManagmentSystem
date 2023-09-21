@@ -4,7 +4,7 @@
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="w-6 h-6 text-navNormal cursor-pointer hover:bg-gray-200 rounded-full"
+      className="w-6 h-6 text-textPrimary cursor-pointer hover:bg-uiTertiary rounded-full"
     >
       <path
         strokeLinecap="round"

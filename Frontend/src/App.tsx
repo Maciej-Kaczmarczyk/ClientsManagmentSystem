@@ -17,7 +17,7 @@ function App() {
 
   const authenticated = getCookie("token");
 
-  if(authenticated){
+  if (authenticated) {
     useEffect(() => {
       fetchClients();
     }, []);
@@ -35,13 +35,12 @@ function App() {
     );
 
   return (
-    
     <div className="flex flex-col h-full">
       <BrowserRouter>
         <Navbar />
         <Toaster richColors position="bottom-left" />
         {clientFormVisible ? <ClientForm /> : null}
-        <div className="flex flex-col items-center p-8 gap-8 w-full h-full bg-bgDark overflow-y-scroll">
+        <div className="flex flex-col items-center p-8 gap-8 w-full h-full bg-uiSecondary overflow-y-scroll">
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/clients" element={<Clients />} />

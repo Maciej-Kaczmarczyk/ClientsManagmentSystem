@@ -46,25 +46,25 @@ const ClientCard = (props) => {
   }, []);
 
   return (
-    <li className="flex justify-between items-center gap-4 px-8 py-6 border-t-[1px] bg-bgLight hover:bg-bgDark">
+    <li className="flex justify-between items-center gap-4 px-8 py-6 border-t-[1px] bg-uiPrimary hover:bg-uiSecondary">
       <div className="flex flex-wrap items-center xl:justify-center gap-y-8 gap-32">
         <div className="flex flex-col w-60">
           <h3 className="font-semibold text-md">
             {client.firstname} {client.lastname}
           </h3>
-          <p className="text-md w-fit text-gray-500 font-normal">Last order: no orders yet</p>
+          <p className="text-md w-fit text-textSecondary font-normal">Last order: no orders yet</p>
         </div>
 
         <div className="flex flex-col w-60">
           <p className="text-md font-semibold text-md">{client.phone} </p>
-          <a href={"mailto: " + client.email} className="text-md text-accent2 underline font-normal">
+          <a href={"mailto: " + client.email} className="text-md text-textAccent underline font-normal">
             {client.email}
           </a>
         </div>
 
         <div className="flex flex-col w-60">
           <p className="font-semibold text-md">{client.address}</p>
-          <p className="text-md w-fit text-gray-500 font-normal">
+          <p className="text-md w-fit text-textSecondary font-normal">
             {" "}
             {client.zip_code} {client.city}
           </p>
@@ -75,12 +75,12 @@ const ClientCard = (props) => {
         <Button method={async () => toggleOptionWindow()} style={"bg-opacity-0 hover:bg-opacity-0"} icon={DotsIcon} />
         {optionWindow ? (
           <div ref={popupRef}>
-            <div className="absolute w-fit h-fit border-[1px] py-4 bg-white rounded-lg -top-1/2 bottom-0 right-10 shadow-lg">
+            <div className="absolute w-fit h-fit border-[1px] py-4 bg-uiPrimary rounded-lg -top-1/2 bottom-0 right-10 shadow-lg">
               <ul>
-                <li onClick={handleDelete} className=" hover:cursor-pointer px-4 w-full hover:bg-bgDark">
+                <li onClick={handleDelete} className=" hover:cursor-pointer px-4 w-full hover:bg-uiPrimary">
                   Delete
                 </li>
-                <li onClick={handleEdit} className=" hover:cursor-pointer px-4 w-full hover:bg-bgDark">
+                <li onClick={handleEdit} className=" hover:cursor-pointer px-4 w-full hover:bg-uiPrimary">
                   Edit
                 </li>
               </ul>

@@ -3,7 +3,6 @@ import { useState, useRef, useEffect } from "react";
 import { removeCookie } from "typescript-cookie";
 import LogoutIcon from "../assets/icons/logoutIcon.svg";
 
-
 const Navbar = () => {
   const navItems = [
     { name: "Dashboard", path: "/" },
@@ -54,7 +53,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex justify-center items-center h-16 bg-white text-black relative shadow-sm px-8">
+    <nav className="flex justify-center items-center h-16 bg-uiPrimary text-textPrimary relative shadow-sm px-8">
       <div className="flex w-full justify-between items-center max-w-screen-xl py-4">
         <ul className="flex gap-10 relative">
           {navItems.map((item, index) => (
@@ -63,10 +62,10 @@ const Navbar = () => {
             </NavLink>
           ))}
         </ul>
-        <div ref={underline} className="h-[2px] w-20 bg-[#1F1F1F] absolute -bottom-[1px] transition-all duration-200" style={{ left: "0px", transition: "transform 0.5s ease, width 0.5s ease" }} />
+        <div ref={underline} className="h-[2px] w-20 bg-uiQuaternary absolute -bottom-[1px] transition-all duration-200" style={{ left: "0px", transition: "transform 0.5s ease, width 0.5s ease" }} />
         <div>
           <p className="flex items-center gap-2 hover:cursor-pointer" onClick={Logout}>
-             Logout <LogoutIcon />
+            Logout <LogoutIcon />
           </p>
         </div>
       </div>
