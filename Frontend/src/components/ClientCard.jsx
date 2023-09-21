@@ -72,7 +72,7 @@ const ClientCard = (props) => {
       </div>
 
       <div className="relative">
-        <Button method={async () => toggleOptionWindow()} style={"bg-opacity-0 hover:bg-opacity-0"} icon={DotsIcon} />
+        <DotsIcon onClick={toggleOptionWindow} strokeWidth="1.5" className="w-6 h-6 cursor-pointer hover:bg-uiTertiary rounded-full" />
         {optionWindow ? (
           <div ref={popupRef}>
             <div className="absolute w-fit h-fit border-[1px] py-4 bg-uiPrimary rounded-lg -top-1/2 bottom-0 right-10 shadow-lg">
