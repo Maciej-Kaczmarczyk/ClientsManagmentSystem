@@ -21,7 +21,7 @@ const Signup = () => {
               method={() => {
                 authService.signup(email, password);
               }}
-              style={"bg-bg-uiAccent w-[100%] hover:brightness-90"}
+              style={"bg-uiAccent w-[100%] hover:brightness-90"}
               text="Sign up"
             />
             <p className=" text-slate-400 text-center">
