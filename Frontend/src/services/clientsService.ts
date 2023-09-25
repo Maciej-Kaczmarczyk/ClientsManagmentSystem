@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getCookie, setCookie } from 'typescript-cookie'
+import { getCookie } from "typescript-cookie";
 
 interface Client {
   firstname: string;
@@ -12,13 +12,13 @@ interface Client {
 }
 
 const api = axios.create({
-  baseURL: 'https://clientsmanagmentsystem.onrender.com/',
+  baseURL: "https://clientsmanagmentsystem.onrender.com/",
   headers: {
-    'Authorization': getCookie("token")
-  }
+    Authorization: getCookie("token"),
+  },
 });
 
-const dbService = {
+const clientsService = {
   getAllClients: async () => {
     return api
       .get("/clients")
@@ -63,4 +63,4 @@ const dbService = {
   },
 };
 
-export default dbService;
+export default clientsService;
