@@ -2,6 +2,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import { removeCookie } from "typescript-cookie";
 import LogoutIcon from "../assets/icons/logoutIcon.svg";
+import authService from "../services/authService";
 
 const Navbar = () => {
   const navItems = [
@@ -47,11 +48,6 @@ const Navbar = () => {
     }
   };
 
-  const Logout = () => {
-    removeCookie("token");
-    window.location.href = "/login";
-  };
-
   return (
     <nav className="flex justify-center items-center h-16 bg-uiPrimary text-textPrimary relative shadow-sm px-8">
       <div className="flex w-full justify-between items-center max-w-screen-xl py-4">
@@ -64,7 +60,7 @@ const Navbar = () => {
         </ul>
         <div ref={underline} className="h-[2px] w-20 bg-uiQuaternary absolute -bottom-[1px] transition-all duration-200" style={{ left: "0px", transition: "transform 0.5s ease, width 0.5s ease" }} />
         <div>
-          <p className="flex items-center gap-2 hover:cursor-pointer" onClick={Logout}>
+          <p className="flex items-center gap-2 hover:cursor-pointer" onClick={authService.logout}>
             Logout <LogoutIcon />
           </p>
         </div>

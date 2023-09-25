@@ -1,6 +1,6 @@
 import axios from "axios";
 import { toast } from "sonner";
-import { setCookie } from "typescript-cookie";
+import { removeCookie, setCookie } from "typescript-cookie";
 
 const authService = {
   login: (email, password) => {
@@ -45,7 +45,11 @@ const authService = {
         console.log(err);
         toast(err.response.data, { type: "error" });
       });
-  }
+  },
+  logout: () => {
+    removeCookie("token");
+    window.location.href = "/login";
+  },
 };
 
 export default authService;
