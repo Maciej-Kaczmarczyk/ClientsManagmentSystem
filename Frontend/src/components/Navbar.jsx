@@ -16,6 +16,7 @@ const Navbar = () => {
   const { pathname } = useLocation();
   const navRef = useRef([]);
 
+  // Update the active navigation element and its underline position when the pathname changes.
   useEffect(() => {
     if (!pathname) return;
     const activeItem = navItems.find((item) => item.path === pathname);
@@ -25,6 +26,7 @@ const Navbar = () => {
     updateUnderlinePosition(width, left);
   }, [pathname]);
 
+  // Update the underline position when the window is resized.
   useEffect(() => {
     const handleResize = () => {
       if (activeElement) {
@@ -36,11 +38,13 @@ const Navbar = () => {
 
     window.addEventListener("resize", handleResize);
 
+    // Clean up the event listener when the component unmounts.
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, [activeElement]);
 
+  // Function to update the underline's width and position.
   const updateUnderlinePosition = (width, left) => {
     if (underline.current) {
       underline.current.style.width = `${width}px`;
@@ -52,12 +56,14 @@ const Navbar = () => {
     <nav className="flex justify-center items-center h-16 bg-uiPrimary text-textPrimary relative shadow-sm px-8">
       <div className="flex w-full justify-between items-center max-w-screen-xl py-4">
         <ul className="flex gap-10 relative">
+          {/* Map through navigation items and create NavLink elements. */}
           {navItems.map((item, index) => (
             <NavLink className="relative" key={index} to={item.path} onClick={updateUnderlinePosition} ref={(el) => (navRef.current[index] = el)}>
               {item.name}
             </NavLink>
           ))}
         </ul>
+        {/* Underline element to indicate the active navigation item. */}
         <div ref={underline} className="h-[2px] w-20 bg-uiQuaternary absolute -bottom-[1px] transition-all duration-200" style={{ left: "0px", transition: "transform 0.5s ease, width 0.5s ease" }} />
         <div>
           <p className="flex items-center gap-2 hover:cursor-pointer" onClick={authService.logout}>
