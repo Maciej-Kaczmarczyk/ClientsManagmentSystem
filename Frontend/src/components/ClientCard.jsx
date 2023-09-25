@@ -77,10 +77,10 @@ const ClientCard = (props) => {
           <div ref={popupRef}>
             <div className="absolute w-fit h-fit border-[1px] py-4 bg-uiPrimary rounded-lg -top-1/2 bottom-0 right-10 shadow-lg">
               <ul>
-                <li onClick={handleDelete} className=" hover:cursor-pointer px-4 w-full hover:bg-uiPrimary">
+                <li onClick={handleDelete} className=" hover:cursor-pointer px-4 w-full hover:bg-uiSecondary">
                   Delete
                 </li>
-                <li onClick={handleEdit} className=" hover:cursor-pointer px-4 w-full hover:bg-uiPrimary">
+                <li onClick={handleEdit} className=" hover:cursor-pointer px-4 w-full hover:bg-uiSecondary">
                   Edit
                 </li>
               </ul>

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ClientCard from "../components/ClientCard";
-import ClientForm from "../components/ClientForm";
 import Button from "../components/Button";
 import { useClientsStore } from "../stores/useClientsStore";
 import { useClientFilter } from "../hooks/useClientFilter";
@@ -34,7 +33,6 @@ function Clients() {
                 </div>
                 <input
                   type="search"
-                  id="default-search"
                   className="block w-full h-10 p-4 pl-10 text-sm duration-200 border-[1px] font-base focus:border-uiAccent focus:outline-none text-textSecondary rounded-lg"
                   placeholder="Search"
                   onChange={(e) => setSearchString(e.target.value)}
@@ -45,7 +43,7 @@ function Clients() {
 
           <div className="w-full lg:w-fit flex items-center justify-between gap-8">
             <Button icon={AddClientIcon} text="Add Client" method={() => toggleClientForm()} style="bg-uiAccent hover:brightness-90 w-36" />
-            <RefreshIcon onClick={fetchClients} className="w-6 h-6 cursor-pointer" />
+            <RefreshIcon onClick={fetchClients} className="w-6 h-6 cursor-pointer hover:bg-uiTertiary rounded-full" />
           </div>
         </div>
 
