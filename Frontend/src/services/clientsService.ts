@@ -14,7 +14,7 @@ interface Client {
 const api = axios.create({
   baseURL: "https://clientsmanagmentsystem.onrender.com/",
   headers: {
-    Authorization: getCookie("token"),
+    Authorization: getCookie("accessToken"),
   },
 });
 
