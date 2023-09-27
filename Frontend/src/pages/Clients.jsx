@@ -42,7 +42,7 @@ function Clients() {
           </div>
         </div>
 
-        <ul className="flex justify-between items-center gap-4 px-8 py-2 bg-uiPrimary ">
+        <ul className="hidden xl:flex justify-between items-center gap-4 px-8 py-2 bg-uiPrimary ">
           <div className="flex items-center justify-center gap-32 text-sm">
             <div className="flex flex-col w-60">
               <p className="w-fit text-textSecondary font-normal">Name</p>

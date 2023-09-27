@@ -8,8 +8,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   return (
-    <div className="w-full h-full flex justify-center items-center">
-      <div className="flex flex-col justify-center items-center rounded-lg border-[1px] pb-1 bg-uiPrimary w-full max-w-[500px] h-fit max-h-[700px] shadow-xl">
+    <div className="lg:w-full lg:h-full flex justify-center items-center overflow-hidden">
+      <div className="flex flex-col justify-center items-center rounded-lg lg:border-[1px] pb-1 bg-uiPrimary w-full max-w-[500px] h-fit max-h-[700px] lg:shadow-xl">
         <div className="flex justify-center items-center gap-8 p-8 w-full py-20">
           <div className="w-full h-full flex flex-col gap-8">
             <h1 className=" text-xl font-bold text-textSecondary">Login to your account</h1>
