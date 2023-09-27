@@ -1,5 +1,6 @@
 import axios from "axios";
-import { getCookie } from "typescript-cookie";
+import api from "../config/axiosConfig";
+import authService from "./authService";
 
 interface Client {
   firstname: string;
@@ -11,15 +12,11 @@ interface Client {
   phone: string;
 }
 
-const api = axios.create({
-  baseURL: "https://clientsmanagmentsystem.onrender.com/",
-  headers: {
-    Authorization: getCookie("accessToken"),
-  },
-});
+
 
 const clientsService = {
   getAllClients: async () => {
+    await authService.refreshToken(); // Refresh token before request
     return api
       .get("/clients")
       .then(function (response) {
@@ -52,7 +49,7 @@ const clientsService = {
       });
   },
   updateClient: async (id: string, Client: Client) => {
-    return api
+    return axios
       .put(`/clients/${id}`, Client)
       .then(function (response) {
         return response;

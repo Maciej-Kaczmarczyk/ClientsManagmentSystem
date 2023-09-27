@@ -13,12 +13,12 @@ function Clients() {
   const [formVisible, setFormVisible] = useState(false);
   const [searchString, setSearchString] = useState("");
 
-  const fetchClients = useClientsStore((state) => state.fetchClients);
-  const isLoading = useClientsStore((state) => state.isLoading);
-  const toggleClientForm = useClientsStore((state) => state.toggleClientForm);
+  const fetchClients = useClientsStore((state) => state.fetchClients); // fetch clients function from store
+  const isLoading = useClientsStore((state) => state.isLoading); // get loading state from store
+  const toggleClientForm = useClientsStore((state) => state.toggleClientForm); // toggle client form
 
-  const clients = useClientsStore((state) => state.clients);
-  const filteredClients = useClientFilter(clients, searchString);
+  const clients = useClientsStore((state) => state.clients); // get clients from store
+  const filteredClients = useClientFilter(clients, searchString); // custom hook for filtering clients
 
   return (
     <>
@@ -31,12 +31,7 @@ function Clients() {
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                   <SearchIcon className="w-5 h-5 text-textTertiary" />
                 </div>
-                <input
-                  type="search"
-                  className="block w-full h-10 p-4 pl-10 text-sm duration-200 border-[1px] font-base focus:border-uiAccent focus:outline-none text-textSecondary rounded-lg"
-                  placeholder="Search"
-                  onChange={(e) => setSearchString(e.target.value)}
-                />
+                <input type="search" className="block w-full h-10 p-4 pl-10 text-sm duration-200 border-[1px] font-base focus:border-uiAccent focus:outline-none text-textSecondary rounded-lg" placeholder="Search" onChange={(e) => setSearchString(e.target.value)} />
               </div>
             </form>
           </div>
@@ -63,17 +58,7 @@ function Clients() {
           </div>
         </ul>
 
-        {isLoading ? (
-          <ClientsListSkeleton />
-        ) : (
-          <ul>
-            {filteredClients ? (
-              filteredClients.map((client) => <ClientCard key={client.email} client={client} fetchClients={fetchClients} toggleForm={() => setFormVisible(!formVisible)} />)
-            ) : (
-              <div className="flex justify-center w-full gap-4 items-center px-8 py-8 bg-uiPrimary rounded-lg">Loading data...</div>
-            )}
-          </ul>
-        )}
+        {isLoading ? <ClientsListSkeleton /> : <ul>{filteredClients ? filteredClients.map((client) => <ClientCard key={client.email} client={client} fetchClients={fetchClients} toggleForm={() => setFormVisible(!formVisible)} />) : <ClientsListSkeleton />}</ul>}
       </div>
     </>
   );

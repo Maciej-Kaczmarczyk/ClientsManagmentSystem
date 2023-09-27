@@ -19,7 +19,7 @@ const Signup = () => {
             </div>
             <Button
               method={() => {
-                authService.signup(email, password);
+                authService.register(email, password);
               }}
               style={"bg-uiAccent w-[100%] hover:brightness-90"}
               text="Sign up"
@@ -27,7 +27,7 @@ const Signup = () => {
             <p className=" text-slate-400 text-center">
               Already have an account?{" "}
               <NavLink to="/login">
-                <span className="font-bold hover:text-bg-uiAccent">Login</span>
+                <span className="font-bold hover:text-textAccent">Login</span>
               </NavLink>
             </p>
           </div>

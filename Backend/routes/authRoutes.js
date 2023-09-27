@@ -5,7 +5,6 @@ const db = require("../services/db");
 
 const router = express.Router();
 
-
 function generateAccessToken(user) {
   return jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
     expiresIn: "15m",
@@ -24,8 +23,7 @@ router.post("/register", async (req, res) => {
       return res.status(401).send("User with given email already exists");
     }
 
-    const result = await db.query("IF NOT EXISTS INSERT INTO users (email, password) VALUES ($1, $2)", [email, hashedPassword]);
-
+    const result = await db.query("INSERT INTO users (email, password) VALUES ($1, $2)", [email, hashedPassword]);
 
     const findedUser = await db.query("SELECT * FROM users WHERE email = $1", [email]);
 
@@ -33,15 +31,14 @@ router.post("/register", async (req, res) => {
     console.log(user);
 
     const accessToken = generateAccessToken(user);
+    const refreshToken = jwt.sign({ id: user.id }, process.env.REFRESH_TOKEN_SECRET);
 
-    res.status(200).json({ accessToken });
+    res.status(200).json({ accessToken, refreshToken });
   } catch (err) {
     console.error(err);
     res.status(500).send("Server error");
   }
 });
-
-
 
 router.post("/login", async (req, res) => {
   try {
@@ -65,7 +62,7 @@ router.post("/login", async (req, res) => {
     const accessToken = generateAccessToken(user);
     const refreshToken = jwt.sign({ id: user.id }, process.env.REFRESH_TOKEN_SECRET);
 
-    res.status(200).json({ accessToken, refreshToken});
+    res.status(200).json({ accessToken, refreshToken });
   } catch (err) {
     console.error(err);
     res.status(500).send("Server error");
@@ -74,8 +71,7 @@ router.post("/login", async (req, res) => {
 
 router.post("/refresh-token", async (req, res) => {
   try {
-    
-    const refreshToken = req.body.refreshToken
+    const refreshToken = req.body.refreshToken;
 
     if (!refreshToken) {
       return res.status(401).send("No refresh token provided");

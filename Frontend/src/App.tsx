@@ -9,13 +9,12 @@ import Login from "./pages/Login";
 import ClientForm from "./components/ClientForm";
 import { getCookie } from "typescript-cookie";
 import Signup from "./pages/Signup";
-import axios from "axios";
 import authService from "./services/authService";
 import { useEffect, useState } from "react";
 
 function App() {
-  const fetchClients = useClientsStore((state) => state.fetchClients);
-  const clientFormVisible = useClientsStore((state) => state.clientFormVisible);
+  const fetchClients = useClientsStore((state) => state.fetchClients); // fetch clients function from store
+  const clientFormVisible = useClientsStore((state) => state.clientFormVisible); // client form visibility from store
 
   const [authenticated, setAuthenticated] = useState(false);
 
@@ -24,19 +23,24 @@ function App() {
     const accessToken = getCookie("accessToken");
     const refreshToken = getCookie("refreshToken");
 
+    // If access token exists, set authenticated to true and fetch clients
     if (accessToken) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
       setAuthenticated(true);
       fetchClients();
-    } else if (refreshToken) {
+    }
+    // If refresh token exists, refresh access token and set authenticated to true
+    else if (refreshToken) {
       authService.refreshToken();
       setAuthenticated(true);
       fetchClients();
-    } else {
+    }
+    // If neither exist, set authenticated to false
+    else {
       setAuthenticated(false);
     }
   }, []);
 
+  // If authenticated, render app
   if (authenticated) {
     return (
       <div className="flex flex-col h-full">
@@ -55,7 +59,9 @@ function App() {
         </BrowserRouter>
       </div>
     );
-  } else
+  }
+  // If not authenticated, render login page
+  else
     return (
       <BrowserRouter>
         <Toaster richColors position="bottom-left" />
