@@ -12,7 +12,9 @@ const authService = {
       })
       .then((res) => {
         if (res.data.accessToken && res.data.refreshToken) {
-          setCookie("accessToken", `${res.data.accessToken}`, { expires: 1 / 96 }); // Set accessToken cookie for 15 min
+          setCookie("accessToken", `${res.data.accessToken}`, {
+            expires: 1 / 96,
+          }); // Set accessToken cookie for 15 min
           setCookie("refreshToken", `${res.data.refreshToken}`, { expires: 1 }); // Set refreshToken cookie for 1 day
           api.defaults.headers.common["Authorization"] = `${res.data.token}`; // Set axios headers
           window.location.href = "/clients";
@@ -35,7 +37,9 @@ const authService = {
       .then((res) => {
         if (res.data.accessToken) {
           setCookie("token", `${res.data.token}`, { expires: 1 }); // Set accessToken cookie for 1 day
-          api.defaults.headers.common["Authorization"] = `${res.data.accessToken}`;
+          api.defaults.headers.common[
+            "Authorization"
+          ] = `${res.data.accessToken}`;
           window.location.href = "/clients";
         } else {
           toast.error("Register Failed");

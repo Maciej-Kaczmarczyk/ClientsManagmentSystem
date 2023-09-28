@@ -8,7 +8,10 @@ const Button = ({ style, method, icon, text }) => {
   };
 
   return (
-    <button className={`${style} flex gap-2 justify-center text-white items-center rounded-lg h-10 px-4 font-semibold `} onClick={handleClick}>
+    <button
+      className={`${style} flex h-10 items-center justify-center gap-2 rounded-lg px-4 font-semibold text-white `}
+      onClick={handleClick}
+    >
       {currentIcon ? currentIcon : null}
 
       {text}
