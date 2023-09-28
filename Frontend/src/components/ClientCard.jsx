@@ -46,25 +46,30 @@ const ClientCard = (props) => {
   }, []);
 
   return (
-    <li className="flex justify-between items-center gap-4 px-8 py-6 border-t-[1px] bg-uiPrimary hover:bg-uiSecondary">
-      <div className="flex flex-wrap items-center xl:justify-center gap-y-8 gap-32">
-        <div className="flex flex-col w-60">
-          <h3 className="font-semibold text-md">
+    <li className="flex items-center justify-between gap-4 border-t-[1px] bg-uiPrimary px-8 py-6 hover:bg-uiSecondary">
+      <div className="flex flex-wrap items-center gap-32 gap-y-8 xl:justify-center">
+        <div className="flex w-60 flex-col">
+          <h3 className="md:text-md font-semibold">
             {client.firstname} {client.lastname}
           </h3>
-          <p className="text-md w-fit text-textSecondary font-normal">Last order: no orders yet</p>
+          <p className="text-md w-fit font-normal text-textSecondary">
+            Last order: no orders yet
+          </p>
         </div>
 
-        <div className="flex flex-col w-60">
-          <p className="text-md font-semibold text-md">{client.phone} </p>
-          <a href={"mailto: " + client.email} className="text-md text-textAccent underline font-normal">
+        <div className="flex w-60 flex-col">
+          <p className="text-md text-md font-semibold">{client.phone} </p>
+          <a
+            href={"mailto: " + client.email}
+            className="text-md font-normal text-textAccent underline"
+          >
             {client.email}
           </a>
         </div>
 
-        <div className="flex flex-col w-60">
-          <p className="font-semibold text-md">{client.address}</p>
-          <p className="text-md w-fit text-textSecondary font-normal">
+        <div className="flex w-60 flex-col">
+          <p className="text-md font-semibold">{client.address}</p>
+          <p className="text-md w-fit font-normal text-textSecondary">
             {" "}
             {client.zip_code} {client.city}
           </p>
@@ -72,15 +77,25 @@ const ClientCard = (props) => {
       </div>
 
       <div className="relative">
-        <DotsIcon onClick={toggleOptionWindow} strokeWidth="1.5" className="w-6 h-6 cursor-pointer hover:bg-uiTertiary rounded-full" />
+        <DotsIcon
+          onClick={toggleOptionWindow}
+          strokeWidth="1.5"
+          className="h-6 w-6 cursor-pointer rounded-full hover:bg-uiTertiary"
+        />
         {optionWindow ? (
           <div ref={popupRef}>
-            <div className="absolute w-fit h-fit border-[1px] py-4 bg-uiPrimary rounded-lg -top-1/2 bottom-0 right-10 shadow-lg">
+            <div className="absolute -top-1/2 bottom-0 right-10 h-fit w-fit rounded-lg border-[1px] bg-uiPrimary py-4 shadow-lg">
               <ul>
-                <li onClick={handleDelete} className=" hover:cursor-pointer px-4 w-full hover:bg-uiSecondary">
+                <li
+                  onClick={handleDelete}
+                  className=" w-full px-4 hover:cursor-pointer hover:bg-uiSecondary"
+                >
                   Delete
                 </li>
-                <li onClick={handleEdit} className=" hover:cursor-pointer px-4 w-full hover:bg-uiSecondary">
+                <li
+                  onClick={handleEdit}
+                  className=" w-full px-4 hover:cursor-pointer hover:bg-uiSecondary"
+                >
                   Edit
                 </li>
               </ul>
