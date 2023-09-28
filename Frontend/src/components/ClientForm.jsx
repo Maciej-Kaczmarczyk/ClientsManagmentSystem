@@ -9,13 +9,21 @@ const ClientForm = () => {
 
   const editMode = selectedClient ? true : false;
 
-  const [firstname, setFirstName] = useState(editMode ? selectedClient.firstname : "");
-  const [lastname, setLastName] = useState(editMode ? selectedClient.lastname : "");
-  const [zip_code, setZipCode] = useState(editMode ? selectedClient.zip_code : "");
+  const [firstname, setFirstName] = useState(
+    editMode ? selectedClient.firstname : "",
+  );
+  const [lastname, setLastName] = useState(
+    editMode ? selectedClient.lastname : "",
+  );
+  const [zip_code, setZipCode] = useState(
+    editMode ? selectedClient.zip_code : "",
+  );
   const [city, setCity] = useState(editMode ? selectedClient.city : "");
   const [phone, setPhone] = useState(editMode ? selectedClient.phone : "");
   const [email, setEmail] = useState(editMode ? selectedClient.email : "");
-  const [address, setAddress] = useState(editMode ? selectedClient.address : "");
+  const [address, setAddress] = useState(
+    editMode ? selectedClient.address : "",
+  );
 
   const [firstNameError, setFirstNameError] = useState("");
   const [lastNameError, setLastNameError] = useState("");
@@ -35,8 +43,10 @@ const ClientForm = () => {
     setAddressError("");
 
     let isValid = true;
-    const emailPattern = /([-!#-'*+/-9=?A-Z^-~]+(\.[-!#-'*+/-9=?A-Z^-~]+)*|"([]!#-[^-~ \t]|(\\[\t -~]))+")@[0-9A-Za-z]([0-9A-Za-z-]{0,61}[0-9A-Za-z])?(\.[0-9A-Za-z]([0-9A-Za-z-]{0,61}[0-9A-Za-z])?)+/;
-    const phonePattern = /^(?<!\w)(\(?(\+|00)?48\)?)?[ -]?\d{3}[ -]?\d{3}[ -]?\d{3}(?!\w)$/;
+    const emailPattern =
+      /([-!#-'*+/-9=?A-Z^-~]+(\.[-!#-'*+/-9=?A-Z^-~]+)*|"([]!#-[^-~ \t]|(\\[\t -~]))+")@[0-9A-Za-z]([0-9A-Za-z-]{0,61}[0-9A-Za-z])?(\.[0-9A-Za-z]([0-9A-Za-z-]{0,61}[0-9A-Za-z])?)+/;
+    const phonePattern =
+      /^(?<!\w)(\(?(\+|00)?48\)?)?[ -]?\d{3}[ -]?\d{3}[ -]?\d{3}(?!\w)$/;
     const zipCodePattern = /^\d{2}-\d{3}$/;
 
     if (firstname.trim().length < 2) {
@@ -106,10 +116,12 @@ const ClientForm = () => {
     toggleClientForm();
   };
   return (
-    <div className="z-10 flex justify-center absolute shadow-xl bg-uiQuaternary bg-opacity-50 w-full h-full py-[10vw] px-[20vw]">
-      <div className="absolute max-w-screen-md h-[500px] flex flex-col justify-between flex-wrap px-8 bg-uiPrimary py-8 rounded-lg duration-200">
-        <div className="flex justify-between w-full">
-          <h3 className="text-3xl font-semibold text-textPrimary">{editMode ? "Edit Client" : "Add Client"}</h3>
+    <div className="absolute z-10 flex h-full w-full justify-center bg-uiQuaternary bg-opacity-50 py-[10vw] shadow-xl md:px-[20vw] ">
+      <div className="flex h-fit max-w-screen-md flex-col flex-wrap justify-between gap-8 rounded-lg bg-uiPrimary px-4 py-12 duration-200 md:absolute md:px-8">
+        <div className="flex w-full justify-between">
+          <h3 className="text-3xl font-semibold text-textPrimary">
+            {editMode ? "Edit Client" : "Add Client"}
+          </h3>
           <svg
             onClick={() => {
               toggleClientForm();
@@ -120,14 +132,18 @@ const ClientForm = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6 hover:cursor-pointer hover:bg-uiTertiary rounded-full"
+            className="h-6 w-6 rounded-full hover:cursor-pointer hover:bg-uiTertiary"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
           </svg>
         </div>
-        <div className="flex flex-wrap justify-between w-full gap-8">
-          <div className="flex w-full justify-between gap-4">
-            <div className="w-1/2">
+        <div className="flex w-full flex-wrap justify-between gap-8">
+          <div className="flex w-full flex-col justify-between gap-2 md:gap-4 md:flex-row">
+            <div className="md:w-1/2">
               <input
                 onChange={(e) => {
                   setFirstName(e.target.value);
@@ -135,14 +151,18 @@ const ClientForm = () => {
                 type="text"
                 name="firstname"
                 id="firstname"
-                className={`w-full h-10 rounded-lg border-2 focus:outline-none focus:border-uiAccent px-4 font-base text-textPrimary duration-200 ${firstNameError && "border-uiError"}`}
+                className={`font-base h-10 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:border-uiAccent focus:outline-none ${
+                  firstNameError && "border-uiError"
+                }`}
                 placeholder="First Name"
                 defaultValue={selectedClient ? selectedClient.firstname : ""}
               />
-              {firstNameError && <p className="text-uiError text-sm">{firstNameError}</p>}
+              {firstNameError && (
+                <p className="text-sm text-uiError">{firstNameError}</p>
+              )}
             </div>
 
-            <div className="w-1/2">
+            <div className="md:w-1/2">
               <input
                 onChange={(e) => {
                   setLastName(e.target.value);
@@ -151,15 +171,19 @@ const ClientForm = () => {
                 type="text"
                 name="firstname"
                 id="firstname"
-                className={`w-full h-10 rounded-lg border-2 focus:outline-none focus:border-uiAccent px-4 font-base text-textPrimary duration-200 ${lastNameError && "border-uiError"}`}
+                className={`font-base h-10 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:border-uiAccent focus:outline-none ${
+                  lastNameError && "border-uiError"
+                }`}
                 placeholder="Last Name"
               />
-              {lastNameError && <p className="text-uiError text-sm">{lastNameError}</p>}
+              {lastNameError && (
+                <p className="text-sm text-uiError">{lastNameError}</p>
+              )}
             </div>
           </div>
 
-          <div className="flex w-full gap-4">
-            <div className="w-1/2">
+          <div className="flex w-full flex-col gap-2 md:gap-4 md:flex-row">
+            <div className="md:w-1/2">
               <input
                 onChange={(e) => {
                   setAddress(e.target.value);
@@ -168,12 +192,16 @@ const ClientForm = () => {
                 type="text"
                 name="firstname"
                 id="firstname"
-                className={`w-full h-10 rounded-lg border-2 focus:outline-none focus:border-uiAccent px-4 font-base text-textPrimary duration-200 ${addressError && "border-uiError"}`}
+                className={`font-base h-10 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:border-uiAccent focus:outline-none ${
+                  addressError && "border-uiError"
+                }`}
                 placeholder="Address"
               />
-              {addressError && <p className="text-uiError text-sm">{addressError}</p>}
+              {addressError && (
+                <p className="text-sm text-uiError">{addressError}</p>
+              )}
             </div>
-            <div className="flex justify-between gap-4 w-1/2">
+            <div className="flex justify-between gap-2 md:gap-4 md:w-1/2">
               <div className="w-1/2">
                 <input
                   onChange={(e) => {
@@ -183,10 +211,14 @@ const ClientForm = () => {
                   type="text"
                   name="firstname"
                   id="firstname"
-                  className={`w-full h-10 rounded-lg border-2 focus:outline-none focus:border-uiAccent px-4 font-base text-textPrimary duration-200 ${cityError && "border-uiError"}`}
+                  className={`font-base h-10 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:border-uiAccent focus:outline-none ${
+                    cityError && "border-uiError"
+                  }`}
                   placeholder="City"
                 />
-                {cityError && <p className="text-uiError text-sm">{cityError}</p>}
+                {cityError && (
+                  <p className="text-sm text-uiError">{cityError}</p>
+                )}
               </div>
               <div className="w-1/2">
                 <input
@@ -197,16 +229,20 @@ const ClientForm = () => {
                   type="text"
                   name="firstname"
                   id="firstname"
-                  className={`w-full h-10 rounded-lg border-2 focus:outline-none focus:border-uiAccent px-4 font-base text-textPrimary duration-200 ${zipCodeError && "border-uiError"}`}
+                  className={`font-base h-10 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:border-uiAccent focus:outline-none ${
+                    zipCodeError && "border-uiError"
+                  }`}
                   placeholder="Zip Code"
                 />
-                {zipCodeError && <p className="text-uiError text-sm">{zipCodeError}</p>}
+                {zipCodeError && (
+                  <p className="text-sm text-uiError">{zipCodeError}</p>
+                )}
               </div>
             </div>
           </div>
 
-          <div className="flex w-full justify-between gap-4">
-            <div className="w-1/2">
+          <div className="flex w-full flex-col justify-between gap-2 md:gap-4 md:flex-row">
+            <div className="md:w-1/2">
               <input
                 onChange={(e) => {
                   setPhone(e.target.value);
@@ -215,13 +251,17 @@ const ClientForm = () => {
                 type="text"
                 name="firstname"
                 id="firstname"
-                className={`w-full h-10 rounded-lg border-2 focus:outline-none focus:border-uiAccent px-4 font-base text-textPrimary duration-200 ${phoneError && "border-uiError"}`}
+                className={`font-base h-10 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:border-uiAccent focus:outline-none ${
+                  phoneError && "border-uiError"
+                }`}
                 placeholder="Phone Number"
               />
-              {phoneError && <p className="text-uiError text-sm">{phoneError}</p>}
+              {phoneError && (
+                <p className="text-sm text-uiError">{phoneError}</p>
+              )}
             </div>
 
-            <div className="w-1/2">
+            <div className="md:w-1/2">
               <input
                 onChange={(e) => {
                   setEmail(e.target.value);
@@ -230,14 +270,22 @@ const ClientForm = () => {
                 type="text"
                 name="firstname"
                 id="firstname"
-                className={`w-full h-10 rounded-lg border-2 focus:outline-none focus:border-uiAccent px-4 font-base text-textPrimary duration-200 ${emailError && "border-uiError"}`}
+                className={`font-base h-10 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:border-uiAccent focus:outline-none ${
+                  emailError && "border-uiError"
+                }`}
                 placeholder="Email"
               />
-              {emailError && <p className="text-uiError text-sm">{emailError}</p>}
+              {emailError && (
+                <p className="text-sm text-uiError">{emailError}</p>
+              )}
             </div>
           </div>
         </div>
-        <Button method={saveClient} style={"bg-uiAccent w-[100%] hover:brightness-90"} text={editMode ? "Edit Client" : "Add Client"} />
+        <Button
+          method={saveClient}
+          style={"bg-uiAccent w-[100%] hover:brightness-90"}
+          text={editMode ? "Edit Client" : "Add Client"}
+        />
       </div>
     </div>
   );
