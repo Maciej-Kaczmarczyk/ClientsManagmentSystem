@@ -4,7 +4,7 @@ import { removeCookie, setCookie, getCookie } from "typescript-cookie";
 
 const authService = {
   login: async (email, password) => {
-    toast("Logging in...", { type: "info" });
+    const loginLoadingToast = toast("Logging in...", { type: "info", duration: 10000, });
     api
       .post("/login", {
         email: email,
@@ -18,11 +18,13 @@ const authService = {
           setCookie("refreshToken", `${res.data.refreshToken}`, { expires: 1 }); // Set refreshToken cookie for 1 day
           api.defaults.headers.common["Authorization"] = `${res.data.token}`; // Set axios headers
           window.location.href = "/clients";
+          toast.dismiss(loginLoadingToast);
           toast("Logged in successfully", { type: "success" });
         }
       })
       .catch((err) => {
         console.log(err);
+        toast.dismiss(loginLoadingToast);
         toast(err.response.data, { type: "error" });
       });
   },

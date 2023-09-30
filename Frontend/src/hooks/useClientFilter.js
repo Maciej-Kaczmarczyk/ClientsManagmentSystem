@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
 
+/**
+ * A custom hook that filters an array of clients based on a search string.
+ */
+
 export const useClientFilter = (clients, searchString) => {
   const [filteredClients, setFilteredClients] = useState([]);
 

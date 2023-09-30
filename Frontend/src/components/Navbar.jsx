@@ -58,23 +58,25 @@ const Navbar = () => {
 
   return (
     <nav className="relative flex h-16 items-center justify-center bg-uiPrimary px-8 text-textPrimary shadow-sm">
-      <div className="flex w-full max-w-screen-xl items-center justify-between py-4">
+      <ul className="flex w-full max-w-screen-xl items-center justify-between py-4">
         <ul className="relative flex gap-10 text-sm sm:text-base">
           {/* Map through navigation items and create NavLink elements. */}
           {navItems.map((item, index) => (
-            <NavLink
-              className="relative"
-              key={index}
-              to={item.path}
-              onClick={updateUnderlinePosition}
-              ref={(el) => (navRef.current[index] = el)}
-            >
-              {item.name}
-            </NavLink>
+            <li>
+              <NavLink
+                className="relative"
+                key={index}
+                to={item.path}
+                onClick={updateUnderlinePosition}
+                ref={(el) => (navRef.current[index] = el)}
+              >
+                {item.name}
+              </NavLink>
+            </li>
           ))}
         </ul>
         {/* Underline element to indicate the active navigation item. */}
-        <div
+        <li
           ref={underline}
           className="absolute -bottom-[1px] h-[2px] w-20 bg-uiQuaternary transition-all duration-200"
           style={{
@@ -82,7 +84,7 @@ const Navbar = () => {
             transition: "transform 0.5s ease, width 0.5s ease",
           }}
         />
-        <div
+        <li
           className="flex items-center gap-2 hover:cursor-pointer"
           onClick={authService.logout}
         >
@@ -90,8 +92,8 @@ const Navbar = () => {
             Logout
           </p>
           <LogoutIcon />
-        </div>
-      </div>
+        </li>
+      </ul>
     </nav>
   );
 };
