@@ -4,7 +4,7 @@ import { removeCookie, setCookie, getCookie } from "typescript-cookie";
 
 const authService = {
   login: async (email, password) => {
-    toast("Logging in...", { type: "info" });
+    const loginLoadingToast = toast("Logging in...", { type: "info", duration: 10000, });
     api
       .post("/login", {
         email: email,
@@ -12,15 +12,19 @@ const authService = {
       })
       .then((res) => {
         if (res.data.accessToken && res.data.refreshToken) {
-          setCookie("accessToken", `${res.data.accessToken}`, { expires: 1 / 96 }); // Set accessToken cookie for 15 min
+          setCookie("accessToken", `${res.data.accessToken}`, {
+            expires: 1 / 96,
+          }); // Set accessToken cookie for 15 min
           setCookie("refreshToken", `${res.data.refreshToken}`, { expires: 1 }); // Set refreshToken cookie for 1 day
           api.defaults.headers.common["Authorization"] = `${res.data.token}`; // Set axios headers
           window.location.href = "/clients";
+          toast.dismiss(loginLoadingToast);
           toast("Logged in successfully", { type: "success" });
         }
       })
       .catch((err) => {
         console.log(err);
+        toast.dismiss(loginLoadingToast);
         toast(err.response.data, { type: "error" });
       });
   },
@@ -35,7 +39,9 @@ const authService = {
       .then((res) => {
         if (res.data.accessToken) {
           setCookie("token", `${res.data.token}`, { expires: 1 }); // Set accessToken cookie for 1 day
-          api.defaults.headers.common["Authorization"] = `${res.data.accessToken}`;
+          api.defaults.headers.common[
+            "Authorization"
+          ] = `${res.data.accessToken}`;
           window.location.href = "/clients";
         } else {
           toast.error("Register Failed");

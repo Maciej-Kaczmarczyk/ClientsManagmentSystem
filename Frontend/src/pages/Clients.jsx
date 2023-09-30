@@ -22,43 +22,75 @@ function Clients() {
 
   return (
     <>
-      <div className="flex flex-col rounded-lg border-[1px] pb-1 bg-uiPrimary w-full max-w-screen-xl">
-        <div className="flex flex-col lg:flex-row justify-between items-center gap-8 p-8 w-full h-1/2">
-          <div className="w-full flex gap-8">
+      <div className="flex w-full max-w-screen-xl flex-col rounded-lg border-[1px] bg-uiPrimary pb-1">
+        <div className="flex h-1/2 w-full flex-col items-center justify-between gap-8 p-8 lg:flex-row">
+          <div className="flex w-full gap-8">
             <form className="w-full lg:w-1/2">
-              <label className="mb-2 text-sm font-medium sr-only dark:text-white">Search</label>
+              <label className="sr-only mb-2 text-sm font-medium dark:text-white">
+                Search
+              </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                  <SearchIcon className="w-5 h-5 text-textTertiary" />
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                  <SearchIcon className="h-5 w-5 text-textTertiary" />
                 </div>
-                <input type="search" className="block w-full h-10 p-4 pl-10 text-sm duration-200 border-[1px] font-base focus:border-uiAccent focus:outline-none text-textSecondary rounded-lg" placeholder="Search" onChange={(e) => setSearchString(e.target.value)} />
+                <input
+                  type="search"
+                  className="font-base block h-10 w-full rounded-lg border-[1px] p-4 pl-10 text-sm text-textSecondary duration-200 focus:border-uiAccent focus:outline-none"
+                  placeholder="Search"
+                  onChange={(e) => setSearchString(e.target.value)}
+                />
               </div>
             </form>
           </div>
 
-          <div className="w-full lg:w-fit flex items-center justify-between gap-8">
-            <Button icon={AddClientIcon} text="Add Client" method={() => toggleClientForm()} style="bg-uiAccent hover:brightness-90 w-36" />
-            <RefreshIcon onClick={fetchClients} className="w-6 h-6 cursor-pointer hover:bg-uiTertiary rounded-full" />
+          <div className="flex w-full items-center justify-between gap-8 lg:w-fit">
+            <Button
+              icon={AddClientIcon}
+              text="Add Client"
+              method={() => toggleClientForm()}
+              style="bg-uiAccent hover:brightness-90 w-36"
+            />
+            <RefreshIcon
+              onClick={fetchClients}
+              className="h-6 w-6 cursor-pointer rounded-full hover:bg-uiTertiary"
+            />
           </div>
         </div>
 
-        <ul className="hidden xl:flex justify-between items-center gap-4 px-8 py-2 bg-uiPrimary ">
+        <ul className="hidden items-center justify-between gap-4 bg-uiPrimary px-8 py-2 xl:flex ">
           <div className="flex items-center justify-center gap-32 text-sm">
-            <div className="flex flex-col w-60">
-              <p className="w-fit text-textSecondary font-normal">Name</p>
+            <div className="flex w-60 flex-col">
+              <p className="w-fit font-normal text-textSecondary">Name</p>
             </div>
 
-            <div className="flex flex-col w-60">
-              <p className="w-fit text-textSecondary font-normal">Contact</p>
+            <div className="flex w-60 flex-col">
+              <p className="w-fit font-normal text-textSecondary">Contact</p>
             </div>
 
-            <div className="flex flex-col w-60">
-              <p className="w-fit text-textSecondary font-md">Address</p>
+            <div className="flex w-60 flex-col">
+              <p className="font-md w-fit text-textSecondary">Address</p>
             </div>
           </div>
         </ul>
 
-        {isLoading ? <ClientsListSkeleton /> : <ul>{filteredClients ? filteredClients.map((client) => <ClientCard key={client.email} client={client} fetchClients={fetchClients} toggleForm={() => setFormVisible(!formVisible)} />) : <ClientsListSkeleton />}</ul>}
+        {isLoading ? (
+          <ClientsListSkeleton />
+        ) : (
+          <ul>
+            {filteredClients ? (
+              filteredClients.map((client) => (
+                <ClientCard
+                  key={client.email}
+                  client={client}
+                  fetchClients={fetchClients}
+                  toggleForm={() => setFormVisible(!formVisible)}
+                />
+              ))
+            ) : (
+              <ClientsListSkeleton />
+            )}
+          </ul>
+        )}
       </div>
     </>
   );

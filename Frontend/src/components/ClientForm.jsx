@@ -142,7 +142,7 @@ const ClientForm = () => {
           </svg>
         </div>
         <div className="flex w-full flex-wrap justify-between gap-8">
-          <div className="flex w-full flex-col justify-between gap-2 md:gap-4 md:flex-row">
+          <div className="flex w-full flex-col justify-between gap-2 md:flex-row md:gap-4">
             <div className="md:w-1/2">
               <input
                 onChange={(e) => {
@@ -182,7 +182,7 @@ const ClientForm = () => {
             </div>
           </div>
 
-          <div className="flex w-full flex-col gap-2 md:gap-4 md:flex-row">
+          <div className="flex w-full flex-col gap-2 md:flex-row md:gap-4">
             <div className="md:w-1/2">
               <input
                 onChange={(e) => {
@@ -201,7 +201,7 @@ const ClientForm = () => {
                 <p className="text-sm text-uiError">{addressError}</p>
               )}
             </div>
-            <div className="flex justify-between gap-2 md:gap-4 md:w-1/2">
+            <div className="flex justify-between gap-2 md:w-1/2 md:gap-4">
               <div className="w-1/2">
                 <input
                   onChange={(e) => {
@@ -241,7 +241,7 @@ const ClientForm = () => {
             </div>
           </div>
 
-          <div className="flex w-full flex-col justify-between gap-2 md:gap-4 md:flex-row">
+          <div className="flex w-full flex-col justify-between gap-2 md:flex-row md:gap-4">
             <div className="md:w-1/2">
               <input
                 onChange={(e) => {

@@ -12,8 +12,6 @@ interface Client {
   phone: string;
 }
 
-
-
 const clientsService = {
   getAllClients: async () => {
     await authService.refreshToken(); // Refresh token before request
