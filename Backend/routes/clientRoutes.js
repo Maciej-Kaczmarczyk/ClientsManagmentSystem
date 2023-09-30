@@ -26,7 +26,8 @@ router.get("/", verifyToken, async (req, res) => {
 router.post("/", verifyToken, async (req, res) => {
   try {
     const { firstname, lastname, address, city, zip_code, email, phone } = req.body;
-    await db.query("INSERT INTO clients (firstname, lastname, address, city, zip_code, email, phone) VALUES ($1, $2, $3, $4, $5, $6, $7)", [
+    // Use CURRENT_DATE to insert the current date into join_date
+    await db.query("INSERT INTO clients (firstname, lastname, address, city, zip_code, email, phone, join_date) VALUES ($1, $2, $3, $4, $5, $6, $7, CURRENT_DATE)", [
       firstname,
       lastname,
       address,
