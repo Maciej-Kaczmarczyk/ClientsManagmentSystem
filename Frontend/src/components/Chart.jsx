@@ -19,12 +19,12 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
 );
 
 const Chart = () => {
   // Get clients data from the store
-  const clients = useClientsStore((state) => state.clients);
+  const { clients } = useClientsStore();
 
   // Get the month of each client's join date and store it in an array like [1, 1, 1, 2, 2, 2, 3, 3, 3 ...] where 0 is January, 1 is February, 2 is March and so on
   const joinMonths = clients.map((client) =>

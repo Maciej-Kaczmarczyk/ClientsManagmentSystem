@@ -13,18 +13,16 @@ function Clients() {
   const [formVisible, setFormVisible] = useState(false);
   const [searchString, setSearchString] = useState("");
 
-  const fetchClients = useClientsStore((state) => state.fetchClients); // fetch clients function from store
-  const isLoading = useClientsStore((state) => state.isLoading); // get loading state from store
-  const toggleClientForm = useClientsStore((state) => state.toggleClientForm); // toggle client form
+  // fetch clients function from store
+  const { clients, fetchClients, isLoading, toggleClientForm } =
+    useClientsStore();
 
-  const clients = useClientsStore((state) => state.clients); // get clients from store
   const filteredClients = useClientFilter(clients, searchString); // custom hook for filtering clients
 
   return (
     <>
       <div className="flex w-full max-w-screen-xl flex-col rounded-lg bg-uiPrimary pb-1">
         <div className="flex h-1/2 w-full flex-col items-center justify-between gap-8 p-8 lg:flex-row">
-          
           <div className="flex w-full gap-8">
             <div className="w-full lg:w-1/2">
               <label className="sr-only mb-2 text-sm font-medium dark:text-white">

@@ -20,8 +20,8 @@ import { useEffect, useState } from "react";
 import Layout from "./components/Layout";
 
 function App() {
-  const fetchClients = useClientsStore((state) => state.fetchClients); // fetch clients function from store
-  const clientFormVisible = useClientsStore((state) => state.clientFormVisible); // client form visibility from store
+  // access the client store and get the fetchClients function and clientFormVisible state
+  const { fetchClients, clientFormVisible } = useClientsStore();
 
   const [authenticated, setAuthenticated] = useState(false);
 
