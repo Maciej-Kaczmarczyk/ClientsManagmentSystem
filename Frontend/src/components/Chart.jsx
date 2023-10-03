@@ -69,7 +69,7 @@ const Chart = () => {
         label: "New clients per month",
         data: resultArray,
         borderColor: "#5A7EFF",
-        tension: 0.1,
+        tension: 0.03,
       },
     ],
   };
@@ -81,6 +81,15 @@ const Chart = () => {
         title: {
           display: true,
           text: "Number of clients",
+          font: function (context) {
+            var avgSize = Math.round((context.chart.height + context.chart.width) / 2);
+            var size = Math.round(avgSize / 32);
+            size = size > 20 ? 20 : size;
+            return {
+                size: size,
+                weight: 'bold'
+            };
+        },
           padding: { top: 0, left: 0, right: 0, bottom: 20 },
         },
         ticks: {
@@ -91,6 +100,15 @@ const Chart = () => {
         title: {
           display: true,
           text: "Month",
+          font: function (context) {
+            var avgSize = Math.round((context.chart.height + context.chart.width) / 2);
+            var size = Math.round(avgSize / 32);
+            size = size > 20 ? 20 : size;
+            return {
+                size: size,
+                weight: 'bold'
+            };
+        },
           padding: { top: 20, left: 0, right: 0, bottom: 0 },
         },
       },
