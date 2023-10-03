@@ -6,6 +6,15 @@ import authService from "../services/authService";
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [password_confirmation, setConfirmPassword] = useState("");
+
+  const handleSubmit = () => {
+    if (password !== password_confirmation) {
+      alert("Passwords do not match");
+      return;
+    }
+    authService.login(email, password);
+  };
 
   return (
     <div className="flex items-center justify-center overflow-hidden lg:h-full lg:w-full">
@@ -29,6 +38,14 @@ const Signup = () => {
                 autoComplete="on"
                 className={`font-base h-14 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:border-uiAccent focus:outline-none `}
                 placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <input
+                type="password"
+                name="password_confirmation"
+                autoComplete="on"
+                className={`font-base h-14 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:border-uiAccent focus:outline-none `}
+                placeholder="Confirm Password"
                 onChange={(e) => setPassword(e.target.value)}
               />
               <Button
