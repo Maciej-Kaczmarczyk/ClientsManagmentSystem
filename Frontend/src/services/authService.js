@@ -4,7 +4,7 @@ import { removeCookie, setCookie, getCookie } from "typescript-cookie";
 
 const authService = {
   login: async (email, password) => {
-    const loginLoadingToast = toast("Logging in...", { type: "info", duration: 10000, });
+    const loginLoadingToast = toast("Logging in...", { type: "info", duration: 20000, });
     api
       .post("/login", {
         email: email,
@@ -30,7 +30,7 @@ const authService = {
   },
 
   register: async (email, password) => {
-    toast("Trying to register...", { type: "info" });
+    const registerLoadingToast = toast("Logging in...", { type: "info", duration: 20000, });
     api
       .post("/register", {
         email: email,
@@ -44,6 +44,7 @@ const authService = {
           ] = `${res.data.accessToken}`;
           window.location.href = "/clients";
         } else {
+          toast.dismiss(registerLoadingToast);
           toast.error("Register Failed");
           console.log(res);
         }

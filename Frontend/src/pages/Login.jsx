@@ -15,30 +15,33 @@ const Login = () => {
             <h1 className=" text-xl font-bold text-textSecondary">
               Login to your account
             </h1>
-            <div className="flex flex-col gap-6">
+            <form className="flex flex-col gap-6">
               <input
                 type="email"
-                name="Email"
+                name="email"
                 className={`font-base h-14 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:border-uiAccent focus:outline-none `}
                 placeholder="Email"
                 onChange={(e) => setEmail(e.target.value)}
               />
               <input
                 type="password"
-                name="Password"
+                name="password"
+                autoComplete="on"
                 className={`font-base h-14 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:border-uiAccent focus:outline-none `}
                 placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
               />
               <p className=" pl-5 text-textTertiary">forgot password?</p>
-            </div>
-            <Button
-              method={() => {
-                authService.login(email, password);
-              }}
-              style={"bg-uiAccent w-[100%] hover:brightness-90"}
-              text="Login"
-            />
+              <Button
+                method={() => {
+                  authService.login(email, password);
+                }}
+                style="bg-uiAccent w-[100%] hover:brightness-90"
+                text="Login"
+                type="submit"
+              />
+            </form>
+
             <p className=" text-center text-textTertiary">
               Don't hava an account?{" "}
               <NavLink to="/signup">

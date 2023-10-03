@@ -62,10 +62,9 @@ const Navbar = () => {
         <ul className="relative flex gap-10 text-sm sm:text-base">
           {/* Map through navigation items and create NavLink elements. */}
           {navItems.map((item, index) => (
-            <li>
+            <li key={index}>
               <NavLink
                 className="relative"
-                key={index}
                 to={item.path}
                 onClick={updateUnderlinePosition}
                 ref={(el) => (navRef.current[index] = el)}

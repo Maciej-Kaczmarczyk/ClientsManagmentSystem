@@ -15,29 +15,31 @@ const Signup = () => {
             <h1 className=" text-xl font-bold text-textSecondary">
               Create your account
             </h1>
-            <div className="flex flex-col gap-6">
+            <form className="flex flex-col gap-6">
               <input
                 type="email"
-                name="Email"
-                className={`focus:border-bg-uiAccent font-base h-14 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:outline-none `}
+                name="email"
+                className={`font-base h-14 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:border-uiAccent focus:outline-none `}
                 placeholder="Email"
                 onChange={(e) => setEmail(e.target.value)}
               />
               <input
                 type="password"
-                name="Password"
-                className={`focus:border-bg-uiAccent font-base h-14 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:outline-none `}
+                name="password"
+                autoComplete="on"
+                className={`font-base h-14 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:border-uiAccent focus:outline-none `}
                 placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
               />
-            </div>
-            <Button
-              method={() => {
-                authService.register(email, password);
-              }}
-              style={"bg-uiAccent w-[100%] hover:brightness-90"}
-              text="Sign up"
-            />
+              <Button
+                method={() => {
+                  authService.login(email, password);
+                }}
+                style="bg-uiAccent w-[100%] hover:brightness-90"
+                text="Sign In"
+                type="submit"
+              />
+            </form>
             <p className=" text-center text-slate-400">
               Already have an account?{" "}
               <NavLink to="/login">

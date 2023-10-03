@@ -1,4 +1,10 @@
-import { BrowserRouter, Navigate, Route, Router, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Router,
+  Routes,
+} from "react-router-dom";
 import Clients from "./pages/Clients";
 import Navbar from "./components/Navbar";
 import Orders from "./pages/Orders";
@@ -11,6 +17,7 @@ import { getCookie } from "typescript-cookie";
 import Signup from "./pages/Signup";
 import authService from "./services/authService";
 import { useEffect, useState } from "react";
+import Layout from "./components/Layout";
 
 function App() {
   const fetchClients = useClientsStore((state) => state.fetchClients); // fetch clients function from store
@@ -43,19 +50,18 @@ function App() {
   // If authenticated, render app
   if (authenticated) {
     return (
-      <div className="flex flex-col h-full">
+      <div className="flex h-full flex-col">
         <BrowserRouter>
           <Navbar />
           <Toaster richColors position="bottom-left" />
           {clientFormVisible ? <ClientForm /> : null}
-          <div className="flex flex-col items-center md:p-8 gap-8 w-full h-full bg-uiSecondary overflow-y-scroll">
+          <Layout>
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/clients" element={<Clients />} />
               <Route path="/orders" element={<Orders />} />
-              <Route path="/login" element={<Login />} />
             </Routes>
-          </div>
+          </Layout>
         </BrowserRouter>
       </div>
     );

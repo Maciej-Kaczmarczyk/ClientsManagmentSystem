@@ -22,10 +22,11 @@ function Clients() {
 
   return (
     <>
-      <div className="flex w-full max-w-screen-xl flex-col rounded-lg border-[1px] bg-uiPrimary pb-1">
+      <div className="flex w-full max-w-screen-xl flex-col rounded-lg bg-uiPrimary pb-1">
         <div className="flex h-1/2 w-full flex-col items-center justify-between gap-8 p-8 lg:flex-row">
+          
           <div className="flex w-full gap-8">
-            <form className="w-full lg:w-1/2">
+            <div className="w-full lg:w-1/2">
               <label className="sr-only mb-2 text-sm font-medium dark:text-white">
                 Search
               </label>
@@ -40,7 +41,7 @@ function Clients() {
                   onChange={(e) => setSearchString(e.target.value)}
                 />
               </div>
-            </form>
+            </div>
           </div>
 
           <div className="flex w-full items-center justify-between gap-8 lg:w-fit">
