@@ -1,7 +1,7 @@
 describe('Clients Operations', () => {
 
   beforeEach(() => {
-    cy.visit('https://clients-managment-system.vercel.app/')
+    cy.visit('http://localhost:5173/')
     cy.get('input[name="email"]').type('admin');
     cy.get('input[name="password"]').type('admin');
     cy.get('button').click();
