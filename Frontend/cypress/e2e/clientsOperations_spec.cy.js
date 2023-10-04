@@ -1,7 +1,7 @@
 describe('Clients Operations', () => {
 
   beforeEach(() => {
-    cy.visit('https://clients-managment-system.vercel.app/')
+    cy.visit('http://localhost:5173/')
     cy.get('input[name="email"]').type('admin');
     cy.get('input[name="password"]').type('admin');
     cy.get('button').click();
@@ -14,9 +14,9 @@ describe('Clients Operations', () => {
     cy.get('input[placeholder="Last Name"]').type('Test');
     cy.get('input[placeholder="Address"]').type('Test 123');
     cy.get('input[placeholder="City"]').type('Test');
-    cy.get('input[placeholder="Zip Code"]').type('12-345');
+    cy.get('input[placeholder="Zip Code"]').type('11-222');
     cy.get('input[placeholder="Phone Number"]').type('123456789');
-    cy.get('input[placeholder="Email"]').type('test.test@test.test');
+    cy.get('input[placeholder="Email"]').type('test.test@test.com');
     cy.get('button').contains("Add Client").click();
     cy.get('a').contains('test.test@test.test').should('exist')
   })
