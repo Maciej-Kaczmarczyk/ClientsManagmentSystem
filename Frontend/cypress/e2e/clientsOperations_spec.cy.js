@@ -16,7 +16,7 @@ describe('Clients Operations', () => {
     cy.get('input[placeholder="City"]').type('Test');
     cy.get('input[placeholder="Zip Code"]').type('11-222');
     cy.get('input[placeholder="Phone Number"]').type('123456789');
-    cy.get('input[placeholder="Email"]').type('test.test@test.test');
+    cy.get('input[placeholder="Email"]').type('test.test@test.com');
     cy.get('button').contains("Add Client").click();
     cy.get('a').contains('test.test@test.test').should('exist')
   })
