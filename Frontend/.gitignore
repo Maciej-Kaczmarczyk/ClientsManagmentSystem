@@ -23,8 +23,3 @@ dist-ssr
 *.sln
 *.sw?
 
-# Ignore all files and directories
-*
-
-# Allow the cypress folder to be committed
-!cypress
