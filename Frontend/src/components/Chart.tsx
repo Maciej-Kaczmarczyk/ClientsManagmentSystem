@@ -10,6 +10,7 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import { useClientsStore } from "../stores/useClientsStore";
+import { Client } from "../types/types";
 
 // Register ChartJS plugins
 ChartJS.register(
@@ -27,15 +28,15 @@ const Chart = () => {
   const { clients } = useClientsStore();
 
   // Get the month of each client's join date and store it in an array like [1, 1, 1, 2, 2, 2, 3, 3, 3 ...] where 0 is January, 1 is February, 2 is March and so on
-  const joinMonths = clients.map((client) =>
+  const joinMonths = clients.map((client: Client) =>
     new Date(client.join_date).getMonth(),
   );
 
   // Sum the number of clients per month and store it in an array where the index is the month and the value is the number of clients in that month like [0, 3, 5, 2, 0, 0, 0, 0, 0, 0, 0, 0] where 0 is January, 1 is February, 2 is March and so on
-  const sumUniqueNumbers = (numbers) => {
+  const sumUniqueNumbers = (numberOfClientsArray: Array<12>) => {
     const result = Array.from({ length: 12 }, () => 0);
 
-    for (const number of numbers) {
+    for (const number of numberOfClientsArray) {
       if (number >= 0 && number <= 12) {
         result[number]++;
       }
@@ -67,21 +68,21 @@ const Chart = () => {
     datasets: [
       {
         label: "New clients per month",
-        data: [12, 21,24, 32, 18, 5, 12, 21, 24, 32, 18, 5],
+        data: resultArray,
         borderColor: "#5A7EFF",
         tension: 0.03,
       },
     ],
   };
 
-  const options = {
+  const options: any = {
     responsive: true,
     scales: {
       y: {
         title: {
           display: true,
           text: "Number of clients",
-          font: function (context) {
+          font: function (context: any) {
             var avgSize = Math.round((context.chart.height + context.chart.width) / 2);
             var size = Math.round(avgSize / 32);
             size = size > 20 ? 20 : size;
@@ -101,7 +102,7 @@ const Chart = () => {
         title: {
           display: true,
           text: "Month",
-          font: function (context) {
+          font: function (context: any) {
             var avgSize = Math.round((context.chart.height + context.chart.width) / 2);
             var size = Math.round(avgSize / 32);
             size = size > 20 ? 20 : size;

@@ -5,7 +5,10 @@ import { Client } from "../types/types";
  * A custom hook that filters an array of clients based on a search string.
  */
 
-export const useClientFilter = (clientsArray: Array<Client>, searchString: string) => {
+export const useClientFilter = (
+  clientsArray: Array<Client>,
+  searchString: string,
+) => {
   const [filteredClients, setFilteredClients] = useState<Array<Client>>([]);
 
   useEffect(() => {

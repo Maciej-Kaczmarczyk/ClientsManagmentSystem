@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useClientsStore } from "../stores/useClientsStore";
-import Button from "../components/Button";
+import Button from "./Button";
 import { toast } from "sonner";
 import DotsIcon from "../assets/icons/dotsIcon.svg";
 
 const ClientCard = (props) => {
   const client = props.client;
-  const deleteClient = useClientsStore((state) => state.deleteClient);
-  const toggleClientForm = useClientsStore((state) => state.toggleClientForm);
-  const setSelectedClient = useClientsStore((state) => state.setSelectedClient);
+  const { deleteClient, toggleClientForm, setSelectedClient } = useClientsStore(
+    (state) => state.deleteClient,
+  );
 
   const handleDelete = async () => {
     toggleOptionWindow();
