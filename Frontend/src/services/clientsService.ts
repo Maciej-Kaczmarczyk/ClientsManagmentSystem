@@ -1,16 +1,7 @@
 import axios from "axios";
 import api from "../config/axiosConfig";
 import authService from "./authService";
-
-interface Client {
-  firstname: string;
-  lastname: string;
-  address: string;
-  zip_code: string;
-  city: string;
-  email: string;
-  phone: string;
-}
+import {Client} from "../types/types";
 
 const clientsService = {
   getAllClients: async () => {
@@ -25,9 +16,9 @@ const clientsService = {
       });
   },
 
-  addClient: async (Client: Client) => {
+  addClient: async (client: Client) => {
     return api
-      .post("/clients", Client)
+      .post("/clients", client)
       .then(function (response) {
         return response;
       })
@@ -36,7 +27,7 @@ const clientsService = {
       });
   },
 
-  deleteClient: async (id: string) => {
+  deleteClient: async (id: number) => {
     return api
       .delete(`/clients/${id}`)
       .then(function (response) {
@@ -46,9 +37,10 @@ const clientsService = {
         console.log(error);
       });
   },
-  updateClient: async (id: string, Client: Client) => {
-    return axios
-      .put(`/clients/${id}`, Client)
+  updateClient: async (id: number, client: Client) => {
+    console.log(client, id);
+    return api
+      .put(`/clients/${id}`, client)
       .then(function (response) {
         return response;
       })

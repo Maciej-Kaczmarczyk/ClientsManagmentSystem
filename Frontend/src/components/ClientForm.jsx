@@ -4,8 +4,13 @@ import { useClientsStore } from "../stores/useClientsStore";
 import { toast } from "sonner";
 
 const ClientForm = () => {
-  const selectedClient = useClientsStore((state) => state.selectedClient);
-  const setSelectedClient = useClientsStore((state) => state.setSelectedClient);
+  const {
+    selectedClient,
+    setSelectedClient,
+    addClient,
+    updateClient,
+    toggleClientForm,
+  } = useClientsStore();
 
   const editMode = selectedClient ? true : false;
 
@@ -80,11 +85,6 @@ const ClientForm = () => {
 
     return isValid;
   };
-
-  const addClient = useClientsStore((state) => state.addClient);
-  const updateClient = useClientsStore((state) => state.updateClient);
-  const toggleClientForm = useClientsStore((state) => state.toggleClientForm);
-  const clientFormVisible = useClientsStore((state) => state.clientFormVisible);
 
   const saveClient = async () => {
     if (!validate()) return;
