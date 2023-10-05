@@ -27,7 +27,7 @@ const clientsService = {
       });
   },
 
-  deleteClient: async (id: string) => {
+  deleteClient: async (id: number) => {
     return api
       .delete(`/clients/${id}`)
       .then(function (response) {
@@ -37,8 +37,9 @@ const clientsService = {
         console.log(error);
       });
   },
-  updateClient: async (id: string, client: Client) => {
-    return axios
+  updateClient: async (id: number, client: Client) => {
+    console.log(client, id);
+    return api
       .put(`/clients/${id}`, client)
       .then(function (response) {
         return response;
