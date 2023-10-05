@@ -1,6 +1,9 @@
 import { useState } from "react";
 
 const Button = ({ style, method, icon, text, type }) => {
+
+
+
   const [currentIcon, setCurrentIcon] = useState(icon);
 
   const handleClick = () => {

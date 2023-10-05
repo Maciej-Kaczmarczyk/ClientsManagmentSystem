@@ -1,15 +1,15 @@
 import api from "../config/axiosConfig";
 import { toast } from "sonner";
 import { removeCookie, setCookie, getCookie } from "typescript-cookie";
+import { Credentials } from "../types/types";
+
 
 const authService = {
-  login: async (email, password) => {
-    const loginLoadingToast = toast("Logging in...", { type: "info", duration: 20000, });
+  login: async (credentials: Credentials) => {
+    const loginLoadingToast = toast("Logging in...", { duration: 20000 });
+    console.log(credentials);
     api
-      .post("/login", {
-        email: email,
-        password: password,
-      })
+      .post("/login", credentials)
       .then((res) => {
         if (res.data.accessToken && res.data.refreshToken) {
           setCookie("accessToken", `${res.data.accessToken}`, {
@@ -19,23 +19,22 @@ const authService = {
           api.defaults.headers.common["Authorization"] = `${res.data.token}`; // Set axios headers
           window.location.href = "/clients";
           toast.dismiss(loginLoadingToast);
-          toast("Logged in successfully", { type: "success" });
+          toast.success("Logged in successfully");
         }
       })
       .catch((err) => {
         console.log(err);
         toast.dismiss(loginLoadingToast);
-        toast(err.response.data, { type: "error" });
+        toast.error(err.response.data);
       });
   },
 
-  register: async (email, password) => {
-    const registerLoadingToast = toast("Logging in...", { type: "info", duration: 20000, });
+  register: async (credentials: Credentials) => {
+    const registerLoadingToast = toast("Logging in...", {
+      duration: 20000,
+    });
     api
-      .post("/register", {
-        email: email,
-        password: password,
-      })
+      .post("/register", credentials)
       .then((res) => {
         if (res.data.accessToken) {
           setCookie("token", `${res.data.token}`, { expires: 1 }); // Set accessToken cookie for 1 day
@@ -51,7 +50,7 @@ const authService = {
       })
       .catch((err) => {
         console.log(err);
-        toast(err.response.data, { type: "error" });
+        toast.error(err.response.data);
       });
   },
 
@@ -71,7 +70,7 @@ const authService = {
       })
       .catch((err) => {
         console.log(err);
-        toast(err.response.data, { type: "error" });
+        toast.error(err.response.data);
         window.location.href = "/login"; // Redirect to login if refresh fails
       });
     // Set new accessToken for 15 min and update axios headers

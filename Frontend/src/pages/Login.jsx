@@ -34,7 +34,7 @@ const Login = () => {
               <p className=" pl-5 text-textTertiary">forgot password?</p>
               <Button
                 method={() => {
-                  authService.login(email, password);
+                  authService.login({email, password});
                 }}
                 style="bg-uiAccent w-[100%] hover:brightness-90"
                 text="Login"
