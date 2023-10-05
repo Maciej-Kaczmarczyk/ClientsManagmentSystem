@@ -6,9 +6,8 @@ import DotsIcon from "../assets/icons/dotsIcon.svg";
 
 const ClientCard = (props) => {
   const client = props.client;
-  const { deleteClient, toggleClientForm, setSelectedClient } = useClientsStore(
-    (state) => state.deleteClient,
-  );
+  const { deleteClient, toggleClientForm, setSelectedClient } =
+    useClientsStore();
 
   const handleDelete = async () => {
     toggleOptionWindow();
