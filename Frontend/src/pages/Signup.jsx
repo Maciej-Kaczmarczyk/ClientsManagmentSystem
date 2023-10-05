@@ -13,7 +13,7 @@ const Signup = () => {
       alert("Passwords do not match");
       return;
     }
-    authService.register({email, password});
+    authService.register({ email, password });
   };
 
   return (
@@ -36,7 +36,7 @@ const Signup = () => {
                 type="password"
                 name="password"
                 autoComplete="on"
-                className={`font-base h-14 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:border-uiAccent focus:outline-none `}
+                className="font-base h-14 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:border-uiAccent focus:outline-none"
                 placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -44,7 +44,7 @@ const Signup = () => {
                 type="password"
                 name="password_confirmation"
                 autoComplete="on"
-                className={`font-base h-14 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:border-uiAccent focus:outline-none `}
+                className="font-base h-14 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:border-uiAccent focus:outline-none"
                 placeholder="Confirm Password"
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />

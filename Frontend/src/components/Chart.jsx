@@ -67,7 +67,7 @@ const Chart = () => {
     datasets: [
       {
         label: "New clients per month",
-        data: resultArray,
+        data: [12, 21,24, 32, 18, 5, 12, 21, 24, 32, 18, 5],
         borderColor: "#5A7EFF",
         tension: 0.03,
       },
@@ -95,6 +95,7 @@ const Chart = () => {
         ticks: {
           precision: 0,
         },
+        beginAtZero: 1,
       },
       x: {
         title: {

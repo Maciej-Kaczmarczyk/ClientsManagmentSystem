@@ -19,7 +19,7 @@ const Login = () => {
               <input
                 type="email"
                 name="email"
-                className={`font-base h-14 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:border-uiAccent focus:outline-none `}
+                className="font-base h-14 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:border-uiAccent focus:outline-none "
                 placeholder="Email"
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -27,7 +27,7 @@ const Login = () => {
                 type="password"
                 name="password"
                 autoComplete="on"
-                className={`font-base h-14 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:border-uiAccent focus:outline-none `}
+                className="font-base h-14 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:border-uiAccent focus:outline-none "
                 placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
               />
