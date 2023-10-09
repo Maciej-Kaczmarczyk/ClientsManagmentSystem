@@ -8,7 +8,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   return (
-    <div className="flex items-center justify-center overflow-hidden lg:h-full lg:w-full">
+    <div className="flex bg-uiSecondary items-center justify-center overflow-hidden lg:h-full lg:w-full">
       <div className="flex h-fit max-h-[700px] w-full max-w-[500px] flex-col items-center justify-center rounded-lg bg-uiPrimary pb-1 lg:border-[1px] lg:shadow-xl">
         <div className="flex w-full items-center justify-center gap-8 p-8 py-20">
           <div className="flex h-full w-full flex-col gap-8">
