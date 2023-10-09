@@ -12,9 +12,9 @@ const Login = () => {
       <div className="flex h-fit max-h-[700px] w-full max-w-[500px] flex-col items-center justify-center rounded-lg bg-uiPrimary pb-1 lg:border-[1px] lg:shadow-xl">
         <div className="flex w-full items-center justify-center gap-8 p-8 py-20">
           <div className="flex h-full w-full flex-col gap-8">
-            <h1 className=" text-xl font-bold text-textSecondary">
+            <h2 className=" text-xl font-bold text-textSecondary">
               Login to your account
-            </h1>
+            </h2>
             <form className="flex flex-col gap-6">
               <input
                 type="email"

@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { removeCookie } from "typescript-cookie";
 import LogoutIcon from "../assets/icons/logoutIcon.svg";
 import authService from "../services/authService";
+import Dropdown from "./Dropdown";
 
 const Navbar = () => {
   const navItems = [
@@ -83,14 +84,19 @@ const Navbar = () => {
             transition: "transform 0.5s ease, width 0.5s ease",
           }}
         />
-        <li
-          className="flex items-center gap-2 hover:cursor-pointer"
-          onClick={authService.logout}
-        >
-          <p className="hidden text-sm sm:block sm:text-base md:text-base">
-            Logout
-          </p>
-          <LogoutIcon />
+
+        <li className="flex items-center">
+          <Dropdown>
+            <li
+              className="flex items-center gap-2 px-4 py-1 hover:cursor-pointer hover:bg-uiSecondary"
+              onClick={authService.logout}
+            >
+              <LogoutIcon />
+              <p className="text-sm sm:text-base md:text-base">
+                Sign out
+              </p>
+            </li>
+          </Dropdown>
         </li>
       </ul>
     </nav>
