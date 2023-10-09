@@ -4,6 +4,7 @@ import { removeCookie } from "typescript-cookie";
 import LogoutIcon from "../assets/icons/logoutIcon.svg";
 import authService from "../services/authService";
 import Dropdown from "./Dropdown";
+import { useThemeStore } from "../stores/useThemeStore";
 
 const Navbar = () => {
   const navItems = [
@@ -57,8 +58,10 @@ const Navbar = () => {
     }
   };
 
+  const toggleTheme = useThemeStore((state) => state.toggleTheme);
+
   return (
-    <nav className="relative flex h-16 items-center justify-center bg-uiPrimary px-8 text-textPrimary shadow-sm">
+    <nav className="relative flex h-16 items-center justify-center bg-uiPrimary dark:bg-darkUiPrimary px-8 text-textPrimary dark:text-darkTextPrimary shadow-sm">
       <ul className="flex w-full max-w-screen-xl items-center justify-between py-4">
         <ul className="relative flex gap-10 text-sm sm:text-base">
           {/* Map through navigation items and create NavLink elements. */}
@@ -78,7 +81,7 @@ const Navbar = () => {
         {/* Underline element to indicate the active navigation item. */}
         <li
           ref={underline}
-          className="absolute -bottom-[1px] h-[2px] w-20 bg-uiQuaternary transition-all duration-200"
+          className="absolute -bottom-[1px] h-[2px] w-20 bg-uiQuaternary dark:bg-darkUiQuaternary transition-all duration-200"
           style={{
             left: "0px",
             transition: "transform 0.5s ease, width 0.5s ease",
@@ -88,13 +91,17 @@ const Navbar = () => {
         <li className="flex items-center">
           <Dropdown>
             <li
-              className="flex items-center gap-2 px-4 py-1 hover:cursor-pointer hover:bg-uiSecondary"
+              className="px-4 py-1 hover:cursor-pointer hover:bg-uiSecondary dark:hover:bg-darkUiSecondary"
+              onClick={toggleTheme}
+            >
+              Toggle Theme
+            </li>
+            <li
+              className="flex items-center gap-2 px-4 py-1 hover:cursor-pointer hover:bg-uiSecondary dark:hover:bg-darkUiSecondary"
               onClick={authService.logout}
             >
               <LogoutIcon />
-              <p className="text-sm sm:text-base md:text-base">
-                Sign out
-              </p>
+              <p className="text-sm sm:text-base md:text-base">Sign out</p>
             </li>
           </Dropdown>
         </li>

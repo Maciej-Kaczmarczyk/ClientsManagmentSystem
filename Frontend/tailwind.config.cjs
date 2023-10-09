@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   darkMode: "class",
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
@@ -17,7 +18,17 @@ module.exports = {
         uiQuaternary: "#1F1F1F",
         uiAccent: "#5A7EFF",
         uiError: "#EF4444",
-
+        // Dark Mode
+        // Text
+        darkTextPrimary: "#B2B5B9",
+        darkTextSecondary: "#9CA3AF",
+        darkTextTertiary: "#6B7280",
+        darkTextAccent: "#5A7EFF",
+        // UI
+        darkUiPrimary: "#2B2E33",
+        darkUiSecondary: "#212429",
+        darkUiTertiary: "#1F1F1F",
+        darkUiQuaternary: "#B2B5B9",
       },
     },
   },

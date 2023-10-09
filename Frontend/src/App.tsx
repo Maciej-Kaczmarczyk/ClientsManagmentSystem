@@ -1,10 +1,4 @@
-import {
-  BrowserRouter,
-  Navigate,
-  Route,
-  Router,
-  Routes,
-} from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Clients from "./pages/Clients";
 import Navbar from "./components/Navbar";
 import Orders from "./pages/Orders";
@@ -18,6 +12,7 @@ import Signup from "./pages/Signup";
 import authService from "./services/authService";
 import { useEffect, useState } from "react";
 import Layout from "./components/Layout";
+import ThemeContext from "./context/themeContext";
 
 function App() {
   // access the client store and get the fetchClients function and clientFormVisible state
@@ -50,18 +45,20 @@ function App() {
   // If authenticated, render app
   if (authenticated) {
     return (
-      <div className="flex h-full flex-col">
+      <div className="flex h-full flex-col bg-uiPrimary dark:bg-darkUiPrimary">
         <BrowserRouter>
-          <Navbar />
-          <Toaster richColors position="bottom-left" />
-          {clientFormVisible ? <ClientForm /> : null}
-          <Layout>
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/clients" element={<Clients />} />
-              <Route path="/orders" element={<Orders />} />
-            </Routes>
-          </Layout>
+          <ThemeContext>
+            <Navbar />
+            <Toaster richColors position="bottom-left" />
+            {clientFormVisible ? <ClientForm /> : null}
+            <Layout>
+              <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/clients" element={<Clients />} />
+                <Route path="/orders" element={<Orders />} />
+              </Routes>
+            </Layout>
+          </ThemeContext>
         </BrowserRouter>
       </div>
     );

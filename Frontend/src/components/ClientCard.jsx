@@ -46,19 +46,19 @@ const ClientCard = (props) => {
   }, []);
 
   return (
-    <li className="row-start-2 flex items-center justify-between gap-4 border-t-[1px] bg-uiPrimary px-8 py-6 hover:bg-uiSecondary">
+    <li className="row-start-2 flex items-center justify-between gap-4 border-t-[1px] dark:border-darkUiTertiary bg-uiPrimary dark:bg-darkUiPrimary px-8 py-6 hover:bg-uiSecondary">
       <div className=" flex flex-wrap items-center gap-32 gap-y-8 text-sm lg:text-base xl:justify-center">
         <div className="flex w-60 flex-col">
-          <h3 className="font-semibold">
+          <h3 className="font-semibold text-textPrimary dark:text-darkTextPrimary">
             {client.firstname} {client.lastname}
           </h3>
-          <p className=" w-fit font-normal text-textSecondary">
+          <p className=" w-fit font-normal text-textSecondary dark:text-darkTextSecondary">
             Last order: no orders yet
           </p>
         </div>
 
         <div className="flex w-60 flex-col">
-          <p className="font-semibold">{client.phone} </p>
+          <p className="font-semibold text-textPrimary dark:text-darkTextPrimary">{client.phone} </p>
           <a
             href={"mailto: " + client.email}
             className="font-normal text-textAccent underline"
@@ -68,8 +68,8 @@ const ClientCard = (props) => {
         </div>
 
         <div className="flex w-60 flex-col">
-          <p className="font-semibold">{client.address}</p>
-          <p className="w-fit font-normal text-textSecondary">
+          <p className="font-semibold text-textPrimary dark:text-darkTextPrimary">{client.address}</p>
+          <p className="w-fit font-normal text-textSecondary dark:text-darkTextSecondary">
             {" "}
             {client.zip_code} {client.city}
           </p>
