@@ -46,30 +46,30 @@ const ClientCard = (props) => {
   }, []);
 
   return (
-    <li className="flex items-center justify-between gap-4 border-t-[1px] bg-uiPrimary px-8 py-6 hover:bg-uiSecondary">
-      <div className="flex flex-wrap items-center gap-32 gap-y-8 xl:justify-center">
+    <li className="row-start-2 flex items-center justify-between gap-4 border-t-[1px] bg-uiPrimary px-8 py-6 hover:bg-uiSecondary">
+      <div className=" flex flex-wrap items-center gap-32 gap-y-8 text-sm lg:text-base xl:justify-center">
         <div className="flex w-60 flex-col">
-          <h3 className="md:text-md font-semibold">
+          <h3 className="font-semibold">
             {client.firstname} {client.lastname}
           </h3>
-          <p className="text-md w-fit font-normal text-textSecondary">
+          <p className=" w-fit font-normal text-textSecondary">
             Last order: no orders yet
           </p>
         </div>
 
         <div className="flex w-60 flex-col">
-          <p className="text-md text-md font-semibold">{client.phone} </p>
+          <p className="font-semibold">{client.phone} </p>
           <a
             href={"mailto: " + client.email}
-            className="text-md font-normal text-textAccent underline"
+            className="font-normal text-textAccent underline"
           >
             {client.email}
           </a>
         </div>
 
         <div className="flex w-60 flex-col">
-          <p className="text-md font-semibold">{client.address}</p>
-          <p className="text-md w-fit font-normal text-textSecondary">
+          <p className="font-semibold">{client.address}</p>
+          <p className="w-fit font-normal text-textSecondary">
             {" "}
             {client.zip_code} {client.city}
           </p>

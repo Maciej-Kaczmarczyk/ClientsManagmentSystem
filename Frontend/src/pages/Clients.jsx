@@ -57,17 +57,17 @@ function Clients() {
         </div>
 
         <ul className="hidden items-center justify-between gap-4 bg-uiPrimary px-8 py-2 xl:flex ">
-          <div className="flex items-center justify-center gap-32 text-sm">
-            <div className="flex w-60 flex-col">
-              <p className="w-fit font-normal text-textSecondary">Name</p>
+          <div className="flex items-center justify-center gap-32 text-sm text-textSecondary">
+            <div className="w-60">
+              <p className="w-fit">Name</p>
             </div>
 
-            <div className="flex w-60 flex-col">
-              <p className="w-fit font-normal text-textSecondary">Contact</p>
+            <div className="w-60">
+              <p className="w-fit">Contact</p>
             </div>
 
-            <div className="flex w-60 flex-col">
-              <p className="font-md w-fit text-textSecondary">Address</p>
+            <div className="w-60">
+              <p className="w-fit">Address</p>
             </div>
           </div>
         </ul>
