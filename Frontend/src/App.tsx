@@ -7,11 +7,11 @@ import { Toaster } from "sonner";
 import { useClientsStore } from "./stores/useClientsStore";
 import ClientForm from "./components/ClientForm";
 import { getCookie } from "typescript-cookie";
-import SignUp from "./pages/SignUp";
 import authService from "./services/authService";
 import { useEffect, useState } from "react";
 import Layout from "./components/Layout";
 import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 
 function App() {
   // access the client store and get the fetchClients function and clientFormVisible state

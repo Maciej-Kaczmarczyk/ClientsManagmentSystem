@@ -3,7 +3,7 @@ import Button from "../components/Button";
 import { NavLink } from "react-router-dom";
 import authService from "../services/authService";
 
-const Signup = () => {
+const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password_confirmation, setConfirmPassword] = useState("");
@@ -115,4 +115,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default SignUp;
