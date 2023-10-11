@@ -81,7 +81,7 @@ const Navbar = () => {
           {navItems.map((item, index) => (
             <li key={index}>
               <NavLink
-                className="relative hover:cursor-pointer hover:text-blue-600 dark:hover:text-blue-500"
+                className="relative hover:cursor-pointer hover:text-blue-600 dark:hover:text-blue-500 duration-200"
                 to={item.path}
                 onClick={updateUnderlinePosition}
                 ref={(el) => (navRef.current[index] = el)}

@@ -26,7 +26,7 @@ const Dropdown = ({ children }) => {
     <div className="relative inline-block text-left">
       <div
         onClick={toggleOptionWindow}
-        className="flex items-center gap-1 hover:cursor-pointer hover:text-blue-600"
+        className="flex items-center gap-1 hover:cursor-pointer hover:text-blue-600 duration-200"
       >
         <SettingsIcon />
         <p className="hidden text-base font-normal md:block">Settings</p>

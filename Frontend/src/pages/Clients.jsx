@@ -34,7 +34,7 @@ function Clients() {
                 </div>
                 <input
                   type="search"
-                  className="font-base block h-10 w-full rounded-lg  bg-white p-4 py-1.5 pl-10 text-sm text-zinc-900 outline-none ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:outline-none focus:ring-blue-600  dark:bg-zinc-800 dark:focus:ring-blue-600 dark:ring-zinc-600 sm:text-sm sm:leading-6"
+                  className="font-base block h-10 w-full rounded-lg  bg-white p-4 py-1.5 pl-10 text-sm text-zinc-900 outline-none ring-1 ring-inset ring-zinc-300 duration-200 placeholder:text-zinc-400 focus:outline-none dark:text-zinc-400 focus:ring-blue-600 dark:bg-zinc-800 dark:ring-zinc-600 dark:focus:bg-zinc-700 dark:focus:ring-blue-600 sm:text-sm sm:leading-6"
                   placeholder="Search"
                   onChange={(e) => setSearchString(e.target.value)}
                 />
@@ -51,7 +51,7 @@ function Clients() {
             />
             <RefreshIcon
               onClick={fetchClients}
-              className="text-zinc-900 dark:text-white h-6 w-6 cursor-pointer rounded-full hover:bg-zinc-50 dark:hover:bg-zinc-700"
+              className="h-6 w-6 cursor-pointer rounded-full text-zinc-900 hover:bg-zinc-50 dark:text-white dark:hover:bg-zinc-700"
             />
           </div>
         </div>

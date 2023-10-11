@@ -20,7 +20,7 @@ const Button = (ButtonProps: ButtonProps) => {
 
   return (
     <button
-      className={`${ButtonProps.style} flex h-9 items-center justify-center gap-2 rounded-lg px-4 font-semibold text-white focus:bg-blue-500`}
+      className={`${ButtonProps.style} flex h-9 items-center justify-center gap-2 rounded-lg px-4 font-semibold text-white focus:bg-blue-500 duration-200`}
       onClick={handleClick}
       type={ButtonProps.type ? ButtonProps.type : "button"}
     >

@@ -46,7 +46,7 @@ const ClientCard = (props) => {
   }, []);
 
   return (
-    <li className="row-start-2 flex items-center justify-between gap-4 border-t-[1px] bg-white px-8 py-6 hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:bg-zinc-700">
+    <li className="row-start-2 flex items-center justify-between gap-4 border-t-[1px] bg-white px-8 py-6 hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:bg-zinc-700 duration-200">
       <div className=" flex flex-wrap items-center gap-32 gap-y-8 text-sm lg:text-base xl:justify-center">
         <div className="flex w-60 flex-col">
           <h3 className="font-semibold text-zinc-900 dark:text-zinc-300">
@@ -63,7 +63,7 @@ const ClientCard = (props) => {
           </p>
           <a
             href={"mailto: " + client.email}
-            className="font-normal text-blue-600 underline"
+            className="font-normal text-blue-600 hover:text-blue-500 underline"
           >
             {client.email}
           </a>
