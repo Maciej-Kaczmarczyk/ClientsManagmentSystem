@@ -30,7 +30,7 @@ const Dropdown = ({children}) => {
       </div>
       {optionWindow ? (
         <ul ref={popupRef}>
-          <div className="absolute top-[180%] right-0 z-10 h-fit w-56 rounded-lg bg-uiPrimary dark:bg-darkUiPrimary py-4 shadow-lg">
+          <div className="absolute top-[200%] right-0 z-10 h-fit w-56 rounded-lg bg-uiPrimary dark:bg-gray-800 border-[1px] dark:border-gray-700 py-4 shadow-lg">
             {children}
           </div>
         </ul>

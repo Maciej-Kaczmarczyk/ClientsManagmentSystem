@@ -58,10 +58,23 @@ const Navbar = () => {
     }
   };
 
-  const toggleTheme = useThemeStore((state) => state.toggleTheme);
+  if (
+    localStorage.theme === "dark" ||
+    (!("theme" in localStorage) &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches)
+  ) {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
+
+  const toggleTheme = () => {
+    document.documentElement.classList.toggle("dark");
+    localStorage.theme = localStorage.theme === "dark" ? "light" : "dark";
+  };
 
   return (
-    <nav className="relative flex h-16 items-center justify-center bg-uiPrimary dark:bg-darkUiPrimary px-8 text-textPrimary dark:text-darkTextPrimary shadow-sm">
+    <nav className="relative flex h-16 items-center justify-center border-b-[1px] border-gray-700 bg-uiPrimary px-8 text-textPrimary shadow-sm dark:bg-gray-800 dark:text-gray-300">
       <ul className="flex w-full max-w-screen-xl items-center justify-between py-4">
         <ul className="relative flex gap-10 text-sm sm:text-base">
           {/* Map through navigation items and create NavLink elements. */}
@@ -81,7 +94,7 @@ const Navbar = () => {
         {/* Underline element to indicate the active navigation item. */}
         <li
           ref={underline}
-          className="absolute -bottom-[1px] h-[2px] w-20 bg-uiQuaternary dark:bg-darkUiQuaternary transition-all duration-200"
+          className="absolute -bottom-[1px] h-[2px] w-20 bg-uiQuaternary transition-all duration-200 dark:bg-gray-300"
           style={{
             left: "0px",
             transition: "transform 0.5s ease, width 0.5s ease",
@@ -91,13 +104,13 @@ const Navbar = () => {
         <li className="flex items-center">
           <Dropdown>
             <li
-              className="px-4 py-1 hover:cursor-pointer hover:bg-uiSecondary dark:hover:bg-darkUiSecondary"
+              className="px-4 py-1 hover:cursor-pointer hover:bg-uiSecondary dark:hover:bg-gray-700"
               onClick={toggleTheme}
             >
               Toggle Theme
             </li>
             <li
-              className="flex items-center gap-2 px-4 py-1 hover:cursor-pointer hover:bg-uiSecondary dark:hover:bg-darkUiSecondary"
+              className="flex items-center gap-2 px-4 py-1 hover:cursor-pointer hover:bg-uiSecondary dark:hover:bg-gray-700"
               onClick={authService.logout}
             >
               <LogoutIcon />

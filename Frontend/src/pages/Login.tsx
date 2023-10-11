@@ -2,55 +2,100 @@ import { useState } from "react";
 import Button from "../components/Button";
 import { NavLink } from "react-router-dom";
 import authService from "../services/authService";
+import Container from "../components/Container";
+import Layout from "../components/Layout";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   return (
-    <div className="flex bg-uiSecondary items-center justify-center overflow-hidden lg:h-full lg:w-full">
-      <div className="flex h-fit max-h-[700px] w-full max-w-[500px] flex-col items-center justify-center rounded-lg bg-uiPrimary pb-1 lg:border-[1px] lg:shadow-xl">
-        <div className="flex w-full items-center justify-center gap-8 p-8 py-20">
-          <div className="flex h-full w-full flex-col gap-8">
-            <h2 className=" text-xl font-bold text-textSecondary">
-              Login to your account
+    <div className="flex h-full w-full items-center justify-center">
+      <Container className="h-fit max-w-md border-[1px] bg-uiPrimary shadow-lg rounded-lg">
+        <div className="flex flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+          <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+            <img
+              className="mx-auto h-10 w-auto"
+              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+              alt="Your Company"
+            />
+            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+              Sign in to your account
             </h2>
-            <form className="flex flex-col gap-6">
-              <input
-                type="email"
-                name="email"
-                className="font-base h-14 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:border-uiAccent focus:outline-none "
-                placeholder="Email"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <input
-                type="password"
-                name="password"
-                autoComplete="on"
-                className="font-base h-14 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:border-uiAccent focus:outline-none "
-                placeholder="Password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <p className=" pl-5 text-textTertiary">forgot password?</p>
-              <Button
-                method={() => {
-                  authService.login({email, password});
-                }}
-                style="bg-uiAccent w-[100%] hover:brightness-90"
-                text="Login"
-                type="submit"
-              />
+          </div>
+
+          <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+            <form className="space-y-6" action="#" method="POST">
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Email address
+                </label>
+                <div className="mt-2">
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between">
+                  <label
+                    htmlFor="password"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Password
+                  </label>
+                  <div className="text-sm">
+                    <a
+                      href="#"
+                      className="font-semibold text-indigo-600 hover:text-indigo-500"
+                    >
+                      Forgot password?
+                    </a>
+                  </div>
+                </div>
+                <div className="mt-2">
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    autoComplete="current-password"
+                    required
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <button
+                  type="submit"
+                  className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  Sign in
+                </button>
+              </div>
             </form>
 
-            <p className=" text-center text-textTertiary">
-              Don't hava an account?{" "}
-              <NavLink to="/signup">
-                <span className="font-bold hover:text-uiAccent">Sign up</span>
-              </NavLink>
+            <p className="mt-10 text-center text-sm text-gray-500">
+              Not a member?{" "}
+              <a
+                href="#"
+                className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+              >
+                Start a 14 day free trial
+              </a>
             </p>
           </div>
         </div>
-      </div>
+      </Container>
     </div>
   );
 };

@@ -21,7 +21,7 @@ function Clients() {
 
   return (
     <>
-      <div className="flex w-full max-w-screen-xl flex-col rounded-lg bg-uiPrimary dark:bg-darkUiPrimary pb-1">
+      <div className="flex w-full max-w-screen-xl flex-col border-[0px] dark:border-gray-700 rounded-lg bg-uiPrimary pb-1 dark:bg-gray-800">
         <div className="flex h-1/2 w-full flex-col items-center justify-between gap-8 p-8 lg:flex-row">
           <div className="flex w-full gap-8">
             <div className="w-full lg:w-1/2">
@@ -34,7 +34,7 @@ function Clients() {
                 </div>
                 <input
                   type="search"
-                  className="font-base block h-10 w-full rounded-lg border-[1px] dark:border-darkUiTertiary p-4 pl-10 text-sm text-textSecondary bg-uiPrimary dark:bg-darkUiSecondary duration-200 focus:border-uiAccent focus:outline-none"
+                  className="font-base block h-10 w-full rounded-lg border-[1px] bg-uiPrimary p-4 pl-10 text-sm text-textSecondary duration-200 focus:border-uiAccent focus:outline-none dark:border-darkUiTertiary dark:bg-darkUiSecondary"
                   placeholder="Search"
                   onChange={(e) => setSearchString(e.target.value)}
                 />
@@ -56,7 +56,7 @@ function Clients() {
           </div>
         </div>
 
-        <ul className="hidden items-center justify-between gap-4 bg-uiPrimary dark:bg-darkUiPrimary px-8 py-2 xl:flex ">
+        <ul className="hidden items-center justify-between gap-4 bg-uiPrimary px-8 py-2 dark:bg-gray-800 xl:flex ">
           <div className="flex items-center justify-center gap-32 text-sm text-textSecondary">
             <div className="w-60">
               <p className="w-fit">Name</p>

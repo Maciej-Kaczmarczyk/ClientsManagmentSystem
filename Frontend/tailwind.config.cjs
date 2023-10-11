@@ -20,15 +20,15 @@ module.exports = {
         uiError: "#EF4444",
         // Dark Mode
         // Text
-        darkTextPrimary: "#B2B5B9",
+        darkTextPrimary: "#F7F8FA",
         darkTextSecondary: "#9CA3AF",
         darkTextTertiary: "#6B7280",
         darkTextAccent: "#5A7EFF",
         // UI
         darkUiPrimary: "#2B2E33",
         darkUiSecondary: "#212429",
-        darkUiTertiary: "#1F1F1F",
-        darkUiQuaternary: "#B2B5B9",
+        darkUiTertiary: "#17191D",
+        darkUiQuaternary: "#E5E7EB",
       },
     },
   },
