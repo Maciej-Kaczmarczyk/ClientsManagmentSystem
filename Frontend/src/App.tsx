@@ -7,7 +7,7 @@ import { Toaster } from "sonner";
 import { useClientsStore } from "./stores/useClientsStore";
 import ClientForm from "./components/ClientForm";
 import { getCookie } from "typescript-cookie";
-import Signup from "./pages/Signup";
+import SignUp from "./pages/SignUp";
 import authService from "./services/authService";
 import { useEffect, useState } from "react";
 import Layout from "./components/Layout";
@@ -67,7 +67,7 @@ function App() {
         <Toaster richColors position="bottom-left" />
         <Routes>
           <Route path="/*" element={<SignIn />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/signup" element={<SignUp />} />
         </Routes>
       </BrowserRouter>
     );

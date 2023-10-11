@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import { NavLink } from "react-router-dom";
 import authService from "../services/authService";
@@ -15,6 +15,14 @@ const Signup = () => {
     }
     authService.register({ email, password });
   };
+
+  useEffect(() => {
+    document.addEventListener("keypress", function (event) {
+      if (event.key === "Enter") {
+        handleSubmit();
+      }
+    });
+  }, []);
 
   return (
     <div className="flex h-full w-full justify-center lg:items-center">
@@ -58,6 +66,7 @@ const Signup = () => {
                   name="password"
                   type="password"
                   required
+                  autoComplete="new-password"
                   className="block w-full rounded-md py-1.5 pl-2 text-zinc-900 shadow-sm outline-none ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-blue-600 sm:text-sm sm:leading-6"
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -77,6 +86,7 @@ const Signup = () => {
                   name="passwordConfirmation"
                   type="password"
                   required
+                  autoComplete="new-password"
                   className="block w-full rounded-md py-1.5 pl-2 text-zinc-900 shadow-sm outline-none ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-blue-600 sm:text-sm sm:leading-6"
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
@@ -87,19 +97,18 @@ const Signup = () => {
                 method={handleSubmit}
                 style="bg-blue-600 w-[100%] hover:bg-blue-500"
                 text="Sign in"
-                type="submit"
               />
             </div>
           </form>
 
-          <p className="mt-8 flex items-center justify-center gap-2 text-center text-sm text-zinc-500">
+          <div className="mt-8 flex items-center justify-center gap-2 text-center text-sm text-zinc-500">
             Already have an account?
             <NavLink to="/signin">
               <p className=" font-semibold leading-6 text-blue-600 hover:text-blue-500">
                 Sign in &rarr;
               </p>
             </NavLink>
-          </p>
+          </div>
         </div>
       </div>
     </div>
