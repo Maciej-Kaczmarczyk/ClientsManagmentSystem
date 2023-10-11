@@ -11,7 +11,7 @@ import Signup from "./pages/Signup";
 import authService from "./services/authService";
 import { useEffect, useState } from "react";
 import Layout from "./components/Layout";
-import Signin from "./pages/Signin";
+import SignIn from "./pages/SignIn";
 
 function App() {
   // access the client store and get the fetchClients function and clientFormVisible state
@@ -66,7 +66,7 @@ function App() {
       <BrowserRouter>
         <Toaster richColors position="bottom-left" />
         <Routes>
-          <Route path="/*" element={<Signin />} />
+          <Route path="/*" element={<SignIn />} />
           <Route path="/signup" element={<Signup />} />
         </Routes>
       </BrowserRouter>

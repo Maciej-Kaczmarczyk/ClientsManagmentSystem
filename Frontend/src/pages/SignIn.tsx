@@ -5,7 +5,7 @@ import authService from "../services/authService";
 import Container from "../components/Container";
 import Layout from "../components/Layout";
 
-const Signin = () => {
+const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -97,4 +97,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default SignIn;
