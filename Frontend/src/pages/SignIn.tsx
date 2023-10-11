@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import { NavLink } from "react-router-dom";
 import authService from "../services/authService";
@@ -8,6 +8,18 @@ import Layout from "../components/Layout";
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const handleSubmit = () => {
+    authService.login({ email, password });
+  };
+
+  useEffect(() => {
+    document.addEventListener("keypress", function (event) {
+      if (event.key === "Enter") {
+        handleSubmit();
+      }
+    });
+  }, []);
 
   return (
     <div className="flex h-full w-full justify-center lg:items-center">
@@ -64,12 +76,9 @@ const Signin = () => {
 
             <div>
               <Button
-                method={() => {
-                  authService.login({ email, password });
-                }}
+                method={handleSubmit}
                 style="bg-blue-600 w-[100%] hover:bg-blue-500"
                 text="Sign in"
-                type="submit"
               />
             </div>
           </form>
