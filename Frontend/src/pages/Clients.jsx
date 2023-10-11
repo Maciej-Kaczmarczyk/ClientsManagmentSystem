@@ -21,8 +21,8 @@ function Clients() {
 
   return (
     <>
-      <div className="flex w-full max-w-screen-xl flex-col rounded-lg border-[0px] bg-white pb-1 dark:border-zinc-700 dark:bg-zinc-800">
-        <div className="flex h-1/2 w-full flex-col items-center justify-between gap-8 p-8 lg:flex-row">
+      <div className="flex w-full max-w-screen-xl flex-col rounded-lg border-[0px] bg-white pb-1 dark:border-zinc-700 dark:bg-zinc-800 duration-200">
+        <div className="flex h-1/2 w-full flex-col items-center justify-between gap-8 p-8 lg:flex-row duration-200">
           <div className="flex w-full gap-8">
             <div className="w-full lg:w-1/2">
               <label className="sr-only mb-2 text-sm font-medium dark:text-white">
@@ -56,7 +56,7 @@ function Clients() {
           </div>
         </div>
 
-        <ul className="hidden items-center justify-between gap-4 bg-white px-8 py-2 dark:bg-zinc-800 xl:flex ">
+        <ul className="hidden items-center justify-between gap-4 bg-white px-8 py-2 dark:bg-zinc-800 xl:flex duration-200">
           <div className="flex items-center justify-center gap-32 text-sm text-zinc-500">
             <div className="w-60">
               <p className="w-fit">Name</p>

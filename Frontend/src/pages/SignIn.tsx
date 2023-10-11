@@ -5,7 +5,7 @@ import authService from "../services/authService";
 import Container from "../components/Container";
 import Layout from "../components/Layout";
 
-const Login = () => {
+const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -74,18 +74,18 @@ const Login = () => {
             </div>
           </form>
 
-          <p className="mt-8 flex items-center justify-center gap-2 text-center text-sm text-zinc-500">
+          <div className="mt-8 flex items-center justify-center gap-2 text-center text-sm text-zinc-500">
             Not a member?{" "}
             <NavLink to="/signup">
               <p className=" font-semibold leading-6 text-blue-600 hover:text-blue-500">
                 Join now &rarr;
               </p>
             </NavLink>
-          </p>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default Signin;

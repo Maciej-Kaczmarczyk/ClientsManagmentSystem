@@ -5,7 +5,7 @@ import Orders from "./pages/Orders";
 import Dashboard from "./pages/Dashboard";
 import { Toaster } from "sonner";
 import { useClientsStore } from "./stores/useClientsStore";
-import Signin from "./pages/SignIn";
+import Signin from "./pages/Signin";
 import ClientForm from "./components/ClientForm";
 import { getCookie } from "typescript-cookie";
 import Signup from "./pages/Signup";
