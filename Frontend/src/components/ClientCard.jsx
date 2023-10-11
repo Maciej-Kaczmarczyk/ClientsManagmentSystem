@@ -46,7 +46,7 @@ const ClientCard = (props) => {
   }, []);
 
   return (
-    <li className="row-start-2 flex items-center justify-between gap-4 border-t-[1px] bg-white px-8 py-6 hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:bg-zinc-700 duration-200">
+    <li className="row-start-2 flex items-center justify-between gap-4 border-t-[1px] bg-white px-8 py-6 duration-200 hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:bg-zinc-700">
       <div className=" flex flex-wrap items-center gap-32 gap-y-8 text-sm lg:text-base xl:justify-center">
         <div className="flex w-60 flex-col">
           <h3 className="font-semibold text-zinc-900 dark:text-zinc-300">
@@ -63,7 +63,7 @@ const ClientCard = (props) => {
           </p>
           <a
             href={"mailto: " + client.email}
-            className="font-normal text-blue-600 hover:text-blue-500 underline"
+            className="font-normal text-blue-600 underline hover:text-blue-500"
           >
             {client.email}
           </a>
@@ -80,25 +80,25 @@ const ClientCard = (props) => {
         </div>
       </div>
 
-      <div className="relative">
+      <div ref={popupRef} className="relative">
         <DotsIcon
           onClick={toggleOptionWindow}
           strokeWidth="1.5"
-          className="text-zinc-900 dark:text-white h-6 w-6 cursor-pointer rounded-full hover:bg-zinc-50 dark:hover:bg-zinc-600"
+          className="h-6 w-6 cursor-pointer rounded-full text-zinc-900 hover:bg-zinc-50 dark:text-white dark:hover:bg-zinc-600"
         />
         {optionWindow ? (
-          <div ref={popupRef}>
+          <div>
             <div className="absolute -top-1/2 bottom-0 right-10 h-fit w-fit rounded-lg border-[1px] bg-white py-4 shadow-lg dark:border-zinc-700 dark:bg-zinc-800">
               <ul>
                 <li
                   onClick={handleDelete}
-                  className="w-full px-4 hover:cursor-pointer hover:bg-uiSecondary dark:text-zinc-50"
+                  className="w-full px-4 hover:cursor-pointer hover:bg-uiSecondary dark:text-zinc-50 dark:hover:bg-zinc-700"
                 >
                   Delete
                 </li>
                 <li
                   onClick={handleEdit}
-                  className="w-full px-4 hover:cursor-pointer hover:bg-uiSecondary dark:text-zinc-50"
+                  className="w-full px-4 hover:cursor-pointer hover:bg-uiSecondary dark:text-zinc-50 dark:hover:bg-zinc-700"
                 >
                   Edit
                 </li>
