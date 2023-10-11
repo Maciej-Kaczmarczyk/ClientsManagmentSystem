@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import SettingsIcon from "../assets/icons/settingsIcon.svg";
 
-const Dropdown = ({children}) => {
+const Dropdown = ({ children }) => {
   const [optionWindow, setOptionWindow] = useState(false);
   const toggleOptionWindow = () => {
     setOptionWindow(!optionWindow);
@@ -24,13 +24,16 @@ const Dropdown = ({children}) => {
 
   return (
     <div className="relative inline-block text-left">
-      <div onClick={toggleOptionWindow} className="flex items-center gap-1 hover:cursor-pointer">
+      <div
+        onClick={toggleOptionWindow}
+        className="flex items-center gap-1 hover:cursor-pointer hover:text-blue-600"
+      >
         <SettingsIcon />
-        <p className="hidden md:block text-base font-normal">Settings</p>
+        <p className="hidden text-base font-normal md:block">Settings</p>
       </div>
       {optionWindow ? (
         <ul ref={popupRef}>
-          <div className="absolute top-[200%] right-0 z-10 h-fit w-56 rounded-lg bg-uiPrimary dark:bg-gray-800 border-[1px] dark:border-gray-700 py-4 shadow-lg">
+          <div className="absolute top-[200%] right-0 z-10 h-fit w-56 rounded-lg border-[1px] bg-white py-4 shadow-lg dark:border-zinc-700 dark:bg-zinc-800">
             {children}
           </div>
         </ul>

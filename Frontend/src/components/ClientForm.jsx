@@ -117,7 +117,7 @@ const ClientForm = () => {
   };
   return (
     <div className="absolute z-10 flex h-full w-full justify-center bg-uiQuaternary bg-opacity-50 py-[10vw] shadow-xl md:px-[20vw] ">
-      <div className="flex h-fit max-w-screen-md flex-col flex-wrap justify-between gap-8 rounded-lg bg-uiPrimary px-4 py-12 duration-200 md:absolute md:px-8">
+      <div className="flex h-fit max-w-screen-md flex-col flex-wrap justify-between gap-8 rounded-lg bg-white px-4 py-12 duration-200 md:absolute md:px-8">
         <div className="flex w-full justify-between">
           <h3 className="text-3xl font-semibold text-textPrimary">
             {editMode ? "Edit Client" : "Add Client"}

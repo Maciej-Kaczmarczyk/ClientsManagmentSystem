@@ -74,14 +74,14 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="relative flex h-16 items-center justify-center border-b-[1px] border-gray-700 bg-uiPrimary px-8 text-textPrimary shadow-sm dark:bg-gray-800 dark:text-gray-300">
+    <nav className="relative flex h-16 items-center justify-center border-b-[1px] border-zinc-200 bg-white px-8 text-textPrimary dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
       <ul className="flex w-full max-w-screen-xl items-center justify-between py-4">
         <ul className="relative flex gap-10 text-sm sm:text-base">
           {/* Map through navigation items and create NavLink elements. */}
           {navItems.map((item, index) => (
             <li key={index}>
               <NavLink
-                className="relative"
+                className="relative hover:cursor-pointer hover:text-blue-600 dark:hover:text-blue-500"
                 to={item.path}
                 onClick={updateUnderlinePosition}
                 ref={(el) => (navRef.current[index] = el)}
@@ -94,7 +94,7 @@ const Navbar = () => {
         {/* Underline element to indicate the active navigation item. */}
         <li
           ref={underline}
-          className="absolute -bottom-[1px] h-[2px] w-20 bg-uiQuaternary transition-all duration-200 dark:bg-gray-300"
+          className="absolute -bottom-[1px] h-[2px] w-20 bg-uiQuaternary transition-all duration-200 dark:bg-zinc-300"
           style={{
             left: "0px",
             transition: "transform 0.5s ease, width 0.5s ease",
@@ -104,13 +104,13 @@ const Navbar = () => {
         <li className="flex items-center">
           <Dropdown>
             <li
-              className="px-4 py-1 hover:cursor-pointer hover:bg-uiSecondary dark:hover:bg-gray-700"
+              className="px-4 py-1 text-sm hover:cursor-pointer hover:bg-uiSecondary dark:hover:bg-zinc-700 sm:text-base md:text-base"
               onClick={toggleTheme}
             >
               Toggle Theme
             </li>
             <li
-              className="flex items-center gap-2 px-4 py-1 hover:cursor-pointer hover:bg-uiSecondary dark:hover:bg-gray-700"
+              className="flex items-center gap-2 px-4 py-1 hover:cursor-pointer hover:bg-uiSecondary dark:hover:bg-zinc-700"
               onClick={authService.logout}
             >
               <LogoutIcon />

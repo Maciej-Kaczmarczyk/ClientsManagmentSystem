@@ -21,7 +21,7 @@ function Clients() {
 
   return (
     <>
-      <div className="flex w-full max-w-screen-xl flex-col border-[0px] dark:border-gray-700 rounded-lg bg-uiPrimary pb-1 dark:bg-gray-800">
+      <div className="flex w-full max-w-screen-xl flex-col rounded-lg border-[0px] bg-white pb-1 dark:border-zinc-700 dark:bg-zinc-800">
         <div className="flex h-1/2 w-full flex-col items-center justify-between gap-8 p-8 lg:flex-row">
           <div className="flex w-full gap-8">
             <div className="w-full lg:w-1/2">
@@ -30,11 +30,11 @@ function Clients() {
               </label>
               <div className="relative">
                 <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                  <SearchIcon className="h-5 w-5 text-textTertiary" />
+                  <SearchIcon className="h-5 w-5 text-zinc-400" />
                 </div>
                 <input
                   type="search"
-                  className="font-base block h-10 w-full rounded-lg border-[1px] bg-uiPrimary p-4 pl-10 text-sm text-textSecondary duration-200 focus:border-uiAccent focus:outline-none dark:border-darkUiTertiary dark:bg-darkUiSecondary"
+                  className="font-base block h-10 w-full rounded-lg  bg-white p-4 py-1.5 pl-10 text-sm text-zinc-900 outline-none ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:outline-none focus:ring-blue-600  dark:bg-zinc-800 dark:focus:ring-blue-600 dark:ring-zinc-600 sm:text-sm sm:leading-6"
                   placeholder="Search"
                   onChange={(e) => setSearchString(e.target.value)}
                 />
@@ -47,17 +47,17 @@ function Clients() {
               icon={AddClientIcon}
               text="Add Client"
               method={() => toggleClientForm()}
-              style="bg-uiAccent hover:brightness-90 w-36"
+              style="bg-blue-600 w-36 hover:bg-blue-500"
             />
             <RefreshIcon
               onClick={fetchClients}
-              className="h-6 w-6 cursor-pointer rounded-full hover:bg-uiTertiary"
+              className="text-zinc-900 dark:text-white h-6 w-6 cursor-pointer rounded-full hover:bg-zinc-50 dark:hover:bg-zinc-700"
             />
           </div>
         </div>
 
-        <ul className="hidden items-center justify-between gap-4 bg-uiPrimary px-8 py-2 dark:bg-gray-800 xl:flex ">
-          <div className="flex items-center justify-center gap-32 text-sm text-textSecondary">
+        <ul className="hidden items-center justify-between gap-4 bg-white px-8 py-2 dark:bg-zinc-800 xl:flex ">
+          <div className="flex items-center justify-center gap-32 text-sm text-zinc-500">
             <div className="w-60">
               <p className="w-fit">Name</p>
             </div>

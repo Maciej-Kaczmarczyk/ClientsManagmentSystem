@@ -46,34 +46,34 @@ const ClientCard = (props) => {
   }, []);
 
   return (
-    <li className="row-start-2 flex items-center justify-between gap-4 border-t-[1px] bg-uiPrimary px-8 py-6 hover:bg-uiSecondary dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+    <li className="row-start-2 flex items-center justify-between gap-4 border-t-[1px] bg-white px-8 py-6 hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:bg-zinc-700">
       <div className=" flex flex-wrap items-center gap-32 gap-y-8 text-sm lg:text-base xl:justify-center">
         <div className="flex w-60 flex-col">
-          <h3 className="font-semibold text-textPrimary dark:text-gray-300">
+          <h3 className="font-semibold text-zinc-900 dark:text-zinc-300">
             {client.firstname} {client.lastname}
           </h3>
-          <p className=" w-fit font-normal text-textSecondary dark:text-gray-400">
+          <p className=" w-fit font-normal text-textSecondary dark:text-zinc-400">
             Last order: no orders yet
           </p>
         </div>
 
         <div className="flex w-60 flex-col">
-          <p className="font-semibold text-textPrimary dark:text-gray-300">
+          <p className="font-semibold text-zinc-900 dark:text-zinc-300">
             {client.phone}{" "}
           </p>
           <a
             href={"mailto: " + client.email}
-            className="font-normal text-textAccent underline"
+            className="font-normal text-blue-600 underline"
           >
             {client.email}
           </a>
         </div>
 
         <div className="flex w-60 flex-col">
-          <p className="font-semibold text-textPrimary dark:text-gray-300">
+          <p className="font-semibold text-zinc-900 dark:text-zinc-300">
             {client.address}
           </p>
-          <p className="w-fit font-normal text-textSecondary dark:text-gray-400">
+          <p className="w-fit font-normal text-textSecondary dark:text-zinc-400">
             {" "}
             {client.zip_code} {client.city}
           </p>
@@ -84,21 +84,21 @@ const ClientCard = (props) => {
         <DotsIcon
           onClick={toggleOptionWindow}
           strokeWidth="1.5"
-          className="h-6 w-6 cursor-pointer rounded-full hover:bg-uiTertiary"
+          className="text-zinc-900 dark:text-white h-6 w-6 cursor-pointer rounded-full hover:bg-zinc-50 dark:hover:bg-zinc-600"
         />
         {optionWindow ? (
           <div ref={popupRef}>
-            <div className="absolute -top-1/2 bottom-0 right-10 h-fit w-fit rounded-lg border-[1px] bg-uiPrimary py-4 shadow-lg dark:border-darkTextTertiary dark:bg-gray-800">
+            <div className="absolute -top-1/2 bottom-0 right-10 h-fit w-fit rounded-lg border-[1px] bg-white py-4 shadow-lg dark:border-zinc-700 dark:bg-zinc-800">
               <ul>
                 <li
                   onClick={handleDelete}
-                  className="w-full px-4 hover:cursor-pointer hover:bg-uiSecondary dark:text-gray-50"
+                  className="w-full px-4 hover:cursor-pointer hover:bg-uiSecondary dark:text-zinc-50"
                 >
                   Delete
                 </li>
                 <li
                   onClick={handleEdit}
-                  className="w-full px-4 hover:cursor-pointer hover:bg-uiSecondary dark:text-gray-50"
+                  className="w-full px-4 hover:cursor-pointer hover:bg-uiSecondary dark:text-zinc-50"
                 >
                   Edit
                 </li>

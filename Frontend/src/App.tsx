@@ -5,7 +5,7 @@ import Orders from "./pages/Orders";
 import Dashboard from "./pages/Dashboard";
 import { Toaster } from "sonner";
 import { useClientsStore } from "./stores/useClientsStore";
-import Login from "./pages/Login";
+import Signin from "./pages/SignIn";
 import ClientForm from "./components/ClientForm";
 import { getCookie } from "typescript-cookie";
 import Signup from "./pages/Signup";
@@ -44,7 +44,7 @@ function App() {
   // If authenticated, render app
   if (authenticated) {
     return (
-      <div className="flex h-full flex-col bg-uiPrimary dark:bg-gray-800">
+      <div className="flex h-full flex-col bg-white dark:bg-zinc-800">
         <BrowserRouter>
           <Navbar />
           <Toaster richColors position="bottom-left" />
@@ -66,7 +66,7 @@ function App() {
       <BrowserRouter>
         <Toaster richColors position="bottom-left" />
         <Routes>
-          <Route path="/*" element={<Login />} />
+          <Route path="/*" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
         </Routes>
       </BrowserRouter>
