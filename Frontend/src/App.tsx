@@ -5,13 +5,13 @@ import Orders from "./pages/Orders";
 import Dashboard from "./pages/Dashboard";
 import { Toaster } from "sonner";
 import { useClientsStore } from "./stores/useClientsStore";
-import Signin from "./pages/Signin";
 import ClientForm from "./components/ClientForm";
 import { getCookie } from "typescript-cookie";
 import Signup from "./pages/Signup";
 import authService from "./services/authService";
 import { useEffect, useState } from "react";
 import Layout from "./components/Layout";
+import Signin from "./pages/Signin";
 
 function App() {
   // access the client store and get the fetchClients function and clientFormVisible state
