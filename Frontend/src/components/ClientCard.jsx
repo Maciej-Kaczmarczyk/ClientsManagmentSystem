@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useClientsStore } from "../stores/useClientsStore";
-import Button from "../components/Button";
 import { toast } from "sonner";
 import DotsIcon from "../assets/icons/dotsIcon.svg";
+import { useSpring, animated } from "react-spring";
+import { useClickOutside } from "../hooks/useClickOutside";
 
 const ClientCard = (props) => {
   const client = props.client;
@@ -32,18 +33,14 @@ const ClientCard = (props) => {
 
   const popupRef = useRef();
 
-  const handleClickOutside = (event) => {
-    if (popupRef.current && !popupRef.current.contains(event.target)) {
-      setOptionWindow(false);
-    }
-  };
+  useClickOutside(popupRef, () => {
+    setOptionWindow(false);
+  });
 
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  const dropdownAnimation = useSpring({
+    opacity: optionWindow ? 1 : 0,
+    transform: optionWindow ? "translateX(0)" : "translateX(20px)",
+  });
 
   return (
     <li className="row-start-2 flex items-center justify-between gap-4 border-t-[1px] bg-white px-8 py-6 duration-200 hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:bg-zinc-700">
@@ -88,7 +85,12 @@ const ClientCard = (props) => {
         />
         {optionWindow ? (
           <div>
-            <div className="absolute -top-1/2 bottom-0 right-10 h-fit w-fit rounded-lg border-[1px] bg-white py-4 shadow-lg dark:border-zinc-700 dark:bg-zinc-800">
+            <animated.div
+              style={{
+                ...dropdownAnimation,
+              }}
+              className="absolute -top-1/2 bottom-0 right-10 h-fit w-fit rounded-lg border-[1px] bg-white py-4 shadow-lg dark:border-zinc-700 dark:bg-zinc-800"
+            >
               <ul>
                 <li
                   onClick={handleDelete}
@@ -103,7 +105,7 @@ const ClientCard = (props) => {
                   Edit
                 </li>
               </ul>
-            </div>
+            </animated.div>
           </div>
         ) : null}
       </div>

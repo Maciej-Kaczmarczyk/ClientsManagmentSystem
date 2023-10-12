@@ -116,10 +116,10 @@ const ClientForm = () => {
     toggleClientForm();
   };
   return (
-    <div className="absolute z-10 flex h-full w-full justify-center bg-uiQuaternary bg-opacity-50 py-[10vw] shadow-xl md:px-[20vw] ">
-      <div className="flex h-fit max-w-screen-md flex-col flex-wrap justify-between gap-8 rounded-lg bg-white px-4 py-12 duration-200 md:absolute md:px-8">
+    <div className="absolute z-10 flex h-full w-full justify-center bg-zinc-900 bg-opacity-50 py-[10vw] shadow-xl md:px-[20vw] ">
+      <div className="flex h-fit max-w-screen-md flex-col flex-wrap justify-between gap-8 rounded-lg bg-white px-4 py-12 dark:ring-1 dark:ring-zinc-700 duration-200 dark:bg-zinc-800 md:absolute md:px-8">
         <div className="flex w-full justify-between">
-          <h3 className="text-3xl font-semibold text-textPrimary">
+          <h3 className="text-3xl font-semibold text-zinc-900 dark:text-zinc-50 ">
             {editMode ? "Edit Client" : "Add Client"}
           </h3>
           <svg
@@ -132,7 +132,7 @@ const ClientForm = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="h-6 w-6 rounded-full hover:cursor-pointer hover:bg-uiTertiary"
+            className="h-6 w-6 rounded-full hover:cursor-pointer dark:text-zinc-50 dark:hover:bg-zinc-700 "
           >
             <path
               strokeLinecap="round"
@@ -141,149 +141,198 @@ const ClientForm = () => {
             />
           </svg>
         </div>
-        <div className="flex w-full flex-wrap justify-between gap-8">
+        <div className="flex w-full flex-wrap justify-between gap-4">
           <div className="flex w-full flex-col justify-between gap-2 md:flex-row md:gap-4">
             <div className="md:w-1/2">
-              <input
-                onChange={(e) => {
-                  setFirstName(e.target.value);
-                }}
-                type="text"
-                name="firstname"
-                id="firstname"
-                className={`font-base h-10 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:border-uiAccent focus:outline-none ${
-                  firstNameError && "border-uiError"
-                }`}
-                placeholder="First Name"
-                defaultValue={selectedClient ? selectedClient.firstname : ""}
-              />
-              {firstNameError && (
-                <p className="text-sm text-uiError">{firstNameError}</p>
-              )}
+              <label
+                htmlFor="firstname"
+                className="block text-sm font-medium leading-6 text-zinc-900 dark:text-zinc-400"
+              >
+                Firstname
+              </label>
+              <div className="mt-2">
+                <input
+                  name="firstname"
+                  type="text"
+                  required
+                  defaultValue={selectedClient ? selectedClient.firstname : ""}
+                  className={`block w-full rounded-md py-1.5 pl-3 text-zinc-900 shadow-sm outline-none ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-blue-600 dark:bg-zinc-800 dark:text-zinc-50 dark:ring-zinc-600 sm:text-sm sm:leading-6 dark:focus:ring-blue-600 ${
+                    firstNameError && "ring-uiError dark:ring-uiError"
+                  }`}
+                  onChange={(e) => {
+                    setFirstName(e.target.value);
+                  }}
+                />
+                {firstNameError && (
+                  <p className="text-sm text-uiError">{firstNameError}</p>
+                )}
+              </div>
             </div>
 
             <div className="md:w-1/2">
-              <input
-                onChange={(e) => {
-                  setLastName(e.target.value);
-                }}
-                defaultValue={selectedClient ? selectedClient.lastname : ""}
-                type="text"
-                name="firstname"
-                id="firstname"
-                className={`font-base h-10 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:border-uiAccent focus:outline-none ${
-                  lastNameError && "border-uiError"
-                }`}
-                placeholder="Last Name"
-              />
-              {lastNameError && (
-                <p className="text-sm text-uiError">{lastNameError}</p>
-              )}
+              <label
+                htmlFor="lastname"
+                className="block text-sm font-medium leading-6 text-zinc-900 dark:text-zinc-400"
+              >
+                Lastname
+              </label>
+              <div className="mt-2">
+                <input
+                  name="lastname"
+                  type="text"
+                  required
+                  defaultValue={selectedClient ? selectedClient.lastname : ""}
+                  className={`block w-full rounded-md py-1.5 pl-3 text-zinc-900 shadow-sm outline-none ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-blue-600 dark:bg-zinc-800 dark:text-zinc-50 dark:ring-zinc-600 sm:text-sm sm:leading-6 dark:focus:ring-blue-600 ${
+                    lastNameError && "ring-uiError"
+                  }`}
+                  onChange={(e) => {
+                    setLastName(e.target.value);
+                  }}
+                />
+                {lastNameError && (
+                  <p className="text-sm text-uiError">{lastNameError}</p>
+                )}
+              </div>
             </div>
           </div>
 
           <div className="flex w-full flex-col gap-2 md:flex-row md:gap-4">
             <div className="md:w-1/2">
-              <input
-                onChange={(e) => {
-                  setAddress(e.target.value);
-                }}
-                defaultValue={selectedClient ? selectedClient.address : ""}
-                type="text"
-                name="firstname"
-                id="firstname"
-                className={`font-base h-10 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:border-uiAccent focus:outline-none ${
-                  addressError && "border-uiError"
-                }`}
-                placeholder="Address"
-              />
-              {addressError && (
-                <p className="text-sm text-uiError">{addressError}</p>
-              )}
+              <label
+                htmlFor="address"
+                className="block text-sm font-medium leading-6 text-zinc-900 dark:text-zinc-400"
+              >
+                Address
+              </label>
+              <div className="mt-2">
+                <input
+                  name="address"
+                  type="text"
+                  required
+                  defaultValue={selectedClient ? selectedClient.address : ""}
+                  className={`block w-full rounded-md py-1.5 pl-3 text-zinc-900 shadow-sm outline-none ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-blue-600 dark:bg-zinc-800 dark:text-zinc-50 dark:ring-zinc-600 sm:text-sm sm:leading-6 dark:focus:ring-blue-600 ${
+                    addressError && "ring-uiError"
+                  }`}
+                  onChange={(e) => {
+                    setAddress(e.target.value);
+                  }}
+                />
+                {addressError && (
+                  <p className="text-sm text-uiError">{addressError}</p>
+                )}
+              </div>
             </div>
             <div className="flex justify-between gap-2 md:w-1/2 md:gap-4">
               <div className="w-1/2">
-                <input
-                  onChange={(e) => {
-                    setCity(e.target.value);
-                  }}
-                  defaultValue={selectedClient ? selectedClient.city : ""}
-                  type="text"
-                  name="firstname"
-                  id="firstname"
-                  className={`font-base h-10 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:border-uiAccent focus:outline-none ${
-                    cityError && "border-uiError"
-                  }`}
-                  placeholder="City"
-                />
-                {cityError && (
-                  <p className="text-sm text-uiError">{cityError}</p>
-                )}
+                <label
+                  htmlFor="city"
+                  className="block text-sm font-medium leading-6 text-zinc-900 dark:text-zinc-400"
+                >
+                  City
+                </label>
+                <div className="mt-2">
+                  <input
+                    name="city"
+                    type="text"
+                    required
+                    defaultValue={selectedClient ? selectedClient.city : ""}
+                    className={`block w-full rounded-md py-1.5 pl-3 text-zinc-900 shadow-sm outline-none ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-blue-600 dark:bg-zinc-800 dark:text-zinc-50 dark:ring-zinc-600 sm:text-sm sm:leading-6 dark:focus:ring-blue-600 ${
+                      cityError && "ring-uiError"
+                    }`}
+                    onChange={(e) => {
+                      setCity(e.target.value);
+                    }}
+                  />
+                  {cityError && (
+                    <p className="text-sm text-uiError">{cityError}</p>
+                  )}
+                </div>
               </div>
               <div className="w-1/2">
-                <input
-                  onChange={(e) => {
-                    setZipCode(e.target.value);
-                  }}
-                  defaultValue={selectedClient ? selectedClient.zip_code : ""}
-                  type="text"
-                  name="firstname"
-                  id="firstname"
-                  className={`font-base h-10 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:border-uiAccent focus:outline-none ${
-                    zipCodeError && "border-uiError"
-                  }`}
-                  placeholder="Zip Code"
-                />
-                {zipCodeError && (
-                  <p className="text-sm text-uiError">{zipCodeError}</p>
-                )}
+                <label
+                  htmlFor="zip_code"
+                  className="block text-sm font-medium leading-6 text-zinc-900 dark:text-zinc-400"
+                >
+                  Zip Code
+                </label>
+                <div className="mt-2">
+                  <input
+                    name="zip_code"
+                    type="text"
+                    required
+                    defaultValue={selectedClient ? selectedClient.zip_code : ""}
+                    className={`block w-full rounded-md py-1.5 pl-3 text-zinc-900 shadow-sm outline-none ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-blue-600 dark:bg-zinc-800 dark:text-zinc-50 dark:ring-zinc-600 sm:text-sm sm:leading-6 dark:focus:ring-blue-600 ${
+                      zipCodeError && "ring-uiError"
+                    }`}
+                    onChange={(e) => {
+                      setZipCode(e.target.value);
+                    }}
+                  />
+                  {zipCodeError && (
+                    <p className="text-sm text-uiError">{zipCodeError}</p>
+                  )}
+                </div>
               </div>
             </div>
           </div>
 
           <div className="flex w-full flex-col justify-between gap-2 md:flex-row md:gap-4">
             <div className="md:w-1/2">
-              <input
-                onChange={(e) => {
-                  setPhone(e.target.value);
-                }}
-                defaultValue={selectedClient ? selectedClient.phone : ""}
-                type="text"
-                name="firstname"
-                id="firstname"
-                className={`font-base h-10 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:border-uiAccent focus:outline-none ${
-                  phoneError && "border-uiError"
-                }`}
-                placeholder="Phone Number"
-              />
-              {phoneError && (
-                <p className="text-sm text-uiError">{phoneError}</p>
-              )}
+              <label
+                htmlFor="phone"
+                className="block text-sm font-medium leading-6 text-zinc-900 dark:text-zinc-400"
+              >
+                Phone
+              </label>
+              <div className="mt-2">
+                <input
+                  name="phone"
+                  type="text"
+                  required
+                  defaultValue={selectedClient ? selectedClient.phone : ""}
+                  className={`block w-full rounded-md py-1.5 pl-3 text-zinc-900 shadow-sm outline-none ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-blue-600 dark:bg-zinc-800 dark:text-zinc-50 dark:ring-zinc-600 sm:text-sm sm:leading-6 dark:focus:ring-blue-600 ${
+                    phoneError && "ring-uiError"
+                  }`}
+                  onChange={(e) => {
+                    setPhone(e.target.value);
+                  }}
+                />
+                {phoneError && (
+                  <p className="text-sm text-uiError">{phoneError}</p>
+                )}
+              </div>
             </div>
 
             <div className="md:w-1/2">
-              <input
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-                defaultValue={selectedClient ? selectedClient.email : ""}
-                type="text"
-                name="firstname"
-                id="firstname"
-                className={`font-base h-10 w-full rounded-lg border-2 px-4 text-textPrimary duration-200 focus:border-uiAccent focus:outline-none ${
-                  emailError && "border-uiError"
-                }`}
-                placeholder="Email"
-              />
-              {emailError && (
-                <p className="text-sm text-uiError">{emailError}</p>
-              )}
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium leading-6 text-zinc-900 dark:text-zinc-400"
+              >
+                Email
+              </label>
+              <div className="mt-2">
+                <input
+                  name="email"
+                  type="text"
+                  required
+                  defaultValue={selectedClient ? selectedClient.email : ""}
+                  className={`block w-full rounded-md py-1.5 pl-3 text-zinc-900 shadow-sm outline-none ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-blue-600 dark:bg-zinc-800 dark:text-zinc-50 dark:ring-zinc-600 sm:text-sm sm:leading-6 dark:focus:ring-blue-600 ${
+                    emailError && "ring-uiError"
+                  }`}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                />
+                {emailError && (
+                  <p className="text-sm text-uiError">{emailError}</p>
+                )}
+              </div>
             </div>
           </div>
         </div>
         <Button
           method={saveClient}
-          style={"bg-uiAccent w-[100%] hover:brightness-90"}
+          style="bg-blue-600 w-[100%] hover:bg-blue-500"
           text={editMode ? "Edit Client" : "Add Client"}
         />
       </div>

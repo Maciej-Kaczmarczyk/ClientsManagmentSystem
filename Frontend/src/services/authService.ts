@@ -7,7 +7,6 @@ import { Credentials } from "../types/types";
 const authService = {
   login: async (credentials: Credentials) => {
     const loginLoadingToast = toast("Logging in...", { duration: 20000 });
-    console.log(credentials);
     api
       .post("/login", credentials)
       .then((res) => {

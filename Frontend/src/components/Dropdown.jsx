@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import SettingsIcon from "../assets/icons/settingsIcon.svg";
 import { useSpring, animated } from "react-spring";
+import { useClickOutside } from "../hooks/useClickOutside";
 
 const Dropdown = ({ children }) => {
   const [optionWindow, setOptionWindow] = useState(false);
@@ -8,20 +9,13 @@ const Dropdown = ({ children }) => {
     setOptionWindow(!optionWindow);
   };
 
+  // Create a ref that we add to the element for which we want to detect outside clicks
   const dropdownRef = useRef();
 
-  const handleClickOutside = (event) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      setOptionWindow(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  // Call hook passing in the ref and a function to call on outside click
+  useClickOutside(dropdownRef, () => {
+    setOptionWindow(false);
+  });
 
   // Define the animation properties using useSpring
   const dropdownAnimation = useSpring({
