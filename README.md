@@ -1,7 +1,7 @@
 # ClientsManagmentSystem [still under development]
 > Personal project of an application to manage the customer database (in future also orders and warehouse). <br/><br/>
 > **Please note that the live version is hosted on a free server instance on render.com, because of that, the first request to the server will take 30-40 seconds as the server is disabled when there are no requests.**
-> Live demo [_here_](https://www.example.com](https://clients-managment-system.vercel.app/)). <br/>
+> Live demo [_here_](https://clients-managment-system.vercel.app/). <br/>
 > Example credentials <br/>
 > Email: **admin** <br/>
 > Password: **admin**
