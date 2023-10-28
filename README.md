@@ -8,13 +8,14 @@
 
 
 ## General Information
-My main goal in creating the project is to learn how to create
-business logic and understand how similar applications work underneath.
-I chose this type of project because of its complexity and potential for
-future expansion, which will also be followed by my own development as a developer.
-Right from the start, I encountered many problems and challenges, from the choice of technology
-and interface design to the actual coding of the various functionalities. Despite the obstacles,
-Creating this project helped me a lot to grow in areas such as Databases, Backend, Frontend, and even UI/UX. 
+The main goal of this project is to facilitate the process of storing
+clients' data (in future orders and warehouse data) and provide the
+user with statistics in the form of numbers and charts. The project
+was built using various technologies, including React.js, TypeScript,
+Tailwind CSS, and Zustand. The application's backend is based
+on Node.js with Express.js and a database in PostgreSQL. In addition,
+technologies such as JWT and Bcrypt were used to implement an
+authorization system. 
 
 
 ## Technologies Used
