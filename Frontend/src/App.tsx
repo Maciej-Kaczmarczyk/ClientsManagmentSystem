@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Clients from "./pages/Clients";
+import Clients from "./pages/ClientsList";
 import Navbar from "./components/Navbar";
 import Orders from "./pages/Orders";
 import Dashboard from "./pages/Dashboard";
@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import Layout from "./components/Layout";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import ClientProfile from "./pages/ClientProfile";
 
 function App() {
   // access the client store and get the fetchClients function and clientFormVisible state
@@ -54,6 +55,7 @@ function App() {
               <Route path="/" element={<Dashboard />} />
               <Route path="/clients" element={<Clients />} />
               <Route path="/orders" element={<Orders />} />
+              <Route path="/clients/:id/notes" element={<ClientProfile />} />
             </Routes>
           </Layout>
         </BrowserRouter>

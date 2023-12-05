@@ -21,8 +21,8 @@ function Clients() {
 
   return (
     <>
-      <div className="flex w-full max-w-screen-xl flex-col rounded-lg border-[0px] bg-white pb-1 dark:border-zinc-700 dark:bg-zinc-800 duration-200">
-        <div className="flex h-1/2 w-full flex-col items-center justify-between gap-8 p-8 lg:flex-row duration-200">
+      <div className="flex w-full max-w-screen-xl flex-col rounded-lg border-[0px] bg-white pb-1 duration-200 dark:border-zinc-700 dark:bg-zinc-800">
+        <div className="flex h-1/2 w-full flex-col items-center justify-between gap-8 p-8 duration-200 lg:flex-row">
           <div className="flex w-full gap-8">
             <div className="w-full lg:w-1/2">
               <label className="sr-only mb-2 text-sm font-medium dark:text-white">
@@ -34,7 +34,7 @@ function Clients() {
                 </div>
                 <input
                   type="search"
-                  className="font-base block h-10 w-full rounded-lg  bg-white p-4 py-1.5 pl-10 text-sm text-zinc-900 outline-none ring-1 ring-inset ring-zinc-300 duration-200 placeholder:text-zinc-400 focus:outline-none dark:text-zinc-400 focus:ring-blue-600 dark:bg-zinc-800 dark:ring-zinc-600 dark:focus:bg-zinc-700 dark:focus:ring-blue-600 sm:text-sm sm:leading-6"
+                  className="font-base block h-10 w-full rounded-lg  bg-white p-4 py-1.5 pl-10 text-sm text-zinc-900 outline-none ring-1 ring-inset ring-zinc-300 duration-200 placeholder:text-zinc-400 focus:outline-none focus:ring-blue-600 dark:bg-zinc-800 dark:text-zinc-400 dark:ring-zinc-600 dark:focus:bg-zinc-700 dark:focus:ring-blue-600 sm:text-sm sm:leading-6"
                   placeholder="Search"
                   onChange={(e) => setSearchString(e.target.value)}
                 />
@@ -55,22 +55,6 @@ function Clients() {
             />
           </div>
         </div>
-
-        <ul className="hidden items-center justify-between gap-4 bg-white px-8 py-2 dark:bg-zinc-800 xl:flex duration-200">
-          <div className="flex items-center justify-center gap-32 text-sm text-zinc-500">
-            <div className="w-60">
-              <p className="w-fit">Name</p>
-            </div>
-
-            <div className="w-60">
-              <p className="w-fit">Contact</p>
-            </div>
-
-            <div className="w-60">
-              <p className="w-fit">Address</p>
-            </div>
-          </div>
-        </ul>
 
         {isLoading ? (
           <ClientsListSkeleton />

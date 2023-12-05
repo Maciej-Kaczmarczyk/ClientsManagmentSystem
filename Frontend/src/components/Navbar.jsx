@@ -22,6 +22,16 @@ const Navbar = () => {
   useEffect(() => {
     if (!pathname) return;
     const activeItem = navItems.find((item) => item.path === pathname);
+
+    // If the pathname doesn't match any of the navigation items, check if it starts with any of the navigation items.
+    if (!activeItem) {
+      navItems.forEach((item) => {
+        if (pathname.startsWith(item.path)) {
+          setActiveElement(item);
+        }
+      });
+      return;
+    }
     setActiveElement(activeItem);
     const activeRef = navRef.current.find(
       (ref) => ref.innerText === activeItem.name,
@@ -57,7 +67,6 @@ const Navbar = () => {
       underline.current.style.transform = `translateX(${left}px)`;
     }
   };
-  
 
   if (
     localStorage.theme === "dark" ||
@@ -82,7 +91,7 @@ const Navbar = () => {
           {navItems.map((item, index) => (
             <li key={index}>
               <NavLink
-                className="relative hover:cursor-pointer hover:text-blue-600 dark:hover:text-blue-500 duration-200"
+                className="relative duration-200 hover:cursor-pointer hover:text-blue-600 dark:hover:text-blue-500"
                 to={item.path}
                 onClick={updateUnderlinePosition}
                 ref={(el) => (navRef.current[index] = el)}
