@@ -1,0 +1,97 @@
+const express = require("express");
+const router = express.Router();
+const { Pool } = require("pg");
+const { verifyToken } = require("../middleware/verifyToken");
+const db = require("../services/database");
+
+router.get("/", verifyToken, async (req, res) => {
+  try {
+    const results = await db.query("SELECT * FROM clients");
+    res.send(results.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
+router.post("/", verifyToken, async (req, res) => {
+  try {
+    const { firstname, lastname, address, city, zip_code, email, phone } = req.body;
+    await db.query("INSERT INTO clients (firstname, lastname, address, city, zip_code, email, phone, join_date) VALUES ($1, $2, $3, $4, $5, $6, $7, CURRENT_DATE)", [firstname, lastname, address, city, zip_code, email, phone]);
+    res.send(`Client with the name ${firstname} has been added`);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
+router.put("/:id", verifyToken, async (req, res) => {
+  try {
+    const { firstname, lastname, address, city, zip_code, email, phone } = req.body;
+    const { id } = req.params;
+    await db.query("UPDATE clients SET firstname = $1, lastname = $2, address = $3, city = $4, zip_code = $5, email = $6, phone = $7 WHERE id = $8", [firstname, lastname, address, city, zip_code, email, phone, id]);
+    res.send(`Client with the ID ${id} has been updated`);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
+router.delete("/:id", verifyToken, async (req, res) => {
+  try {
+    const { id } = req.params;
+    await db.query("DELETE FROM clients WHERE id = $1", [id]);
+    res.send(`Client with the ID ${id} has been deleted`);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
+router.get("/:id/notes", verifyToken, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const results = await db.query("SELECT * FROM notes WHERE client_id = $1", [id]);
+    res.send(results.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
+router.post("/:id/notes", verifyToken, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { note_header, note_body } = req.body;
+    await db.query("INSERT INTO notes (client_id, note_header, note_body) VALUES ($1, $2, $3)", [id, note_header, note_body]);
+    res.send(`Note has been added for client with the ID ${id}`);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
+router.put("/:id/notes/:note_id", verifyToken, async (req, res) => {
+  try {
+    const { id, note_id } = req.params;
+    const { note_body } = req.body;
+    await db.query("UPDATE notes SET note_body = $1 WHERE note_id = $2 AND client_id = $3", [note_body, note_id, id]);
+    res.send(`Note with the ID ${note_id} has been updated for client with the ID ${id}`);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
+router.delete("/:id/notes/:note_id", verifyToken, async (req, res) => {
+  try {
+    const { id, note_id } = req.params;
+    await db.query("DELETE FROM notes WHERE note_id = $1 AND client_id = $2", [note_id, id]);
+    res.send(`Note with the ID ${note_id} has been deleted for client with the ID ${id}`);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
+module.exports = router;
