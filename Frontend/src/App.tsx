@@ -13,6 +13,7 @@ import Layout from "./components/Layout";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import ClientProfile from "./pages/ClientProfile";
+import NoteBody from "./pages/NoteBody";
 
 function App() {
   // access the client store and get the fetchClients function and clientFormVisible state
@@ -55,7 +56,8 @@ function App() {
               <Route path="/" element={<Dashboard />} />
               <Route path="/clients" element={<Clients />} />
               <Route path="/orders" element={<Orders />} />
-              <Route path="/clients/:id/notes" element={<ClientProfile />} />
+              <Route path="/clients/:clientID/notes" element={<ClientProfile />} />
+              <Route path="/clients/:clientID/notes/:noteId" element={<NoteBody />} />
             </Routes>
           </Layout>
         </BrowserRouter>

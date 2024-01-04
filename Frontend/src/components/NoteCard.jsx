@@ -1,18 +1,19 @@
 import React from "react";
 import DotsIcon from "../assets/icons/dotsIcon.svg";
 import ClockIcon from "../assets/icons/clockIcon.svg";
+import getDayOfWeek from "../hooks/getDayOfWeek";
 
-const NoteCard = () => {
+const NoteCard = ({ title, content, date }) => {
   return (
     <div className="flex w-full flex-row rounded-xl p-4 ring-1 ring-zinc-200 hover:cursor-pointer hover:bg-zinc-100">
       <div className="flex flex-col items-center justify-center border-r-2 border-zinc-200 pr-4">
-        <div className=" font-normal">Mon</div>
+        <div className=" font-normal">{getDayOfWeek(date)}</div>
         <div className=" text-2xl font-semibold">01</div>
       </div>
       <div className="flex w-full flex-row items-center justify-between pl-4">
         <div>
           <div>
-            <h2 className=" text-xl">Heading</h2>
+            <h2 className=" text-xl">{title}</h2>
           </div>
           <div className="flex gap-2 text-zinc-600">
             <ClockIcon className="h-5 w-5" />

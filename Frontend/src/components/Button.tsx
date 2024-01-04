@@ -9,9 +9,6 @@ interface ButtonProps {
 }
 
 const Button = (ButtonProps: ButtonProps) => {
-
-
-
   const [currentIcon, setCurrentIcon] = useState(ButtonProps.icon);
 
   const handleClick = () => {
@@ -20,7 +17,7 @@ const Button = (ButtonProps: ButtonProps) => {
 
   return (
     <button
-      className={`${ButtonProps.style} flex h-9 items-center justify-center gap-2 rounded-lg px-4 font-semibold text-white focus:bg-blue-500 duration-200`}
+      className={`${ButtonProps.style} flex h-9 items-center justify-center gap-2 rounded-lg px-4 font-semibold text-white duration-200 focus:bg-blue-500`}
       onClick={handleClick}
       type={ButtonProps.type ? ButtonProps.type : "button"}
     >

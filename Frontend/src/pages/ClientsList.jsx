@@ -47,7 +47,7 @@ function Clients() {
               icon={AddClientIcon}
               text="Add Client"
               method={() => toggleClientForm()}
-              style="bg-blue-600 w-36 hover:bg-blue-500"
+              style="bg-blue-600 w-40 hover:bg-blue-500"
             />
             <RefreshIcon
               onClick={fetchClients}
