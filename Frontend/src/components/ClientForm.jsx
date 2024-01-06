@@ -117,7 +117,7 @@ const ClientForm = () => {
   };
   return (
     <div className="absolute z-10 flex h-full w-full justify-center bg-zinc-900 bg-opacity-50 py-[10vw] shadow-xl md:px-[20vw] ">
-      <div className="flex h-fit max-w-screen-md flex-col flex-wrap justify-between gap-8 rounded-lg bg-white px-4 py-12 dark:ring-1 dark:ring-zinc-700 duration-200 dark:bg-zinc-800 md:absolute md:px-8">
+      <div className="flex h-fit max-w-screen-md flex-col flex-wrap justify-between gap-8 rounded-lg bg-white px-4 py-12 duration-200 dark:bg-zinc-800 dark:ring-1 dark:ring-zinc-700 md:absolute md:px-8">
         <div className="flex w-full justify-between">
           <h3 className="text-3xl font-semibold text-zinc-900 dark:text-zinc-50 ">
             {editMode ? "Edit Client" : "Add Client"}
@@ -156,7 +156,7 @@ const ClientForm = () => {
                   type="text"
                   required
                   defaultValue={selectedClient ? selectedClient.firstname : ""}
-                  className={`block w-full rounded-md py-1.5 pl-3 text-zinc-900 shadow-sm outline-none ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-blue-600 dark:bg-zinc-800 dark:text-zinc-50 dark:ring-zinc-600 sm:text-sm sm:leading-6 dark:focus:ring-blue-600 ${
+                  className={`block w-full rounded-md py-1.5 pl-3 text-zinc-900 shadow-sm outline-none ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-blue-600 dark:bg-zinc-800 dark:text-zinc-50 dark:ring-zinc-600 dark:focus:ring-blue-600 sm:text-sm sm:leading-6 ${
                     firstNameError && "ring-uiError dark:ring-uiError"
                   }`}
                   onChange={(e) => {
@@ -182,7 +182,7 @@ const ClientForm = () => {
                   type="text"
                   required
                   defaultValue={selectedClient ? selectedClient.lastname : ""}
-                  className={`block w-full rounded-md py-1.5 pl-3 text-zinc-900 shadow-sm outline-none ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-blue-600 dark:bg-zinc-800 dark:text-zinc-50 dark:ring-zinc-600 sm:text-sm sm:leading-6 dark:focus:ring-blue-600 ${
+                  className={`block w-full rounded-md py-1.5 pl-3 text-zinc-900 shadow-sm outline-none ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-blue-600 dark:bg-zinc-800 dark:text-zinc-50 dark:ring-zinc-600 dark:focus:ring-blue-600 sm:text-sm sm:leading-6 ${
                     lastNameError && "ring-uiError"
                   }`}
                   onChange={(e) => {
@@ -210,7 +210,7 @@ const ClientForm = () => {
                   type="text"
                   required
                   defaultValue={selectedClient ? selectedClient.address : ""}
-                  className={`block w-full rounded-md py-1.5 pl-3 text-zinc-900 shadow-sm outline-none ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-blue-600 dark:bg-zinc-800 dark:text-zinc-50 dark:ring-zinc-600 sm:text-sm sm:leading-6 dark:focus:ring-blue-600 ${
+                  className={`block w-full rounded-md py-1.5 pl-3 text-zinc-900 shadow-sm outline-none ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-blue-600 dark:bg-zinc-800 dark:text-zinc-50 dark:ring-zinc-600 dark:focus:ring-blue-600 sm:text-sm sm:leading-6 ${
                     addressError && "ring-uiError"
                   }`}
                   onChange={(e) => {
@@ -236,7 +236,7 @@ const ClientForm = () => {
                     type="text"
                     required
                     defaultValue={selectedClient ? selectedClient.city : ""}
-                    className={`block w-full rounded-md py-1.5 pl-3 text-zinc-900 shadow-sm outline-none ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-blue-600 dark:bg-zinc-800 dark:text-zinc-50 dark:ring-zinc-600 sm:text-sm sm:leading-6 dark:focus:ring-blue-600 ${
+                    className={`block w-full rounded-md py-1.5 pl-3 text-zinc-900 shadow-sm outline-none ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-blue-600 dark:bg-zinc-800 dark:text-zinc-50 dark:ring-zinc-600 dark:focus:ring-blue-600 sm:text-sm sm:leading-6 ${
                       cityError && "ring-uiError"
                     }`}
                     onChange={(e) => {
@@ -261,7 +261,7 @@ const ClientForm = () => {
                     type="text"
                     required
                     defaultValue={selectedClient ? selectedClient.zip_code : ""}
-                    className={`block w-full rounded-md py-1.5 pl-3 text-zinc-900 shadow-sm outline-none ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-blue-600 dark:bg-zinc-800 dark:text-zinc-50 dark:ring-zinc-600 sm:text-sm sm:leading-6 dark:focus:ring-blue-600 ${
+                    className={`block w-full rounded-md py-1.5 pl-3 text-zinc-900 shadow-sm outline-none ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-blue-600 dark:bg-zinc-800 dark:text-zinc-50 dark:ring-zinc-600 dark:focus:ring-blue-600 sm:text-sm sm:leading-6 ${
                       zipCodeError && "ring-uiError"
                     }`}
                     onChange={(e) => {
@@ -290,7 +290,7 @@ const ClientForm = () => {
                   type="text"
                   required
                   defaultValue={selectedClient ? selectedClient.phone : ""}
-                  className={`block w-full rounded-md py-1.5 pl-3 text-zinc-900 shadow-sm outline-none ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-blue-600 dark:bg-zinc-800 dark:text-zinc-50 dark:ring-zinc-600 sm:text-sm sm:leading-6 dark:focus:ring-blue-600 ${
+                  className={`block w-full rounded-md py-1.5 pl-3 text-zinc-900 shadow-sm outline-none ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-blue-600 dark:bg-zinc-800 dark:text-zinc-50 dark:ring-zinc-600 dark:focus:ring-blue-600 sm:text-sm sm:leading-6 ${
                     phoneError && "ring-uiError"
                   }`}
                   onChange={(e) => {
@@ -316,7 +316,7 @@ const ClientForm = () => {
                   type="text"
                   required
                   defaultValue={selectedClient ? selectedClient.email : ""}
-                  className={`block w-full rounded-md py-1.5 pl-3 text-zinc-900 shadow-sm outline-none ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-blue-600 dark:bg-zinc-800 dark:text-zinc-50 dark:ring-zinc-600 sm:text-sm sm:leading-6 dark:focus:ring-blue-600 ${
+                  className={`block w-full rounded-md py-1.5 pl-3 text-zinc-900 shadow-sm outline-none ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-blue-600 dark:bg-zinc-800 dark:text-zinc-50 dark:ring-zinc-600 dark:focus:ring-blue-600 sm:text-sm sm:leading-6 ${
                     emailError && "ring-uiError"
                   }`}
                   onChange={(e) => {

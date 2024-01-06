@@ -14,10 +14,13 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import ClientProfile from "./pages/ClientProfile";
 import NoteBody from "./pages/NoteBody";
+import { useNotesStore } from "./stores/useNotesStore";
+import AddNoteForm from "./components/AddNoteForm";
 
 function App() {
   // access the client store and get the fetchClients function and clientFormVisible state
   const { fetchClients, clientFormVisible } = useClientsStore();
+  const { noteFormVisible } = useNotesStore();
 
   const [authenticated, setAuthenticated] = useState(false);
 
@@ -51,6 +54,7 @@ function App() {
           <Navbar />
           <Toaster richColors position="bottom-left" />
           {clientFormVisible ? <ClientForm /> : null}
+          {noteFormVisible ? <AddNoteForm /> : null}
           <Layout>
             <Routes>
               <Route path="/" element={<Dashboard />} />
