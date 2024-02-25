@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Clients from "./pages/ClientsList";
+import ClientsList from "./pages/ClientsList";
 import Navbar from "./components/Navbar";
 import Orders from "./pages/Orders";
 import Dashboard from "./pages/Dashboard";
@@ -19,7 +19,7 @@ import AddNoteForm from "./components/AddNoteForm";
 
 function App() {
   // access the client store and get the fetchClients function and clientFormVisible state
-  const { fetchClients, clientFormVisible } = useClientsStore();
+  const { clientFormVisible } = useClientsStore();
   const { noteFormVisible } = useNotesStore();
 
   const [authenticated, setAuthenticated] = useState(false);
@@ -32,13 +32,11 @@ function App() {
     // If access token exists, set authenticated to true and fetch clients
     if (accessToken) {
       setAuthenticated(true);
-      fetchClients();
     }
     // If refresh token exists, refresh access token and set authenticated to true
     else if (refreshToken) {
       authService.refreshToken();
       setAuthenticated(true);
-      fetchClients();
     }
     // If neither exist, set authenticated to false
     else {
@@ -58,10 +56,16 @@ function App() {
           <Layout>
             <Routes>
               <Route path="/" element={<Dashboard />} />
-              <Route path="/clients" element={<Clients />} />
+              <Route path="/clients" element={<ClientsList />} />
               <Route path="/orders" element={<Orders />} />
-              <Route path="/clients/:clientID/notes" element={<ClientProfile />} />
-              <Route path="/clients/:clientID/notes/:noteId" element={<NoteBody />} />
+              <Route
+                path="/clients/:clientID/notes"
+                element={<ClientProfile />}
+              />
+              <Route
+                path="/clients/:clientID/notes/:noteID"
+                element={<NoteBody />}
+              />
             </Routes>
           </Layout>
         </BrowserRouter>

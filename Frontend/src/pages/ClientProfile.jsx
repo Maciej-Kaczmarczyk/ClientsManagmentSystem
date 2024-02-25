@@ -1,18 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Container from "../components/Container";
 import NoteCard from "../components/NoteCard";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { clientNotes } from "../stores/clientNotesTemporary";
 import { useNotesStore } from "../stores/useNotesStore";
+import notesService from "../services/notesService";
 
 const ClientProfile = () => {
-  const { clientID } = useParams();
+  const { state } = useLocation();
+  const client = state;
+  console.log(useLocation());
+
   const { toggleNoteForm } = useNotesStore();
 
   const groupNotesByMonth = (notes) => {
     return notes.reduce((acc, note) => {
-      const monthYear = new Date(note.date).toLocaleString("default", {
+      const monthYear = new Date(note.note_date).toLocaleString("default", {
         month: "long",
         year: "numeric",
       });
@@ -21,7 +24,23 @@ const ClientProfile = () => {
       return acc;
     }, {});
   };
-  const groupedNotes = groupNotesByMonth(clientNotes);
+
+  const [groupedNotes, setGroupedNotes] = useState({});
+
+  const getNotes = async () => {
+    try {
+      const notes = await notesService.getAllNotes(client.id);
+      const grouped = groupNotesByMonth(notes);
+      setGroupedNotes(grouped);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getNotes();
+  }, []);
+
   return (
     <Container>
       <div className="flex w-full flex-col gap-4">
@@ -36,13 +55,13 @@ const ClientProfile = () => {
             <h2 className=" text-xl font-semibold">{monthYear}</h2>
             {notes.map((note) => (
               <NavLink
-                key={note.id}
-                to={`/clients/${clientID}/notes/${note.id}`}
+                key={note.note_id}
+                to={`/clients/${client.id}/notes/${note.note_id}`}
               >
                 <NoteCard
-                  title={note.title}
-                  content={note.content}
-                  date={note.date}
+                  title={note.note_header}
+                  content={note.note_content}
+                  date={note.note_date}
                 />
               </NavLink>
             ))}

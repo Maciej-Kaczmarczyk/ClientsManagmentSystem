@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ClientCard from "../components/ClientCard";
 import Button from "../components/Button";
 import { useClientsStore } from "../stores/useClientsStore";
@@ -10,12 +10,16 @@ import FilterIcon from "../assets/icons/filterIcon.svg";
 import RefreshIcon from "../assets/icons/refreshIcon.svg";
 
 function Clients() {
-  const [formVisible, setFormVisible] = useState(false);
   const [searchString, setSearchString] = useState("");
 
   // fetch clients function from store
   const { clients, fetchClients, isLoading, toggleClientForm } =
     useClientsStore();
+
+  // fetch clients on mount if there are no clients
+  useEffect(() => {
+    clients.length === 0 && fetchClients();
+  }, []);
 
   const filteredClients = useClientFilter(clients, searchString); // custom hook for filtering clients
 
@@ -65,8 +69,6 @@ function Clients() {
                 <ClientCard
                   key={client.email}
                   client={client}
-                  fetchClients={fetchClients}
-                  toggleForm={() => setFormVisible(!formVisible)}
                 />
               ))
             ) : (
