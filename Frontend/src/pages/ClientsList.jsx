@@ -8,13 +8,15 @@ import AddClientIcon from "../assets/icons/addClientIcon.svg";
 import SearchIcon from "../assets/icons/searchIcon.svg";
 import FilterIcon from "../assets/icons/filterIcon.svg";
 import RefreshIcon from "../assets/icons/refreshIcon.svg";
+import useClientFormStore from "../stores/useClientFormStore";
 
 function Clients() {
   const [searchString, setSearchString] = useState("");
 
   // fetch clients function from store
-  const { clients, fetchClients, isLoading, toggleClientForm } =
-    useClientsStore();
+  const { clients, fetchClients, isLoading } = useClientsStore();
+
+  const { toggleClientForm } = useClientFormStore();
 
   // fetch clients on mount if there are no clients
   useEffect(() => {
@@ -66,10 +68,7 @@ function Clients() {
           <ul>
             {filteredClients ? (
               filteredClients.map((client) => (
-                <ClientCard
-                  key={client.email}
-                  client={client}
-                />
+                <ClientCard key={client.email} client={client} />
               ))
             ) : (
               <ClientsListSkeleton />

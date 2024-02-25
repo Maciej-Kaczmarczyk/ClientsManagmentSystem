@@ -9,11 +9,6 @@ const accessToken = getCookie("accessToken");
 export const useClientsStore = create((set, get) => ({
   clients: [], // all clients
   isLoading: false,
-  clientFormVisible: false,
-  toggleClientForm: () =>
-    set((state) => ({ clientFormVisible: !state.clientFormVisible })), // toggle client form
-  selectedClient: null, // selected client
-  setSelectedClient: (client) => set({ selectedClient: client }), // set selected client
   fetchClients: async () => {
     if (!accessToken) {
       authService.refreshToken();

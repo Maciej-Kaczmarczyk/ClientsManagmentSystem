@@ -16,11 +16,13 @@ import ClientProfile from "./pages/ClientProfile";
 import NoteBody from "./pages/NoteBody";
 import { useNotesStore } from "./stores/useNotesStore";
 import AddNoteForm from "./components/AddNoteForm";
+import useClientFormStore from './stores/useClientFormStore';
 
 function App() {
   // access the client store and get the fetchClients function and clientFormVisible state
   const { clientFormVisible } = useClientsStore();
   const { noteFormVisible } = useNotesStore();
+  const {isVisible, props, toggleVisibility} = useClientFormStore();
 
   const [authenticated, setAuthenticated] = useState(false);
 
@@ -51,7 +53,7 @@ function App() {
         <BrowserRouter>
           <Navbar />
           <Toaster richColors position="bottom-left" />
-          {clientFormVisible ? <ClientForm /> : null}
+          {isVisible ? <ClientForm {...props} /> : null}
           {noteFormVisible ? <AddNoteForm /> : null}
           <Layout>
             <Routes>

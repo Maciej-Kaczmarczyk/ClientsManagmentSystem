@@ -6,10 +6,12 @@ import { useSpring, animated } from "react-spring";
 import { useClickOutside } from "../hooks/useClickOutside";
 import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+import useClientFormStore from "../stores/useClientFormStore";
 
 const ClientCard = (props) => {
   const client = props.client;
-  const { toggleClientForm } = useClientsStore();
+  const { deleteClient } = useClientsStore();
+  const { toggleClientForm } = useClientFormStore();
 
   const handleDelete = async () => {
     toggleOptionWindow();
@@ -22,8 +24,7 @@ const ClientCard = (props) => {
 
   const handleEdit = () => {
     toggleOptionWindow();
-    toggleClientForm();
-    setSelectedClient(client);
+    toggleClientForm(client);
   };
 
   const [optionWindow, setOptionWindow] = useState(false);
