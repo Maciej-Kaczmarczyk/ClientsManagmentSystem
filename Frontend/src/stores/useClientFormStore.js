@@ -1,12 +1,12 @@
 import { create } from "zustand";
 
 const useClientFormStore = create((set) => ({
-  isVisible: false,
-  props: {},
+  clientFormVisible: false,
+  clientFormProps: {},
   toggleClientForm: (client = null) => {
     set((state) => ({
-      isVisible: !state.isVisible,
-      props: { client },
+      clientFormVisible: !state.clientFormVisible,
+      clientFormProps: { client },
     }));
   },
 }));

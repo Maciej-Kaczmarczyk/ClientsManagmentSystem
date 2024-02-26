@@ -6,8 +6,8 @@ import useClientFormStore from "../stores/useClientFormStore";
 
 const ClientForm = () => {
   const { updateClient, addClient } = useClientsStore();
-  const { toggleClientForm, props } = useClientFormStore();
-  const { client } = props;
+  const { toggleClientForm, clientFormProps } = useClientFormStore();
+  const { client } = clientFormProps;
 
   const [formData, setFormData] = useState({
     firstname: client ? client.firstname : "",

@@ -5,13 +5,13 @@ import { NavLink, useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useNotesStore } from "../stores/useNotesStore";
 import notesService from "../services/notesService";
+import useNoteFormStore from "../stores/useNoteFormStore";
 
 const ClientProfile = () => {
   const { state } = useLocation();
   const client = state;
-  console.log(useLocation());
 
-  const { toggleNoteForm } = useNotesStore();
+  const { toggleNoteForm } = useNoteFormStore();
 
   const groupNotesByMonth = (notes) => {
     return notes.reduce((acc, note) => {
@@ -44,12 +44,12 @@ const ClientProfile = () => {
   return (
     <Container>
       <div className="flex w-full flex-col gap-4">
-        <div
-          onClick={toggleNoteForm}
-          className="flex w-full justify-center rounded-xl bg-blue-600 p-2 hover:cursor-pointer hover:bg-blue-500"
+        <button
+          onClick={() => toggleNoteForm(client.id)}
+          className="flex w-full justify-center rounded-xl bg-blue-600 p-2 font-semibold text-white hover:cursor-pointer hover:bg-blue-500"
         >
-          <p className="font-semibold text-white">+ Add note</p>
-        </div>
+          Add note
+        </button>
         {Object.entries(groupedNotes).map(([monthYear, notes]) => (
           <div className="flex flex-col gap-4" key={monthYear}>
             <h2 className=" text-xl font-semibold">{monthYear}</h2>
