@@ -15,12 +15,23 @@ router.get("/:id/notes", verifyToken, async (req, res) => {
   }
 });
 
+router.get("/:id/notes/:note_id", verifyToken, async (req, res) => {
+  try {
+    const { note_id } = req.params;
+    const results = await db.query("SELECT * FROM notes WHERE note_id = $1", [note_id]);
+    res.send(results.rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
 router.post("/:id/notes", verifyToken, async (req, res) => {
   try {
-    const { id } = req.params;
-    const { note_header, note_body } = req.body;
-    await db.query("INSERT INTO notes (client_id, note_header, note_body) VALUES ($1, $2, $3)", [id, note_header, note_body]);
-    res.send(`Note has been added for client with the ID ${id}`);
+    const { client_id, note_header, note_body, note_date } = req.body;
+    console.log(client_id, note_header, note_body, note_date);
+    await db.query("INSERT INTO notes (client_id, note_header, note_body, note_date) VALUES ($1, $2, $3, $4)", [client_id, note_header, note_body, note_date]);
+    res.send(`Note has been added for client with the ID ${client_id}`);
   } catch (err) {
     console.error(err);
     res.status(500).send("Server error");
