@@ -45,7 +45,7 @@ const ClientProfile = () => {
     <Container>
       <div className="flex w-full flex-col gap-4">
         <button
-          onClick={() => toggleNoteForm(client.id)}
+          onClick={() => toggleNoteForm(client.id, null, getNotes)}
           className="flex w-full justify-center rounded-xl bg-blue-600 p-2 font-semibold text-white hover:cursor-pointer hover:bg-blue-500"
         >
           Add note
@@ -59,6 +59,7 @@ const ClientProfile = () => {
                 to={`/clients/${client.id}/notes/${note.note_id}`}
               >
                 <NoteCard
+                  noteID={note.note_id}
                   title={note.note_header}
                   content={note.note_content}
                   date={note.note_date}

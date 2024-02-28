@@ -7,7 +7,7 @@ import useNoteFormStore from "../stores/useNoteFormStore";
 
 const NoteForm = () => {
   const { toggleNoteForm, noteFormProps } = useNoteFormStore();
-  const { clientID, note } = noteFormProps;
+  const { clientID, note, getNotes } = noteFormProps;
 
   const [formData, setFormData] = useState({
     noteHeader: note ? note.noteHeader : "",
@@ -18,6 +18,7 @@ const NoteForm = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
+    console.log(formData);
   };
 
   const saveNote = async () => {
@@ -32,18 +33,19 @@ const NoteForm = () => {
             formData.noteDate,
           ),
           {
-            loading: "Updating...",
-            success: "Note updated",
-            error: "Error while updating",
+            loading: "Saving...",
+            success: "Note saved",
+            error: "Error while saving",
           },
         )
       : toast.promise(addNote(note), {
-          loading: "Saving...",
-          success: "Note saved",
-          error: "Error while saving",
+          loading: "Updating...",
+          success: "Note updated",
+          error: "Error while updating",
         });
 
     toggleNoteForm();
+    getNotes();
   };
 
   return (
@@ -72,14 +74,14 @@ const NoteForm = () => {
         <div className="flex w-full flex-wrap justify-between gap-4">
           <div className="w-full">
             <label
-              htmlFor="note_header"
+              htmlFor="noteHeader"
               className="block text-sm font-medium leading-6 text-zinc-900 dark:text-zinc-400"
             >
               Title
             </label>
             <div className="mt-2">
               <input
-                name="note_header"
+                name="noteHeader"
                 type="text"
                 required
                 onChange={handleChange}
@@ -89,14 +91,14 @@ const NoteForm = () => {
           </div>
           <div className="w-full">
             <label
-              htmlFor="note_header"
+              htmlFor="noteDate"
               className="block text-sm font-medium leading-6 text-zinc-900 dark:text-zinc-400"
             >
               Date
             </label>
             <div className="mt-2">
               <input
-                name="note_header"
+                name="noteDate"
                 type="date"
                 required
                 onChange={handleChange}
@@ -106,7 +108,7 @@ const NoteForm = () => {
           </div>
           <div className="w-full">
             <label
-              htmlFor="note_content"
+              htmlFor="noteContent"
               className="block text-sm font-medium leading-6 text-zinc-900 dark:text-zinc-400"
             >
               Note
@@ -115,7 +117,7 @@ const NoteForm = () => {
               <textarea
                 rows="8"
                 cols="50"
-                name="note_content"
+                name="noteContent"
                 type="text"
                 required
                 onChange={handleChange}
