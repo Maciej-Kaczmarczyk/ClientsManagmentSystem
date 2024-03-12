@@ -41,8 +41,9 @@ router.post("/:id/notes", verifyToken, async (req, res) => {
 router.put("/:id/notes/:note_id", verifyToken, async (req, res) => {
   try {
     const { id, note_id } = req.params;
-    const { note_body } = req.body;
-    await db.query("UPDATE notes SET note_body = $1 WHERE note_id = $2 AND client_id = $3", [note_body, note_id, id]);
+    const { note_header, note_body, note_date } = req.body;
+    await db.query(`UPDATE notes SET note_header = $1, note_body = $2, note_date = $3 WHERE note_id = ${note_id} `, [note_header, note_body, note_date]);
+
     res.send(`Note with the ID ${note_id} has been updated for client with the ID ${id}`);
   } catch (err) {
     console.error(err);
