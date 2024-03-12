@@ -6,24 +6,11 @@ import { useParams } from "react-router-dom";
 import { useNotesStore } from "../stores/useNotesStore";
 import notesService from "../services/notesService";
 import useNoteFormStore from "../stores/useNoteFormStore";
+import { toast } from "sonner";
 
 const ClientProfile = () => {
   const { state } = useLocation();
   const client = state;
-
-  const { toggleNoteForm } = useNoteFormStore();
-
-  const groupNotesByMonth = (notes) => {
-    return notes.reduce((acc, note) => {
-      const monthYear = new Date(note.note_date).toLocaleString("default", {
-        month: "long",
-        year: "numeric",
-      });
-      acc[monthYear] = acc[monthYear] || [];
-      acc[monthYear].push(note);
-      return acc;
-    }, {});
-  };
 
   const [groupedNotes, setGroupedNotes] = useState({});
 
@@ -41,6 +28,39 @@ const ClientProfile = () => {
     getNotes();
   }, []);
 
+  const groupNotesByMonth = (notes) => {
+    return notes.reduce((acc, note) => {
+      const monthYear = new Date(note.note_date).toLocaleString("default", {
+        month: "long",
+        year: "numeric",
+      });
+      acc[monthYear] = acc[monthYear] || [];
+      acc[monthYear].push(note);
+      return acc;
+    }, {});
+  };
+
+  const { toggleNoteForm } = useNoteFormStore();
+
+  const handleDelete = async (client_id, note_id) => {
+    try {
+      const toastPromise = toast.promise(
+        notesService.deleteNote(client_id, note_id),
+        {
+          loading: "Deleting...",
+          success: () => {
+            getNotes();
+            return "Note deleted";
+          },
+          error: "Error while deleting",
+        },
+      );
+      toastPromise;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Container>
       <div className="flex w-full flex-col gap-4">
@@ -54,17 +74,13 @@ const ClientProfile = () => {
           <div className="flex flex-col gap-4" key={monthYear}>
             <h2 className=" text-xl font-semibold">{monthYear}</h2>
             {notes.map((note) => (
-              <NavLink
+              <NoteCard
+                note={note}
                 key={note.note_id}
-                to={`/clients/${client.id}/notes/${note.note_id}`}
-              >
-                <NoteCard
-                  noteID={note.note_id}
-                  title={note.note_header}
-                  content={note.note_content}
-                  date={note.note_date}
-                />
-              </NavLink>
+                handleDelete={handleDelete}
+                toggleNoteForm={toggleNoteForm}
+                getNotes={getNotes}
+              />
             ))}
           </div>
         ))}

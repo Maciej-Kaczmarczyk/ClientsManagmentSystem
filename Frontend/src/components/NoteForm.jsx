@@ -10,10 +10,14 @@ const NoteForm = () => {
   const { clientID, note, getNotes } = noteFormProps;
 
   const [formData, setFormData] = useState({
-    noteHeader: note ? note.noteHeader : "",
-    noteContent: note ? note.noteContent : "",
-    noteDate: note ? note.noteDate : "",
+    noteHeader: note ? note.note_header : "",
+    noteContent: note ? note.note_body : "",
+    noteDate: note ? note.note_date : "",
   });
+
+  const noteDateFormatted = note
+    ? new Date(note.note_date).toISOString().split("T")[0]
+    : "";
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,31 +25,49 @@ const NoteForm = () => {
     console.log(formData);
   };
 
+  console.log(note);
+
   const saveNote = async () => {
     const note = { ...formData };
 
-    const toastPromise = note
-      ? toast.promise(
-          notesService.addNote(
-            clientID,
-            formData.noteHeader,
-            formData.noteContent,
-            formData.noteDate,
-          ),
-          {
-            loading: "Saving...",
-            success: "Note saved",
-            error: "Error while saving",
-          },
-        )
-      : toast.promise(addNote(note), {
-          loading: "Updating...",
-          success: "Note updated",
-          error: "Error while updating",
-        });
+    const toastPromise = toast.promise(
+      notesService.addNote(
+        clientID,
+        formData.noteHeader,
+        formData.noteContent,
+        formData.noteDate,
+      ),
+      {
+        loading: "Saving...",
+        success: () => {
+          toggleNoteForm();
+          getNotes();
+          return "Note saved";
+        },
+        error: "Error while saving",
+      },
+    );
+  };
 
-    toggleNoteForm();
-    getNotes();
+  const updateNote = async () => {
+    const toastPromise = toast.promise(
+      notesService.updateNote(
+        clientID,
+        note.note_id,
+        formData.noteHeader,
+        formData.noteContent,
+        formData.noteDate,
+      ),
+      {
+        loading: "Updating...",
+        success: () => {
+          toggleNoteForm();
+          getNotes();
+          return "Note updated";
+        },
+        error: "Error while updating",
+      },
+    );
   };
 
   return (
@@ -85,6 +107,7 @@ const NoteForm = () => {
                 type="text"
                 required
                 onChange={handleChange}
+                defaultValue={note ? note.note_header : ""}
                 className={`block w-full rounded-md py-1.5 pl-3 text-zinc-900 shadow-sm outline-none ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-blue-600 dark:bg-zinc-800 dark:text-zinc-50 dark:ring-zinc-600 dark:focus:ring-blue-600 sm:text-sm sm:leading-6 `}
               />
             </div>
@@ -102,6 +125,7 @@ const NoteForm = () => {
                 type="date"
                 required
                 onChange={handleChange}
+                value={note ? noteDateFormatted : formData.noteDate}
                 className={`block w-full rounded-md py-1.5 px-3 text-zinc-900 shadow-sm outline-none ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-blue-600 dark:bg-zinc-800 dark:text-zinc-50 dark:ring-zinc-600 dark:focus:ring-blue-600 sm:text-sm sm:leading-6 `}
               />
             </div>
@@ -121,6 +145,7 @@ const NoteForm = () => {
                 type="text"
                 required
                 onChange={handleChange}
+                defaultValue={note ? note.note_body : ""}
                 className={`block w-full rounded-md py-1.5 pl-3 text-zinc-900 shadow-sm outline-none ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-blue-600 dark:bg-zinc-800 dark:text-zinc-50 dark:ring-zinc-600 dark:focus:ring-blue-600 sm:text-sm sm:leading-6 `}
               />
             </div>
@@ -128,8 +153,8 @@ const NoteForm = () => {
         </div>
         <Button
           style="bg-blue-600 w-[100%] hover:bg-blue-500"
-          text={"Add Note"}
-          method={saveNote}
+          text={note ? "Update Note" : "Save Note"}
+          method={note ? updateNote : saveNote}
         />
       </div>
     </div>
