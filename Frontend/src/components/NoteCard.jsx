@@ -9,20 +9,26 @@ import notesService from "../services/notesService";
 import { toast } from "sonner";
 
 const NoteCard = ({ note, handleDelete, toggleNoteForm, getNotes }) => {
+  //state for the dropdown
   const [optionWindow, setOptionWindow] = useState(false);
+  //toggle the dropdown
   const toggleOptionWindow = () => {
     setOptionWindow(!optionWindow);
   };
 
+  //access client from URL object
   const { state } = useLocation();
   const client = state;
 
+  //create a reference to the popup
   const popupRef = useRef();
 
+  //close the popup when clicked outside
   useClickOutside(popupRef, () => {
     setOptionWindow(false);
   });
 
+  //animation for the dropdown
   const dropdownAnimation = useSpring({
     opacity: optionWindow ? 1 : 0,
     transform: optionWindow ? "translateX(0)" : "translateX(20px)",

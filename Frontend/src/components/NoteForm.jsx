@@ -6,27 +6,30 @@ import { toast } from "sonner";
 import useNoteFormStore from "../stores/useNoteFormStore";
 
 const NoteForm = () => {
+  //access toggleNoteForm() and noteFormProps from global form store 
   const { toggleNoteForm, noteFormProps } = useNoteFormStore();
   const { clientID, note, getNotes } = noteFormProps;
 
+  //initialize form data with note data if note is present
   const [formData, setFormData] = useState({
     noteHeader: note ? note.note_header : "",
     noteContent: note ? note.note_body : "",
     noteDate: note ? note.note_date : "",
   });
 
+  //format note date to be displayed in input field
   const noteDateFormatted = note
     ? new Date(note.note_date).toISOString().split("T")[0]
     : "";
 
+  //handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
     console.log(formData);
   };
 
-  console.log(note);
-
+  //save note to database
   const saveNote = async () => {
     const note = { ...formData };
 
@@ -49,6 +52,7 @@ const NoteForm = () => {
     );
   };
 
+  //update note in database
   const updateNote = async () => {
     const toastPromise = toast.promise(
       notesService.updateNote(

@@ -24,7 +24,12 @@ const notesService = {
         console.log(error);
       });
   },
-  addNote: async (client_id: number, note_header: string, note_body: string, note_date: Date) => {
+  addNote: async (
+    client_id: number,
+    note_header: string,
+    note_body: string,
+    note_date: Date,
+  ) => {
     await authService.refreshToken(); // Refresh token before request
     return api
       .post(`clients/${client_id}/notes`, {
@@ -51,7 +56,13 @@ const notesService = {
         console.log(error);
       });
   },
-  updateNote: async (client_id: number, note_id: number, note_header: string, note_body: string, note_date: Date) => {
+  updateNote: async (
+    client_id: number,
+    note_id: number,
+    note_header: string,
+    note_body: string,
+    note_date: Date,
+  ) => {
     await authService.refreshToken(); // Refresh token before request
     return api
       .put(`clients/${client_id}/notes/${note_id}`, {

@@ -9,11 +9,21 @@ import useNoteFormStore from "../stores/useNoteFormStore";
 import { toast } from "sonner";
 
 const ClientProfile = () => {
+  //access client from URL object
   const { state } = useLocation();
   const client = state;
 
+  //access toggleNoteForm() from global form store
+  const { toggleNoteForm } = useNoteFormStore();
+
   const [groupedNotes, setGroupedNotes] = useState({});
 
+  //fetch notes from database on component mount
+  useEffect(() => {
+    getNotes();
+  }, []);
+
+  //fetch notes from database
   const getNotes = async () => {
     try {
       const notes = await notesService.getAllNotes(client.id);
@@ -24,10 +34,7 @@ const ClientProfile = () => {
     }
   };
 
-  useEffect(() => {
-    getNotes();
-  }, []);
-
+  //group notes by month and year
   const groupNotesByMonth = (notes) => {
     return notes.reduce((acc, note) => {
       const monthYear = new Date(note.note_date).toLocaleString("default", {
@@ -40,8 +47,7 @@ const ClientProfile = () => {
     }, {});
   };
 
-  const { toggleNoteForm } = useNoteFormStore();
-
+  //delete note from database
   const handleDelete = async (client_id, note_id) => {
     try {
       const toastPromise = toast.promise(
