@@ -34,11 +34,19 @@ const NoteCard = ({ note, handleDelete, toggleNoteForm, getNotes }) => {
     transform: optionWindow ? "translateX(0)" : "translateX(20px)",
   });
 
+  function getDayFromDate(date) {
+    const newDate = new Date(date);
+    const day = newDate.getDate();
+    return day;
+  }
+
   return (
     <div className="flex w-full flex-row rounded-xl p-4 ring-1 ring-zinc-200 hover:cursor-pointer hover:bg-zinc-100">
       <div className="flex flex-col items-center justify-center border-r-2 border-zinc-200 pr-4">
         <div className=" font-normal">{getDayOfWeek(note.note_date)}</div>
-        <div className=" text-2xl font-semibold">01</div>
+        <div className=" text-2xl font-semibold">
+          {getDayFromDate(note.note_date)}
+        </div>
       </div>
       <div className="flex w-full flex-row items-center justify-between pl-4">
         <div>

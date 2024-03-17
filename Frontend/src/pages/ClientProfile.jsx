@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Container from "../components/Container";
 import NoteCard from "../components/NoteCard";
-import { NavLink, useLocation } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import { useNotesStore } from "../stores/useNotesStore";
+import { useLocation } from "react-router-dom";
 import notesService from "../services/notesService";
 import useNoteFormStore from "../stores/useNoteFormStore";
 import { toast } from "sonner";
+import useSortNotesByDate from "../hooks/useSortNotesByDate";
 
 const ClientProfile = () => {
   //access client from URL object
@@ -27,24 +26,11 @@ const ClientProfile = () => {
   const getNotes = async () => {
     try {
       const notes = await notesService.getAllNotes(client.id);
-      const grouped = groupNotesByMonth(notes);
+      const grouped = useSortNotesByDate(notes);
       setGroupedNotes(grouped);
     } catch (error) {
       console.log(error);
     }
-  };
-
-  //group notes by month and year
-  const groupNotesByMonth = (notes) => {
-    return notes.reduce((acc, note) => {
-      const monthYear = new Date(note.note_date).toLocaleString("default", {
-        month: "long",
-        year: "numeric",
-      });
-      acc[monthYear] = acc[monthYear] || [];
-      acc[monthYear].push(note);
-      return acc;
-    }, {});
   };
 
   //delete note from database

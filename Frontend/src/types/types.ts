@@ -6,7 +6,7 @@ interface Client {
   city: string;
   email: string;
   phone: string;
-  join_date: Date;
+  joinDate: Date;
 }
 
 interface Credentials {

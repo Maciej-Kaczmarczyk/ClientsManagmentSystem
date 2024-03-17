@@ -29,7 +29,7 @@ const Chart = () => {
 
   // Get the month of each client's join date and store it in an array like [1, 1, 1, 2, 2, 2, 3, 3, 3 ...] where 0 is January, 1 is February, 2 is March and so on
   const joinMonths = clients.map((client: Client) =>
-    new Date(client.join_date).getMonth(),
+    new Date(client.joinDate).getMonth(),
   );
 
   // Sum the number of clients per month and store it in an array where the index is the month and the value is the number of clients in that month like [0, 3, 5, 2, 0, 0, 0, 0, 0, 0, 0, 0] where 0 is January, 1 is February, 2 is March and so on
