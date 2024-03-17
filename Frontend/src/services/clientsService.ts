@@ -1,7 +1,7 @@
 import axios from "axios";
 import api from "../config/axiosConfig";
 import authService from "./authService";
-import {Client} from "../types/types";
+import { Client } from "../types/types";
 
 const clientsService = {
   getAllClients: async () => {

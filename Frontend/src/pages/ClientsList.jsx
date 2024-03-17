@@ -23,6 +23,8 @@ function Clients() {
     clients.length === 0 && fetchClients();
   }, []);
 
+  console.log(clients);
+
   const filteredClients = useClientFilter(clients, searchString); // custom hook for filtering clients
 
   return (

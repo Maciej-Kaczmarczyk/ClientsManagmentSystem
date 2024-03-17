@@ -16,8 +16,8 @@ export const useClientFilter = (
 
     const results = searchString
       ? clientsArray.filter(
-          ({ firstname, lastname, email, phone, address, city, zip_code }) =>
-            [firstname, lastname, email, phone, address, city, zip_code].some(
+          ({ firstName, lastName, email, phone, address, city, zipCode }) =>
+            [firstName, lastName, email, phone, address, city, zipCode].some(
               (field) => field.toLowerCase().includes(searchLower),
             ),
         )

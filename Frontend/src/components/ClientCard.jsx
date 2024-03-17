@@ -49,7 +49,7 @@ const ClientCard = (props) => {
         <div className="flex w-60 flex-col">
           <Link to={`/clients/${client.id}/notes`} state={client}>
             <h3 className="font-semibold text-zinc-900 dark:text-zinc-300">
-              {client.firstname} {client.lastname}
+              {client.firstName} {client.lastName}
             </h3>
           </Link>
           <p className=" w-fit font-normal text-textSecondary dark:text-zinc-400">
@@ -75,7 +75,7 @@ const ClientCard = (props) => {
           </p>
           <p className="w-fit font-normal text-textSecondary dark:text-zinc-400">
             {" "}
-            {client.zip_code} {client.city}
+            {client.zipCode} {client.city}
           </p>
         </div>
       </div>

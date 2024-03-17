@@ -1,8 +1,8 @@
 interface Client {
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   address: string;
-  zip_code: string;
+  zipCode: string;
   city: string;
   email: string;
   phone: string;
@@ -10,8 +10,8 @@ interface Client {
 }
 
 interface Credentials {
-    email: string;
-    password: string;
-  }
+  email: string;
+  password: string;
+}
 
 export type { Client, Credentials };

@@ -10,9 +10,9 @@ const ClientForm = () => {
   const { client } = clientFormProps;
 
   const [formData, setFormData] = useState({
-    firstname: client ? client.firstname : "",
-    lastname: client ? client.lastname : "",
-    zip_code: client ? client.zip_code : "",
+    firstName: client ? client.firstName : "",
+    lastName: client ? client.lastName : "",
+    zipCode: client ? client.zipCode : "",
     city: client ? client.city : "",
     phone: client ? client.phone : "",
     email: client ? client.email : "",
@@ -23,8 +23,8 @@ const ClientForm = () => {
 
   const validateField = (name, value) => {
     switch (name) {
-      case "firstname":
-      case "lastname":
+      case "firstName":
+      case "lastName":
       case "city":
       case "address":
         return value.trim().length < 2
@@ -32,7 +32,7 @@ const ClientForm = () => {
               name.charAt(0).toUpperCase() + name.slice(1)
             } must be at least 2 characters long`
           : "";
-      case "zip_code":
+      case "zipCode":
         return /^\d{2}-\d{3}$/.test(value) ? "" : "Invalid zip code";
       case "phone":
         return /^(?<!\w)(\(?(\+|00)?48\)?)?[ -]?\d{3}[ -]?\d{3}[ -]?\d{3}(?!\w)$/.test(
@@ -116,48 +116,48 @@ const ClientForm = () => {
           <div className="flex w-full flex-col justify-between gap-2 md:flex-row md:gap-4">
             <div className="md:w-1/2">
               <label
-                htmlFor="firstname"
+                htmlFor="firstName"
                 className="block text-sm font-medium leading-6 text-zinc-900 dark:text-zinc-400"
               >
-                Firstname
+                firstName
               </label>
               <div className="mt-2">
                 <input
-                  name="firstname"
+                  name="firstName"
                   type="text"
                   required
-                  value={formData.firstname}
+                  value={formData.firstName}
                   className={`block w-full rounded-md py-1.5 pl-3 text-zinc-900 shadow-sm outline-none ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-blue-600 dark:bg-zinc-800 dark:text-zinc-50 dark:ring-zinc-600 dark:focus:ring-blue-600 sm:text-sm sm:leading-6 ${
-                    errors.firstname && "ring-uiError dark:ring-uiError"
+                    errors.firstName && "ring-uiError dark:ring-uiError"
                   }`}
                   onChange={handleChange}
                 />
-                {errors.firstname && (
-                  <p className="text-sm text-uiError">{errors.firstname}</p>
+                {errors.firstName && (
+                  <p className="text-sm text-uiError">{errors.firstName}</p>
                 )}
               </div>
             </div>
 
             <div className="md:w-1/2">
               <label
-                htmlFor="lastname"
+                htmlFor="lastName"
                 className="block text-sm font-medium leading-6 text-zinc-900 dark:text-zinc-400"
               >
-                Lastname
+                lastName
               </label>
               <div className="mt-2">
                 <input
-                  name="lastname"
+                  name="lastName"
                   type="text"
                   required
-                  defaultValue={client ? client.lastname : ""}
+                  defaultValue={client ? client.lastName : ""}
                   className={`block w-full rounded-md py-1.5 pl-3 text-zinc-900 shadow-sm outline-none ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-blue-600 dark:bg-zinc-800 dark:text-zinc-50 dark:ring-zinc-600 dark:focus:ring-blue-600 sm:text-sm sm:leading-6 ${
-                    errors.lastname && "ring-uiError"
+                    errors.lastName && "ring-uiError"
                   }`}
                   onChange={handleChange}
                 />
-                {errors.lastname && (
-                  <p className="text-sm text-uiError">{errors.lastname}</p>
+                {errors.lastName && (
+                  <p className="text-sm text-uiError">{errors.lastName}</p>
                 )}
               </div>
             </div>
@@ -213,24 +213,24 @@ const ClientForm = () => {
               </div>
               <div className="w-1/2">
                 <label
-                  htmlFor="zip_code"
+                  htmlFor="zipCode"
                   className="block text-sm font-medium leading-6 text-zinc-900 dark:text-zinc-400"
                 >
                   Zip Code
                 </label>
                 <div className="mt-2">
                   <input
-                    name="zip_code"
+                    name="zipCode"
                     type="text"
                     required
-                    defaultValue={client ? client.zip_code : ""}
+                    defaultValue={client ? client.zipCode : ""}
                     className={`block w-full rounded-md py-1.5 pl-3 text-zinc-900 shadow-sm outline-none ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-blue-600 dark:bg-zinc-800 dark:text-zinc-50 dark:ring-zinc-600 dark:focus:ring-blue-600 sm:text-sm sm:leading-6 ${
-                      errors.zip_code && "ring-uiError"
+                      errors.zipCode && "ring-uiError"
                     }`}
                     onChange={handleChange}
                   />
-                  {errors.zip_code && (
-                    <p className="text-sm text-uiError">{errors.zip_code}</p>
+                  {errors.zipCode && (
+                    <p className="text-sm text-uiError">{errors.zipCode}</p>
                   )}
                 </div>
               </div>
