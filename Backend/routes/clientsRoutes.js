@@ -1,35 +1,57 @@
 const express = require("express");
 const router = express.Router();
-const { Pool } = require("pg");
 const { verifyToken } = require("../middleware/verifyToken");
-const db = require("../services/database");
+const Client = require("../services/database/models/Clients"); // Import the Client model
 
+// Get all clients
 router.get("/", verifyToken, async (req, res) => {
   try {
-    const results = await db.query("SELECT * FROM clients");
-    res.send(results.rows);
+    const clients = await Client.findAll();
+    res.json(clients);
   } catch (err) {
     console.error(err);
     res.status(500).send("Server error");
   }
 });
 
+// Create a new client
 router.post("/", verifyToken, async (req, res) => {
   try {
-    const { firstname, lastname, address, city, zip_code, email, phone } = req.body;
-    await db.query("INSERT INTO clients (firstname, lastname, address, city, zip_code, email, phone, join_date) VALUES ($1, $2, $3, $4, $5, $6, $7, CURRENT_DATE)", [firstname, lastname, address, city, zip_code, email, phone]);
-    res.send(`Client with the name ${firstname} has been added`);
+    const { firstName, lastName, address, city, zipCode, email, phone } = req.body;
+    const newClient = await Client.create({
+      firstName: firstName,
+      lastName: lastName,
+      address: address,
+      city: city,
+      zipCode: zipCode,
+      email: email,
+      phone: phone,
+    });
+    res.json(newClient);
   } catch (err) {
     console.error(err);
     res.status(500).send("Server error");
   }
 });
 
+// Update a client
 router.put("/:id", verifyToken, async (req, res) => {
   try {
-    const { firstname, lastname, address, city, zip_code, email, phone } = req.body;
     const { id } = req.params;
-    await db.query("UPDATE clients SET firstname = $1, lastname = $2, address = $3, city = $4, zip_code = $5, email = $6, phone = $7 WHERE id = $8", [firstname, lastname, address, city, zip_code, email, phone, id]);
+    const { firstname, lastname, address, city, zip_code, email, phone } = req.body;
+    const client = await Client.findByPk(id);
+    if (!client) {
+      return res.status(404).send("Client not found");
+    }
+    await client.update({
+      firstName: firstname,
+      lastName: lastname,
+      address: address,
+      city: city,
+      zipCode: zip_code,
+      email: email,
+      phone: phone,
+    });
     res.send(`Client with the ID ${id} has been updated`);
   } catch (err) {
     console.error(err);
@@ -37,17 +59,20 @@ router.put("/:id", verifyToken, async (req, res) => {
   }
 });
 
+// Delete a client
 router.delete("/:id", verifyToken, async (req, res) => {
   try {
     const { id } = req.params;
-    await db.query("DELETE FROM clients WHERE id = $1", [id]);
+    const client = await Client.findByPk(id);
+    if (!client) {
+      return res.status(404).send("Client not found");
+    }
+    await client.destroy();
     res.send(`Client with the ID ${id} has been deleted`);
   } catch (err) {
     console.error(err);
     res.status(500).send("Server error");
   }
 });
-
-
 
 module.exports = router;
