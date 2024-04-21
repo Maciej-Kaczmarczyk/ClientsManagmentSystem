@@ -15,7 +15,7 @@ const ClientCard = (props) => {
 
   const handleDelete = async () => {
     toggleOptionWindow();
-    toast.promise(deleteClient(client.id), {
+    toast.promise(deleteClient(client.clientId), {
       loading: "Deleting client...",
       success: "Client deleted",
       error: "Error deleting client",
@@ -47,7 +47,7 @@ const ClientCard = (props) => {
     <li className="row-start-2 flex items-center justify-between gap-4 border-t-[1px] bg-white px-8 py-6 duration-200 hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:bg-zinc-700">
       <div className=" flex flex-wrap items-center gap-32 gap-y-8 text-sm lg:text-base xl:justify-center">
         <div className="flex w-60 flex-col">
-          <Link to={`/clients/${client.id}/notes`} state={client}>
+          <Link to={`/clients/${client.clientId}/notes`} state={client}>
             <h3 className="font-semibold text-zinc-900 dark:text-zinc-300">
               {client.firstName} {client.lastName}
             </h3>

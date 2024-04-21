@@ -25,7 +25,7 @@ const ClientProfile = () => {
   //fetch notes from database
   const getNotes = async () => {
     try {
-      const notes = await notesService.getAllNotes(client.id);
+      const notes = await notesService.getAllNotes(client.clientId);
       const grouped = useSortNotesByDate(notes);
       setGroupedNotes(grouped);
     } catch (error) {
@@ -34,10 +34,10 @@ const ClientProfile = () => {
   };
 
   //delete note from database
-  const handleDelete = async (client_id, note_id) => {
+  const handleDelete = async (clientId, noteId) => {
     try {
       const toastPromise = toast.promise(
-        notesService.deleteNote(client_id, note_id),
+        notesService.deleteNote(clientId, noteId),
         {
           loading: "Deleting...",
           success: () => {
@@ -57,7 +57,7 @@ const ClientProfile = () => {
     <Container>
       <div className="flex w-full flex-col gap-4">
         <button
-          onClick={() => toggleNoteForm(client.id, null, getNotes)}
+          onClick={() => toggleNoteForm(client.clientId, null, getNotes)}
           className="flex w-full justify-center rounded-xl bg-blue-600 p-2 font-semibold text-white hover:cursor-pointer hover:bg-blue-500"
         >
           Add note
@@ -68,7 +68,7 @@ const ClientProfile = () => {
             {notes.map((note) => (
               <NoteCard
                 note={note}
-                key={note.note_id}
+                key={note.noteId}
                 handleDelete={handleDelete}
                 toggleNoteForm={toggleNoteForm}
                 getNotes={getNotes}

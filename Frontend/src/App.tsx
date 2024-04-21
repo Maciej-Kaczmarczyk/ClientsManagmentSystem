@@ -62,11 +62,11 @@ function App() {
               <Route path="/clients" element={<ClientsList />} />
               <Route path="/orders" element={<Orders />} />
               <Route
-                path="/clients/:clientID/notes"
+                path="/clients/:clientId/notes"
                 element={<ClientProfile />}
               />
               <Route
-                path="/clients/:clientID/notes/:noteID"
+                path="/clients/:clientId/notes/:noteID"
                 element={<NoteBody />}
               />
             </Routes>
