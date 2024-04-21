@@ -7,13 +7,4 @@ const sequelize = new Sequelize(DATABASE_NAME, DATABASE_USER, DATABASE_PASSWORD,
   ssl: false,
 });
 
-sequelize
-  .sync({ alter: true })
-  .then(() => {
-    console.log("Database synchronized successfully.");
-  })
-  .catch((error) => {
-    console.error("Error synchronizing database:", error);
-  });
-
 module.exports = sequelize;

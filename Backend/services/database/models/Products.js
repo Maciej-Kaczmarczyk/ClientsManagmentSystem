@@ -1,30 +1,29 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../database");
-const Clients = require("./Clients").default;
 
-const ClientNotes = sequelize.define("ClientNotes", {
-  noteId: {
+const Products = sequelize.define("Products", {
+  productId: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
+    allowNull: false,
   },
-  header: {
+  name: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  body: {
-    type: DataTypes.TEXT,
+  brand: {
+    type: DataTypes.STRING,
     allowNull: false,
   },
-  date: {
-    type: DataTypes.DATE,
+  composition: {
+    type: DataTypes.STRING,
     allowNull: false,
-    defaultValue: DataTypes.NOW,
   },
-  clientId: {
-    type: DataTypes.INTEGER,
+  description: {
+    type: DataTypes.STRING,
     allowNull: false,
   },
 });
 
-module.exports = ClientNotes;
+module.exports = Products;

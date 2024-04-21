@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const { verifyToken } = require("../middleware/verifyToken");
-const  ClientNote  = require("../services/database/models/ClientNotes"); // Import the ClientNote model
+const  ClientNotes  = require("../services/database/models/ClientNotes"); // Import the ClientNote model
 
 // Get all notes for a client
-router.get("/:id/notes", verifyToken, async (req, res) => {
+router.get("/:clientId/notes", verifyToken, async (req, res) => {
   try {
-    const { id } = req.params;
-    const clientNotes = await ClientNote.findAll({ where: { client_id: id } });
+    const { clientId } = req.params;
+    const clientNotes = await ClientNotes.findAll({ where: { clientId: clientId } });
     res.json(clientNotes);
   } catch (err) {
     console.error(err);
@@ -16,10 +16,10 @@ router.get("/:id/notes", verifyToken, async (req, res) => {
 });
 
 // Get a specific note for a client
-router.get("/:id/notes/:note_id", verifyToken, async (req, res) => {
+router.get("/:clientId/notes/:noteId", verifyToken, async (req, res) => {
   try {
-    const { note_id } = req.params;
-    const clientNote = await ClientNote.findByPk(note_id);
+    const { noteId } = req.params;
+    const clientNote = await ClientNotes.findByPk(noteId);
     if (!clientNote) {
       return res.status(404).send("Note not found");
     }
@@ -31,15 +31,15 @@ router.get("/:id/notes/:note_id", verifyToken, async (req, res) => {
 });
 
 // Create a new note for a client
-router.post("/:id/notes", verifyToken, async (req, res) => {
+router.post("/:clientId/notes", verifyToken, async (req, res) => {
   try {
-    const { id } = req.params;
-    const { note_header, note_body, note_date } = req.body;
-    const newNote = await ClientNote.create({
-      client_id: id,
-      note_header,
-      note_body,
-      note_date,
+    const { clientId } = req.params;
+    const { header, body, date } = req.body;
+    const newNote = await ClientNotes.create({
+      clientId: clientId,
+      header,
+      body,
+      date,
     });
     res.json(newNote);
   } catch (err) {
@@ -49,15 +49,15 @@ router.post("/:id/notes", verifyToken, async (req, res) => {
 });
 
 // Update a note for a client
-router.put("/:id/notes/:note_id", verifyToken, async (req, res) => {
+router.put("/:clientId/notes/:noteId", verifyToken, async (req, res) => {
   try {
     const { id, note_id } = req.params;
-    const { note_header, note_body, note_date } = req.body;
-    const clientNote = await ClientNote.findByPk(note_id);
+    const { header, body, date } = req.body;
+    const clientNote = await ClientNotes.findByPk(note_id);
     if (!clientNote) {
       return res.status(404).send("Note not found");
     }
-    await clientNote.update({ note_header, note_body, note_date });
+    await clientNote.update({ header, body, date });
     res.send(`Note with the ID ${note_id} has been updated for client with the ID ${id}`);
   } catch (err) {
     console.error(err);
@@ -69,7 +69,7 @@ router.put("/:id/notes/:note_id", verifyToken, async (req, res) => {
 router.delete("/:id/notes/:note_id", verifyToken, async (req, res) => {
   try {
     const { id, note_id } = req.params;
-    const clientNote = await ClientNote.findByPk(note_id);
+    const clientNote = await ClientNotes.findByPk(note_id);
     if (!clientNote) {
       return res.status(404).send("Note not found");
     }

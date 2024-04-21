@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const { verifyToken } = require("../middleware/verifyToken");
-const Client = require("../services/database/models/Clients"); // Import the Client model
+const Clients = require("../services/database/models/Clients")
 
 // Get all clients
 router.get("/", verifyToken, async (req, res) => {
   try {
-    const clients = await Client.findAll();
+    const clients = await Clients.findAll();
     res.json(clients);
   } catch (err) {
     console.error(err);
@@ -18,7 +18,7 @@ router.get("/", verifyToken, async (req, res) => {
 router.post("/", verifyToken, async (req, res) => {
   try {
     const { firstName, lastName, address, city, zipCode, email, phone } = req.body;
-    const newClient = await Client.create({
+    const newClient = await Clients.create({
       firstName: firstName,
       lastName: lastName,
       address: address,
@@ -39,7 +39,7 @@ router.put("/:id", verifyToken, async (req, res) => {
   try {
     const { id } = req.params;
     const { firstname, lastname, address, city, zip_code, email, phone } = req.body;
-    const client = await Client.findByPk(id);
+    const client = await Clients.findByPk(id);
     if (!client) {
       return res.status(404).send("Client not found");
     }
@@ -63,7 +63,7 @@ router.put("/:id", verifyToken, async (req, res) => {
 router.delete("/:id", verifyToken, async (req, res) => {
   try {
     const { id } = req.params;
-    const client = await Client.findByPk(id);
+    const client = await Clients.findByPk(id);
     if (!client) {
       return res.status(404).send("Client not found");
     }

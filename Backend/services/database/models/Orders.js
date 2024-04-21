@@ -1,25 +1,22 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../database");
-const Clients = require("./Clients").default;
+const Client = require("./Clients").default;
+const OrderItem = require("./OrderItems");
 
-const ClientNotes = sequelize.define("ClientNotes", {
-  noteId: {
+const Orders = sequelize.define("Orders", {
+  orderId: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-  },
-  header: {
-    type: DataTypes.STRING,
     allowNull: false,
   },
-  body: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
-  date: {
+  orderDate: {
     type: DataTypes.DATE,
     allowNull: false,
-    defaultValue: DataTypes.NOW,
+  },
+  totalAmount: {
+    type: DataTypes.DECIMAL(10, 2),
+    allowNull: false,
   },
   clientId: {
     type: DataTypes.INTEGER,
@@ -27,4 +24,4 @@ const ClientNotes = sequelize.define("ClientNotes", {
   },
 });
 
-module.exports = ClientNotes;
+module.exports = Orders;

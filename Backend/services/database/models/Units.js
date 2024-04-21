@@ -1,21 +1,22 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../database");
+const Unit = require("./Units");
 
-const Users = sequelize.define("Users", {
-  userId: {
+const Units = sequelize.define("Units", {
+  unitId: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
+    allowNull: false,
   },
-  email: {
+  name: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true,
   },
-  password: {
-    type: DataTypes.STRING,
+  kilograms: {
+    type: DataTypes.DECIMAL(10, 2),
     allowNull: false,
   },
 });
 
-module.exports = Users;
+module.exports = Units;
