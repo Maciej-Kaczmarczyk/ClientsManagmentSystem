@@ -113,12 +113,12 @@ const Navbar = () => {
 
         <li className="flex items-center">
           <Dropdown>
-            <li
+            {/* <li
               className="px-4 py-1 text-sm hover:cursor-pointer hover:bg-uiSecondary dark:hover:bg-zinc-700 sm:text-base md:text-base"
               onClick={toggleTheme}
             >
               Toggle Theme
-            </li>
+            </li> */}
             <li
               className="flex items-center gap-2 px-4 py-1 hover:cursor-pointer hover:bg-uiSecondary dark:hover:bg-zinc-700"
               onClick={authService.logout}

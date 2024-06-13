@@ -46,6 +46,7 @@ const notesService = {
       });
   },
   deleteNote: async (client_id: number, note_id: number) => {
+    console.log(client_id, note_id);
     await authService.refreshToken(); // Refresh token before request
     return api
       .delete(`clients/${client_id}/notes/${note_id}`)

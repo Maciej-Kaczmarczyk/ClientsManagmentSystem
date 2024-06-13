@@ -119,7 +119,7 @@ const ClientForm = () => {
                 htmlFor="firstName"
                 className="block text-sm font-medium leading-6 text-zinc-900 dark:text-zinc-400"
               >
-                firstName
+                First Name
               </label>
               <div className="mt-2">
                 <input
@@ -143,7 +143,7 @@ const ClientForm = () => {
                 htmlFor="lastName"
                 className="block text-sm font-medium leading-6 text-zinc-900 dark:text-zinc-400"
               >
-                lastName
+                Last Name
               </label>
               <div className="mt-2">
                 <input

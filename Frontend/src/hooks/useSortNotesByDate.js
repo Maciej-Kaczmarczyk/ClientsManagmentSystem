@@ -1,7 +1,8 @@
 //group notes by month and year
 const groupNotesByMonth = (notes) => {
+  console.log(notes);
   return notes.reduce((acc, note) => {
-    const monthYear = new Date(note.note_date).toLocaleString("default", {
+    const monthYear = new Date(note.date).toLocaleString("default", {
       month: "long",
       year: "numeric",
     });

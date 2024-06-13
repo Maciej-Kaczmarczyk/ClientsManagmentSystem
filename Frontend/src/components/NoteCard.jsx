@@ -43,16 +43,16 @@ const NoteCard = ({ note, handleDelete, toggleNoteForm, getNotes }) => {
   return (
     <div className="flex w-full flex-row rounded-xl p-4 ring-1 ring-zinc-200 hover:cursor-pointer hover:bg-zinc-100">
       <div className="flex flex-col items-center justify-center border-r-2 border-zinc-200 pr-4">
-        <div className=" font-normal">{getDayOfWeek(note.note_date)}</div>
+        <div className=" font-normal">{getDayOfWeek(note.date)}</div>
         <div className=" text-2xl font-semibold">
-          {getDayFromDate(note.note_date)}
+          {getDayFromDate(note.date)}
         </div>
       </div>
       <div className="flex w-full flex-row items-center justify-between pl-4">
         <div>
           <div>
-            <NavLink to={`/clients/${client.id}/notes/${note.note_id}`}>
-              <h2 className=" text-xl">{note.note_header}</h2>
+            <NavLink to={`/clients/${client.clientId}/notes/${note.noteId}`}>
+              <h2 className=" text-xl">{note.header}</h2>
             </NavLink>
           </div>
           <div className="flex gap-2 text-zinc-600">
@@ -77,7 +77,7 @@ const NoteCard = ({ note, handleDelete, toggleNoteForm, getNotes }) => {
                 <ul>
                   <li
                     onClick={() => {
-                      handleDelete(client.id, note.note_id);
+                      handleDelete(client.clientId, note.noteId);
                       setOptionWindow(false);
                     }}
                     className="w-full px-4 hover:cursor-pointer hover:bg-uiSecondary dark:text-zinc-50 dark:hover:bg-zinc-700"
@@ -85,7 +85,7 @@ const NoteCard = ({ note, handleDelete, toggleNoteForm, getNotes }) => {
                     Delete
                   </li>
                   <li
-                    onClick={() => toggleNoteForm(client.id, note, getNotes)}
+                    onClick={() => toggleNoteForm(client.clientId, note, getNotes)}
                     className="w-full px-4 hover:cursor-pointer hover:bg-uiSecondary dark:text-zinc-50 dark:hover:bg-zinc-700"
                   >
                     Edit

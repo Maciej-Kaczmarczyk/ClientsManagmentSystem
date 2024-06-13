@@ -27,6 +27,7 @@ const ClientProfile = () => {
     try {
       const notes = await notesService.getAllNotes(client.clientId);
       const grouped = useSortNotesByDate(notes);
+      console.log(grouped);
       setGroupedNotes(grouped);
     } catch (error) {
       console.log(error);
