@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { verifyToken } = require("../middleware/verifyToken");
-const  ClientNotes  = require("../services/database/models/ClientNotes"); // Import the ClientNote model
+const  ClientNotes  = require("../services/database/models/ClientNotes");
 
 // Get all notes for a client
 router.get("/:clientId/notes", verifyToken, async (req, res) => {
