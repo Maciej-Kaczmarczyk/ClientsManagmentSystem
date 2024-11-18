@@ -68,20 +68,20 @@ const Navbar = () => {
     }
   };
 
-  if (
-    localStorage.theme === "dark" ||
-    (!("theme" in localStorage) &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches)
-  ) {
-    document.documentElement.classList.add("dark");
-  } else {
-    document.documentElement.classList.remove("dark");
-  }
+  // if (
+  //   localStorage.theme === "dark" ||
+  //   (!("theme" in localStorage) &&
+  //     window.matchMedia("(prefers-color-scheme: dark)").matches)
+  // ) {
+  //   document.documentElement.classList.add("dark");
+  // } else {
+  //   document.documentElement.classList.remove("dark");
+  // }
 
-  const toggleTheme = () => {
-    document.documentElement.classList.toggle("dark");
-    localStorage.theme = localStorage.theme === "dark" ? "light" : "dark";
-  };
+  // const toggleTheme = () => {
+  //   document.documentElement.classList.toggle("dark");
+  //   localStorage.theme = localStorage.theme === "dark" ? "light" : "dark";
+  // };
 
   return (
     <nav className="relative flex h-16 items-center justify-center border-b-[1px] border-zinc-200 bg-white px-8 text-textPrimary dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
